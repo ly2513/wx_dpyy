@@ -1,16 +1,12 @@
 <!--login.wxml-->
-<view class="container" style='padding-top:86px;'>
-  <view style='height:100px;padding:0px 20px;'>
-  <image src='/images/log.png' style='width:300px;height:100px;'></image>
+<view class="container" style='padding-top:20%;'>
+  <view style='height:100%;padding:0% 20%;'>
+  <image src='/images/log.png' style='width:15em;height:5em;'></image>
   </view>
   <view class="userinfo">
-    <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
-    <block wx:else>
-      <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
-      <text class="userinfo-nickname">{{userInfo.nickName}}</text>
-    </block>
+      <button type="default" class="login_button" size="{{defaultSize}}" loading="{{loading}}" plain="{{plain}}" disabled="{{disabled}}" bindtap="default" hover-class="other-button-hover" style='background-color:#9c9c9b;color:#ffffff;' > 登 入 达 派 </button>
   </view>
-  <view class="usermotto">
-    <text class="user-motto">{{motto}}1111</text>
+  <view class="" style='margin-top:6%;padding:9% 10%;'>
+    <image src='/images/login_1.png' style='height:2.5em;width:12.5em;'></image>
   </view>
 </view>

@@ -3,7 +3,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-
+  padding: 25% 30%;
 }
 
 .userinfo-avatar {
@@ -18,5 +18,15 @@
 }
 
 .usermotto {
-  margin-top: 200px;
+  margin-top: 50px;
+}
+
+
+.login_button{
+width:10em;
+height:3.5em;
+margin-top:46%;
+font-size:18px;
+line-height:3.5em;
+border-radius:50em;
 }
