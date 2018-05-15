@@ -1,0 +1,16 @@
+<!--login.wxml-->
+<view class="container" style='padding-top:86px;'>
+  <view style='height:100px;padding:0px 20px;'>
+  <image src='/images/log.png' style='width:300px;height:100px;'></image>
+  </view>
+  <view class="userinfo">
+    <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
+    <block wx:else>
+      <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
+      <text class="userinfo-nickname">{{userInfo.nickName}}</text>
+    </block>
+  </view>
+  <view class="usermotto">
+    <text class="user-motto">{{motto}}1111</text>
+  </view>
+</view>
