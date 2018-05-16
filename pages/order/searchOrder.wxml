@@ -1,0 +1,31 @@
+<!--login.wxml-->
+<view class="container" style='padding-top:4%;'>
+  <div class="img_div">
+  <image src='/images/min_log.png' style='width:6em;height:2em;'></image>
+  </div>
+  <view class="userinfo">
+     <view style="width:100%;">
+        <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
+        <block wx:else>
+         <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
+         <text class="userinfo-nickname">{{userInfo.nickName}}，欢迎你</text>
+        </block>
+     </view>
+     <view style="width:100%;">
+     <view type="default" class="info" style='background-color:#93bfdc;margin-top:5%;' > 您在达令熊这里的存货如下... </view>
+     </view>
+      <view style="width:100%;height:200rpx;border:1rpx solid #000">
+      
+      </view>
+      <view style="width:100%;height:200rpx;border:1rpx solid #000;margin-top:10rpx;">
+     
+      </view>
+      <view style="width:100%;height:200rpx;border:1rpx solid #000;margin-top:10rpx;">
+     
+      </view>
+  </view>
+
+  <view class="foot" >
+     <image src='/images/min_foot.png' style='height:1.5em;width:6.5em;'></image>
+  </view>
+</view>
