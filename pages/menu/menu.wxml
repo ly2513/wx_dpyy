@@ -1,0 +1,31 @@
+<!--login.wxml-->
+<view class="container" style='padding-top:4%;'>
+  <div class="img_div">
+  <image src='/images/min_log.png' style='width:6em;height:2em;'></image>
+  </div>
+  <view class="userinfo">
+     <view style="width:100%;">
+        <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
+        <block wx:else>
+         <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
+         <text class="userinfo-nickname">{{userInfo.nickName}}</text>
+        </block>
+     </view>
+     <view style="width:100%;">
+     <button type="default" class="login_button" open-type="getUserInfo" bindgetuserinfo="getUserInfo"  bindtap="default" hover-class="other-button-hover" style='background-color:#93bfdc;margin-top:5%;' > 我要下单打印 </button>
+     </view>
+      <view style="width:100%;">
+       <button type="default" class="login_button" open-type="getUserInfo" bindgetuserinfo="getUserInfo"  bindtap="default" hover-class="other-button-hover" style='background-color:#93bfdc;' > 查询我的订单 </button>
+      </view>
+      <view style="width:100%;">
+     <button type="default" class="login_button" open-type="getUserInfo" bindgetuserinfo="getUserInfo"  bindtap="default" hover-class="other-button-hover" style='background-color:#93bfdc;' > 服务价格查询 </button>
+     </view>
+      <view style="width:100%;">
+     <button type="default" class="login_button" open-type="getUserInfo" bindgetuserinfo="getUserInfo"  bindtap="default" hover-class="other-button-hover" style='background-color:#93bfdc;' > 投诉建议专线 </button>
+      </view>
+  </view>
+
+  <view class="foot" >
+     <image src='/images/min_foot.png' style='height:1.5em;width:6.5em;'></image>
+  </view>
+</view>
