@@ -1,0 +1,33 @@
+<!--login.wxml-->
+<view class="container" style='padding-top:4%;'>
+  <div class="img_div">
+    <image src='/images/min_log.png' style='width:6em;height:2em;'></image>
+  </div>
+  <view class="userinfo">
+     <view style="width:100%;height:3.7em;">
+      
+        <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
+        <block wx:else>
+        <view style='float:left;'>
+         <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover" ></image>
+         </view>
+         <view style='float:left;padding:15% 0% 0% 0%;'>
+         <text class="userinfo-nickname" >{{userInfo.nickName}}，欢迎你</text>
+         </view>
+        </block>
+        
+     </view>
+    
+      <view class='body_content' >
+        您的订单已接收！
+      </view>
+      <view class='notice' >
+        请等待达令熊的到达...
+      </view>
+      <button class="button_success button_plus" style=""> 确定 </button>
+  </view>
+
+  <view class="foot" >
+     <image src='/images/min_foot.png' style='height:1.5em;width:6.5em;'></image>
+  </view>
+</view>

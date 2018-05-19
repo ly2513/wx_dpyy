@@ -1,18 +1,24 @@
 <!--login.wxml-->
 <view class="container" style='padding-top:4%;'>
   <div class="img_div">
-  <image src='/images/min_log.png' style='width:6em;height:2em;'></image>
+    <image src='/images/min_log.png' style='width:6em;height:2em;'></image>
   </div>
   <view class="userinfo">
-     <view style="width:100%;">
+     <view style="width:100%;height:3.7em;">
+      
         <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
         <block wx:else>
+        <view style='float:left;'>
          <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover" ></image>
+         </view>
+         <view style='float:left;padding:15% 0% 0% 0%;'>
          <text class="userinfo-nickname" >{{userInfo.nickName}}，欢迎你</text>
+         </view>
         </block>
+        
      </view>
      <view style="width:100%;">
-     <view type="default" class="info" style='background-color:#93bfdc;margin-top:5%;' > 您在达令熊这里的存货如下... </view>
+     <view type="default" class="info" style='background-color:#93bfdc;margin-top:5%;'> 您在达令熊这里的存货如下... </view>
      </view>
       <view class='list' style='margin-top:0rpx;'>
         <view>
@@ -33,7 +39,7 @@
             <span>下单时间：</span> <span> 2018-01-03</span>  
           </view>
           <view style='padding-top:20rpx;'>
-          <span>订单状态：</span> <span class="green"> 待确认收货</span> 
+          <span>订单状态：</span> <span class="green"> 待确认收</span> 
           </view>
       </view>
       <view class='list'>
@@ -47,6 +53,7 @@
           <span>订单状态：</span> <span class="blue"> 已送达</span> 
         </view>
       </view>
+      <button class="button_success" style=""> 提交订单 </button>
   </view>
 
   <view class="foot" >

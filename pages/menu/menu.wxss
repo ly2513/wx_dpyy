@@ -3,11 +3,11 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 1% 5% 9% 5%;
+  padding: 0.5% 7% 2% 7%;
   background-color:#fff;
   width:72%;
   height:80%;
-  margin:4% 0%;
+  margin:2% 0%;
   border-radius: 10%;
 }
 
@@ -45,6 +45,6 @@ border-radius:50em;
 }
 
 .foot{
-margin-top:2%;
-padding:4% 2% 10% 30%;
+width: 30%;
+margin:0% 2% 3% 60%;
 }
