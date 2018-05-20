@@ -1,0 +1,42 @@
+<!--login.wxml-->
+<view class="container" style='padding-top:4%;'>
+  <div class="img_div">
+  <image src='/images/min_log.png' style='width:6em;height:2em;'></image>
+  </div>
+  <view class="userinfo">
+     <view style="width:100%;height:3.7em;">
+        <view wx:if="{{!hasUserInfo && canIUse}}" style='float:left;'>
+          <image bindtap="bindViewTap" class="userinfo-avatar" style="float:left;width:50px;" src="/images/head.png" background-size="cover" ></image>
+          <view style='float:left;padding:15% 0% 0% 0%;'>
+            <text class="userinfo-nickname" >达派云印，欢迎你</text>
+          </view>
+        </view>
+         <block wx:else>
+        <view style='float:left;'>
+         <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover" ></image>
+         </view>
+         <view style='float:left;padding:15% 0% 0% 0%;'>
+         <text class="userinfo-nickname" >{{userInfo.nickName}}，欢迎你</text>
+         </view>
+        </block> 
+     </view>
+     <view style="width:100%;">
+     <button type="default" class="login_button" bindtap="placeOrder" hover-class="other-button-hover" style='background-color:#93bfdc;margin-top:5%;' > 有话对达令熊说？ </button>
+     </view>
+     <view style="width:100%;">
+       <button type="default" class="login_button" bindtap="myOrder"   hover-class="other-button-hover" style='background-color:#93bfdc;' open-type="navigate" > Tel:文印中心专线点击拨打 </button>
+      </view>
+      <view style="width:100%;">
+       <button type="default" class="login_button" bindtap="myOrder"   hover-class="other-button-hover" style='background-color:#93bfdc;' open-type="navigate" > QQ:达令熊的私Q点击对话 </button>
+      </view>
+      <view style="width:100%;">
+     <button type="default" class="login_button"  bindtap="servicePrice" hover-class="other-button-hover" style='background-color:#93bfdc;' > 微信:达令熊的微信点击对话 </button>
+     </view>
+      <view style="width:100%;">
+     <button type="default" class="login_button"  bindtap="complaintProposal" hover-class="other-button-hover" style='background-color:#93bfdc;' > 地址:点击直接导航</button>
+      </view>
+  </view>
+  <view class="foot" >
+     <image src='/images/min_foot.png' style='height:1.5em;width:6.5em;'></image>
+  </view>
+</view>

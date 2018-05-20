@@ -1,0 +1,50 @@
+<!--login.wxml-->
+<view class="container" style='padding-top:4%;'>
+  <div class="img_div">
+    <image src='/images/min_log.png' style='width:6em;height:2em;'></image>
+  </div>
+  <view class="userinfo">
+     <view style="width:100%;height:3.7em;">
+
+        <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
+        <block wx:else>
+        <view style='float:left;'>
+         <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover" ></image>
+         </view>
+         <view style='float:left;padding:15% 0% 0% 0%;'>
+         <text class="userinfo-nickname" >{{userInfo.nickName}}，欢迎你</text>
+         </view>
+        </block>
+
+     </view>
+     <view style="width:100%;">
+     <view type="default" class="info" style='background-color:#93bfdc;margin-top:5%;'> 我们的服务价格如下 </view>
+    </view>
+      <view class="table">
+        <view class="tr bg-w">
+          <view class="th">价目单</view>
+          <view class="th">规格</view>
+          <view class="th ">材质</view>
+          <view class="th ">单价</view>
+        </view>
+      <block wx:for="{{listData}}" wx:key="{{code}}">
+        <view class="tr bg-g" wx:if="{{index % 2 != 0}}">
+          <view class="td">{{item.print_type}}</view>
+          <view class="td">{{item.paper_type}}</view>
+          <view class="td">{{item.material_type}}</view>
+          <view class="td">{{item.price_fen}}元/{{item.unit}}</view>
+        </view>
+        <view class="tr" wx:else>
+          <view class="td">{{item.print_type}}</view>
+          <view class="td">{{item.paper_type}}</view>
+          <view class="td">{{item.material_type}}</view>
+          <view class="td">{{item.price_fen}}元/{{item.unit}}</view>
+        </view>
+      </block>
+    </view>
+  </view>
+
+  <view class="foot" >
+     <image src='/images/min_foot.png' style='height:1.5em;width:6.5em;'></image>
+  </view>
+</view>

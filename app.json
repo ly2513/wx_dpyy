@@ -4,8 +4,8 @@
     "pages/menu/menu",
     "pages/price/price",
     "pages/order/order",
+    "pages/proposal/proposal",
     "pages/success/success",
-  
     "pages/index/index",
     "pages/logs/logs"
   ],
@@ -14,7 +14,7 @@
     "navigationBarBackgroundColor": "#005690",
     "navigationBarTitleText": "达派云印",
     "navigationBarTextStyle":"write",
-    "backgroundColor": "#93c0dd"
+    "backgroundColor": "#005690"
   },
   "tabBar": {
     "color": "#ccc",

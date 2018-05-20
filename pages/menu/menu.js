@@ -81,7 +81,7 @@ Page({
   },
   complaintProposal : function(e){ // 投诉建议 
     wx.navigateTo({
-      url: '../success/success',
+      url: '../proposal/proposal',
       success: function (res) {
         console.log('跳转成功');
       },

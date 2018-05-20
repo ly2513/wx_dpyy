@@ -2,9 +2,9 @@
 //获取应用实例
 const app = getApp()
 // 后端地址
-app.globalData.requestUrl = 'http://127.0.0.1:1025';
+// app.globalData.requestUrl = 'http://127.0.0.1:1025';
 // 代理后端地址
-// app.globalData.requestUrl = 'http://192.168.1.101:4000';
+app.globalData.requestUrl = 'http://192.168.1.101:4000';
 // openID
 app.globalData.openId = '';
 Page({
