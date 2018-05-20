@@ -1,18 +1,20 @@
 {
   "pages":[
+    "pages/login/login",
     "pages/menu/menu",
     "pages/price/price",
     "pages/order/order",
     "pages/success/success",
-    "pages/login/login",
+  
     "pages/index/index",
     "pages/logs/logs"
   ],
   "window":{
     "backgroundTextStyle":"light",
-    "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "WeChat",
-    "navigationBarTextStyle":"black"
+    "navigationBarBackgroundColor": "#005690",
+    "navigationBarTitleText": "达派云印",
+    "navigationBarTextStyle":"write",
+    "backgroundColor": "#93c0dd"
   },
   "tabBar": {
     "color": "#ccc",

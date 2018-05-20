@@ -4,10 +4,6 @@ const app = getApp()
 
 Page({
   data: {
-    motto: 'Hello World',
-    userInfo: {},
-    hasUserInfo: false,
-    canIUse: wx.canIUse('button.open-type.getUserInfo')
   },
   //事件处理函数
   bindViewTap: function() {
@@ -15,31 +11,27 @@ Page({
       url: '../logs/logs'
     })
   },
+  orderList: function (e) {
+    // console.log(e);
+    // redirectTo是两个页面之间的平行跳转，navigateTo是父页面与子页面之间的跳转
+    // switchTab只能跳转到带有tab的页面，不能跳转到不带tab的页面
+    // 跳转不带tab的页面还是用redirectTo或者navigateTo 
+    wx.navigateTo({
+      url: '../success/success',
+      success:function (res){
+        console.log('跳转成功');
+      },
+      fail:function(e){
+        console.log(e);
+        console.log('跳转失败');
+      }
+    })
+  },
   onLoad: function () {
     if (app.globalData.userInfo) {
       this.setData({
         userInfo: app.globalData.userInfo,
         hasUserInfo: true
-      })
-    } else if (this.data.canIUse){
-      // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
-      // 所以此处加入 callback 以防止这种情况
-      app.userInfoReadyCallback = res => {
-        this.setData({
-          userInfo: res.userInfo,
-          hasUserInfo: true
-        })
-      }
-    } else {
-      // 在没有 open-type=getUserInfo 版本的兼容处理
-      wx.getUserInfo({
-        success: res => {
-          app.globalData.userInfo = res.userInfo
-          this.setData({
-            userInfo: res.userInfo,
-            hasUserInfo: true
-          })
-        }
       })
     }
   },
@@ -50,5 +42,56 @@ Page({
       userInfo: e.detail.userInfo,
       hasUserInfo: true
     })
+  },
+  placeOrder :function(e){ // 下单打印
+    wx.navigateTo({
+      url: '../success/success',
+      success: function (res) {
+        console.log('跳转成功');
+      },
+      fail: function (e) {
+        console.log(e);
+        console.log('跳转失败');
+      }
+    })
+  },
+  myOrder: function (e) { // 历史订单
+    wx.switchTab({
+      url: '../order/order',
+      success: function (res) {
+        console.log('跳转成功');
+      },
+      fail: function (e) {
+        console.log(e);
+        console.log('跳转失败');
+      }
+    })
+  },
+  servicePrice: function(e){ // 服务价格表
+    wx.navigateTo({
+      url: '../price/price',
+      success: function (res) {
+        console.log('跳转成功');
+      },
+      fail: function (e) {
+        console.log(e);
+        console.log('跳转失败');
+      }
+    })
+  },
+  complaintProposal : function(e){ // 投诉建议 
+    wx.navigateTo({
+      url: '../success/success',
+      success: function (res) {
+        console.log('跳转成功');
+      },
+      fail: function (e) {
+        console.log(e);
+        console.log('跳转失败');
+      }
+    })
   }
 })
+
+
+

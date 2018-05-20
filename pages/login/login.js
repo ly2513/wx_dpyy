@@ -1,13 +1,14 @@
 //index.js
 //获取应用实例
 const app = getApp()
-
+// 后端地址
+app.globalData.requestUrl = 'http://127.0.0.1:1025';
+// 代理后端地址
+// app.globalData.requestUrl = 'http://192.168.1.101:4000';
+// openID
+app.globalData.openId = '';
 Page({
   data: {
-    motto: 'Hello World',
-    userInfo: {},
-    hasUserInfo: false,
-    canIUse: wx.canIUse('button.open-type.getUserInfo')
   },
   //事件处理函数
   bindViewTap: function() {
@@ -16,40 +17,65 @@ Page({
     })
   },
   onLoad: function () {
-    if (app.globalData.userInfo) {
-      this.setData({
-        userInfo: app.globalData.userInfo,
-        hasUserInfo: true
-      })
-    } else if (this.data.canIUse){
-      // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
-      // 所以此处加入 callback 以防止这种情况
-      app.userInfoReadyCallback = res => {
-        this.setData({
-          userInfo: res.userInfo,
-          hasUserInfo: true
-        })
-      }
-    } else {
-      // 在没有 open-type=getUserInfo 版本的兼容处理
-      wx.getUserInfo({
-        success: res => {
-          app.globalData.userInfo = res.userInfo
-          this.setData({
-            userInfo: res.userInfo,
-            hasUserInfo: true
+    wx.login({
+      success: function (res) {
+        if (res.code) {
+           //发起网络请求
+          wx.request({
+            url: 'https://api.weixin.qq.com/sns/jscode2session?appid=wxdf7ab6b5266fa384&secret=7b6bcdd8eaf5292cbfcf79eb71b63379&js_code=' + res.code + '&grant_type=authorization_code',
+            data: {},
+            header: {
+              'content-type': 'application/json'
+            },
+            success: function (res) {
+              app.globalData.openId = res.data.openid //返回openid
+              // 获取用户信息
+              wx.getUserInfo({
+                success: function (res) {
+                  app.globalData.userInfo = res.userInfo
+                  // openid
+                  app.globalData.userInfo.openid = app.globalData.openId;
+                  if (app.globalData.userInfo) {
+                    console.log(app.globalData.userInfo);
+                    // 执行登录操作
+                    wx.request({
+                      url: app.globalData.requestUrl + '/Api/Login/login',
+                      data: app.globalData.userInfo,
+                      dataType: 'json',
+                      method: 'POST',
+                      header: { 'Content-Type': 'application/json' },
+                      success: function (res) {
+                        console.log(res);
+                        // console.log('请求成功！')
+                        if (res.data.code === 0){
+                        // 登录成功后跳转到首页
+                          wx.switchTab({
+                            url: '../menu/menu',
+                            success: function (res) {
+                              console.log('跳转成功');
+                            },
+                            fail: function (e) {
+                              console.log(e);
+                              console.log('跳转失败');
+                            }
+                          })
+                        }else{
+                          console.log(res.data.msg)
+                        }
+                      },
+                      fail: function () {
+                        console.log('请求失败!')
+                      }
+                    })
+                  }
+                }
+              })
+            }
           })
+        } else {
+          console.log('获取用户登录态失败！' + res.errMsg)
         }
-      })
-    }
-  },
-  getUserInfo: function(e) {
-    console.log(e)
-    console.log(2222)
-    app.globalData.userInfo = e.detail.userInfo
-    this.setData({
-      userInfo: e.detail.userInfo,
-      hasUserInfo: true
-    })
+      }
+    });
   }
 })

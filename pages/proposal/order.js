@@ -1,7 +1,8 @@
 //index.js
 //获取应用实例
 const app = getApp()
-
+// wx.showNavigationBarLoading(); // 在当前页面显示导航条加载动画
+// wx.hideNavigationBarLoading(); // 隐藏导航条加载动画
 Page({
   data: {
     motto: 'Hello World',
@@ -50,17 +51,25 @@ Page({
       userInfo: e.detail.userInfo,
       hasUserInfo: true
     })
-  },
-  returnBack:function(){
-    wx.navigateBack({
-      url: '../menu/menu',
-      success: function (res) {
-        console.log('跳转成功');
-      },
-      fail: function (e) {
-        console.log(e);
-        console.log('跳转失败');
-      }
-    })
   }
 })
+
+function get_single_by_slug(slug) {
+  wx.request({
+    url: "your-site/wp-json/wp/v2/posts?slug=" + slug,
+    success: function (res) {
+      if (res.data.length !== 0) {
+        let pid = res.data[0].id
+        wx.navigateTo({
+          url: '../single/single?pid=' + pid.toString(),
+          fail: function (res) {
+            no_request()
+          }
+        })
+      }
+    },
+    fail: function () {
+      no_request()
+    }
+  })
+}

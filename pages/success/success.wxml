@@ -17,14 +17,17 @@
         </block>
         
      </view>
-    
-      <view class='body_content' >
-        您的订单已接收！
-      </view>
-      <view class='notice' >
-        请等待达令熊的到达...
-      </view>
-      <button class="button_success button_plus" style=""> 确定 </button>
+     <view class='body_content' >您的订单已接收！</view>
+      <view class='notice' >请等待达令熊对您的文件进行核算...</view>
+      <block wx:if="{{info =='order_success'}}">
+      <view class='body_content' >您的订单已接收！</view>
+      <view class='notice' >请等待达令熊对您的文件进行核算...</view>
+      </block>
+      <block wx:if="{{info =='pay_success'}}">
+      <view class='body_content' >您的订单已支付！</view>
+      <view class='notice' >请等待达令熊的到达...</view>
+      </block>
+      <button class="button_success button_plus" bindtap="returnBack" style="" > 返回 </button>
   </view>
 
   <view class="foot" >

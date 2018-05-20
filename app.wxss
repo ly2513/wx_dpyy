@@ -9,3 +9,6 @@
   box-sizing: border-box;
   background-color: #005690;
 } 
+page{
+  background-color: #005690;
+}

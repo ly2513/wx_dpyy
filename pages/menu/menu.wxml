@@ -5,30 +5,34 @@
   </div>
   <view class="userinfo">
      <view style="width:100%;height:3.7em;">
-        <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
-        <block wx:else>
+        <view wx:if="{{!hasUserInfo && canIUse}}" style='float:left;'>
+          <image bindtap="bindViewTap" class="userinfo-avatar" style="float:left;width:50px;" src="/images/head.png" background-size="cover" ></image>
+          <view style='float:left;padding:15% 0% 0% 0%;'>
+            <text class="userinfo-nickname" >达派云印，欢迎你</text>
+          </view>
+        </view>
+         <block wx:else>
         <view style='float:left;'>
          <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover" ></image>
          </view>
          <view style='float:left;padding:15% 0% 0% 0%;'>
          <text class="userinfo-nickname" >{{userInfo.nickName}}，欢迎你</text>
          </view>
-        </block>
+        </block> 
      </view>
      <view style="width:100%;margin-top:15%;">
-     <button type="default" class="login_button" open-type="getUserInfo" bindgetuserinfo="getUserInfo"  bindtap="default" hover-class="other-button-hover" style='background-color:#93bfdc;margin-top:5%;' > 我要下单打印 </button>
+     <button type="default" class="login_button" bindtap="placeOrder" hover-class="other-button-hover" style='background-color:#93bfdc;margin-top:5%;' > 我要下单打印 </button>
      </view>
       <view style="width:100%;">
-       <button type="default" class="login_button" open-type="getUserInfo" bindgetuserinfo="getUserInfo"  bindtap="default" hover-class="other-button-hover" style='background-color:#93bfdc;' > 查询我的订单 </button>
+       <button type="default" class="login_button" bindtap="myOrder"   hover-class="other-button-hover" style='background-color:#93bfdc;' open-type="navigate" > 查询我的订单 </button>
       </view>
       <view style="width:100%;">
-     <button type="default" class="login_button" open-type="getUserInfo" bindgetuserinfo="getUserInfo"  bindtap="default" hover-class="other-button-hover" style='background-color:#93bfdc;' > 服务价格查询 </button>
+     <button type="default" class="login_button"  bindtap="servicePrice" hover-class="other-button-hover" style='background-color:#93bfdc;' > 服务价格查询 </button>
      </view>
       <view style="width:100%;">
-     <button type="default" class="login_button" open-type="getUserInfo" bindgetuserinfo="getUserInfo"  bindtap="default" hover-class="other-button-hover" style='background-color:#93bfdc;' > 投诉建议专线 </button>
+     <button type="default" class="login_button"  bindtap="complaintProposal" hover-class="other-button-hover" style='background-color:#93bfdc;' > 投诉建议专线 </button>
       </view>
   </view>
-
   <view class="foot" >
      <image src='/images/min_foot.png' style='height:1.5em;width:6.5em;'></image>
   </view>
