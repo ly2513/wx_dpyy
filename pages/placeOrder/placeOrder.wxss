@@ -26,7 +26,6 @@
   margin-top: 50px;
 }
 
-
 .login_button{
 background-color:#93bfdc;
 color:#000;
@@ -36,7 +35,48 @@ margin-bottom:10%;
 font-size:37rpx;
 line-height:3em;
 border-radius:50em;
-text-align: left;
+}
+.input_view{
+float:left;
+padding:10px;
+}
+.input{
+  width:180px;
+  border:1px solid #ccc;
+  padding:10rpx;
+}
+.select{
+   width:144px;
+  border:1px solid #ccc;
+  padding:10rpx;
+  float: left;
+}
+.text{
+  float:left;
+  line-height: 35px;
+  display: inline-block;
+}
+.button_success{
+  background-color:#93bfdc;
+  border-radius: 10em;
+  font-size:100%;
+  color:#000;
+  width:7em;
+  height:3em;
+  line-height:3em;
+  float: left;
+  margin-right: 10px;
+}
+
+.button_back{
+  background-color: #ccc;
+  border-radius: 10em;
+  font-size:100%;
+  color:#000;
+  width:7em;
+  height:3em;
+  line-height:3em;
+  float: left;
 }
 
 .img_div{

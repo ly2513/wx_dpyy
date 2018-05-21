@@ -45,7 +45,7 @@ Page({
   },
   placeOrder :function(e){ // 下单打印
     wx.navigateTo({
-      url: '../success/success',
+      url: '../placeOrder/placeOrder',
       success: function (res) {
         console.log('跳转成功');
       },
