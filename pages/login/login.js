@@ -1,15 +1,13 @@
 //index.js
 //获取应用实例
 const app = getApp()
+var dev = false;
 // 后端地址
-// app.globalData.requestUrl = 'http://127.0.0.1:1025';
-// 代理后端地址
-app.globalData.requestUrl = 'http://192.168.1.101:4000';
+app.globalData.requestUrl = (dev===true) ? 'http://127.0.0.1:1025' : 'http://192.168.1.101:4000';
 // openID
 app.globalData.openId = '';
 Page({
-  data: {
-  },
+  data: {},
   //事件处理函数
   bindViewTap: function() {
     wx.navigateTo({
@@ -19,6 +17,7 @@ Page({
   onLoad: function () {
     wx.login({
       success: function (res) {
+        console.log(res);
         if (res.code) {
            //发起网络请求
           wx.request({

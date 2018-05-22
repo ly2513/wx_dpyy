@@ -2,6 +2,7 @@
   "pages":[
     "pages/login/login",
     "pages/menu/menu",
+    "pages/placeOrder/placeOrder",
     "pages/price/price",
     "pages/order/order",
     "pages/proposal/proposal",
