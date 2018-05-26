@@ -1,7 +1,6 @@
 //index.js
 //获取应用实例
 const app = getApp()
-console.log(app.globalData.requestUrl);
 // wx.showNavigationBarLoading(); // 在当前页面显示导航条加载动画
 // wx.hideNavigationBarLoading(); // 隐藏导航条加载动画
 // '请选择派送时间',
@@ -20,7 +19,8 @@ Page({
     if (app.globalData.userInfo) {
       this.setData({
         userInfo: app.globalData.userInfo,
-        hasUserInfo: true
+        hasUserInfo: true,
+        openId: app.globalData.openId
       })
     }
   },
