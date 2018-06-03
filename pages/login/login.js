@@ -1,7 +1,7 @@
 //index.js
 //获取应用实例
 const app = getApp()
-var dev = false;
+var dev = true;
 // 后端地址
 app.globalData.requestUrl = (dev===true) ? 'http://127.0.0.1:1025' : 'https://www.lovecangda.com';
 // openID
@@ -17,7 +17,7 @@ Page({
   onLoad: function () {
     
   },
-  user_login: function(){
+  userLogin:function(){
     wx.login({
       success: function (res) {
         console.log(res);
@@ -30,6 +30,7 @@ Page({
               'content-type': 'application/json'
             },
             success: function (res) {
+              
               app.globalData.openId = res.data.openid //返回openid
               // 获取用户信息
               wx.getUserInfo({

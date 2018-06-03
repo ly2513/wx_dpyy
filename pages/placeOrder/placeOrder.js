@@ -1,13 +1,13 @@
 //index.js
 //获取应用实例
 const app = getApp()
-console.log(app.globalData.requestUrl);
 // wx.showNavigationBarLoading(); // 在当前页面显示导航条加载动画
 // wx.hideNavigationBarLoading(); // 隐藏导航条加载动画
+// '请选择派送时间',
 Page({
   data: {
     timeIndex: 0,
-    time: ['请选择派送时间','9:00', '9:30', '10:00', '11:30','12:00','13:30','14:00','14:30','15:00','15:30','16:00','16:30','17:00','17:30','18:00','18:30','19:00','19:30','20:00','20:30','21:00','21:30']
+    time: ['9:00', '9:30', '10:00', '11:30','12:00','13:30','14:00','14:30','15:00','15:30','16:00','16:30','17:00','17:30','18:00','18:30','19:00','19:30','20:00','20:30','21:00','21:30']
   },  
   //事件处理函数
   bindViewTap: function() {
@@ -19,7 +19,8 @@ Page({
     if (app.globalData.userInfo) {
       this.setData({
         userInfo: app.globalData.userInfo,
-        hasUserInfo: true
+        hasUserInfo: true,
+        openId: app.globalData.openId
       })
     }
   },
@@ -65,6 +66,9 @@ Page({
           url: app.globalData.requestUrl + '/Api/File/upload', //仅为示例，非真实的接口地址
           filePath: tempFilePaths[0],
           name: 'file',
+          header: {
+            'content-type': 'multipart/form-data'
+          },
           formData: {
             'user': 'test'
           },

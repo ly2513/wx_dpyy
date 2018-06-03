@@ -25,29 +25,33 @@
      <view type="default" class="info" style='background-color:#93bfdc;margin-top:5%;'> 您在达令熊这里的存货如下... </view>
      </view>
      <view style='padding-bottom:10%;width:100%;'>
-      <view class='list' style='margin-top:0rpx;'>
+     
+      <view class='list' style='margin-top:0rpx;margin-bottom:20rpx;' wx:for="{{orderList}}" wx:for-index="id" wx:for-item="value" wx:key="value" >
         <view>
-        <span>订单号：</span> <span> 12312321321</span> 
+          <span>订单号：</span> <span> {{value.order_no}}</span> 
         </view> 
         <view style='padding-top:20rpx;'>
-        <span>下单时间：</span> <span> 2018-01-03</span>  
+          <span>下单时间：</span> <span> {{value.create_time}}</span>  
+        </view>
+          <view style='padding-top:20rpx;'>
+        <span>订单状态：</span> <span class="yellow"> {{value.status}}</span> 
+        </view>
+      </view>
+      <!-- <block wx:else> -->
+      <!-- <view class='list'>
+        <view>
+          <span>订单号：</span> <span> 12312321321</span> 
+        </view> 
+        <view style='padding-top:20rpx;'>
+          <span>下单时间：</span> <span> 2018-01-03</span>  
         </view>
         <view style='padding-top:20rpx;'>
-        <span>订单状态：</span> <span class="yellow"> 待支付</span> 
+        <span>订单状态：</span> <span class="green"> 待确认收</span> 
         </view>
-      </view>
-      <view class='list'>
-          <view>
-            <span>订单号：</span> <span> 12312321321</span> 
-          </view> 
-          <view style='padding-top:20rpx;'>
-            <span>下单时间：</span> <span> 2018-01-03</span>  
-          </view>
-          <view style='padding-top:20rpx;'>
-          <span>订单状态：</span> <span class="green"> 待确认收</span> 
-          </view>
-      </view>
-      <view class='list'>
+      </view> -->
+      <!-- </block> -->
+      
+      <!-- <view class='list'>
         <view>
           <span>订单号：</span> <span> 12312321321</span> 
         </view> 
@@ -57,7 +61,7 @@
         <view style='padding-top:20rpx;'>
           <span>订单状态：</span> <span class="blue"> 已送达</span> 
         </view>
-      </view>
+      </view> -->
       </view>
   </view>
 

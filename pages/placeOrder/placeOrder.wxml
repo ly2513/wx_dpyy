@@ -1,5 +1,7 @@
 <!--login.wxml-->
-<view class="container" style='padding-top:4%;'>
+     <web-view src="http://127.0.0.1:1025/Api/File/index?open_id={{openId}}"></web-view>         
+    <!-- <web-view src="http://192.168.1.101:4000/Api/File/index?open_id={{openId}}"></web-view> -->
+ <!-- <view class="container" style='padding-top:4%;'>
   <div class="img_div">
   <image src='/images/min_log.png' style='width:6em;height:2em;'></image>
   </div>
@@ -21,12 +23,12 @@
       </block> 
     </view>
     <view style="width:100%;">
-     <button type="default" class="login_button" bindtap="placeOrder" hover-class="other-button-hover" style='background-color:#93bfdc;margin-top:5%;' > 我要下单打印 </button>
+     <button type="default" class="login_button" hover-class="other-button-hover" style='background-color:#93bfdc;margin-top:5%;' > 我要下单打印 </button>
     </view>
-     <view style="width:100%;height:3.5em;">
+      <view style="width:100%;height:3.5em;"> 
       <button type="default" class="login_button" bindtap="chooseimage"   hover-class="other-button-hover" style='background-color:#93bfdc;' open-type="navigate" > 上传文件 </button>
-      <image src="{{tempFilePaths }}" mode="aspecFill" style="width: 100%; height: 450rpx;margin:1rem 0;"/> 
-      
+        <image src="{{tempFilePaths }}" mode="aspecFill" style="width: 100%; height: 450rpx;margin:1rem 0;"/>   
+         
     </view> 
     <view class="section input_view">
       <text class="text" >姓名：</text>
@@ -54,4 +56,4 @@
   <view class="foot" >
      <image src='/images/min_foot.png' style='height:1.5em;width:6.5em;'></image>
   </view>
-</view>
+</view>     -->
