@@ -4,7 +4,7 @@
   <image src='/images/log.png' style='width:15em;height:5em;'></image>
   </view>
   <view class="userinfo">
-      <button type="default" class="login_button" open-type="getUserInfo" bindgetuserinfo="getUserInfo" hover-class="other-button-hover" style='background-color:#9c9c9b;color:#ffffff;' > 登 入 达 派 </button>
+      <button type="default" class="login_button" bindtap='user_login' hover-class="other-button-hover" open-type="getUserInfo" style='background-color:#9c9c9b;color:#ffffff;' > 登 入 达 派 </button>
   </view>
   <view class="" style='margin-top:6%;padding:9% 10%;'>
     <image src='/images/login_1.png' style='height:2.5em;width:12.5em;'></image>

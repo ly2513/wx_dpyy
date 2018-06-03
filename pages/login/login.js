@@ -3,7 +3,7 @@
 const app = getApp()
 var dev = false;
 // 后端地址
-app.globalData.requestUrl = (dev===true) ? 'http://127.0.0.1:1025' : 'http://192.168.1.101:4000';
+app.globalData.requestUrl = (dev===true) ? 'http://127.0.0.1:1025' : 'https://www.lovecangda.com';
 // openID
 app.globalData.openId = '';
 Page({
@@ -15,11 +15,14 @@ Page({
     })
   },
   onLoad: function () {
+    
+  },
+  user_login: function(){
     wx.login({
       success: function (res) {
         console.log(res);
         if (res.code) {
-           //发起网络请求
+          //发起网络请求
           wx.request({
             url: 'https://api.weixin.qq.com/sns/jscode2session?appid=wxdf7ab6b5266fa384&secret=7b6bcdd8eaf5292cbfcf79eb71b63379&js_code=' + res.code + '&grant_type=authorization_code',
             data: {},
@@ -46,8 +49,8 @@ Page({
                       success: function (res) {
                         console.log(res);
                         // console.log('请求成功！')
-                        if (res.data.code === 0){
-                        // 登录成功后跳转到首页
+                        if (res.data.code === 0) {
+                          // 登录成功后跳转到首页
                           wx.switchTab({
                             url: '../menu/menu',
                             success: function (res) {
@@ -58,7 +61,7 @@ Page({
                               console.log('跳转失败');
                             }
                           })
-                        }else{
+                        } else {
                           console.log(res.data.msg)
                         }
                       },
