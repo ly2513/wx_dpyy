@@ -30,7 +30,7 @@
      <button type="default" class="login_button"  bindtap="servicePrice" hover-class="other-button-hover" style='background-color:#93bfdc;' > 服务价格查询 </button>
      </view>
       <view style="width:100%;">
-     <button type="default" class="login_button"  bindtap="complaintProposal" hover-class="other-button-hover" style='background-color:#93bfdc;' > 投诉建议专线 </button>
+     <button type="default" class="login_button"  bindtap="complaintProposal" hover-class="other-button-hover" style='background-color:#93bfdc;' > 联系达令熊 </button>
       </view>
   </view>
   <view class="foot" >

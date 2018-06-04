@@ -24,10 +24,10 @@
      <button type="default" class="login_button" bindtap="placeOrder" hover-class="other-button-hover" style='background-color:#93bfdc;margin-top:5%;' > 有话对达令熊说？ </button>
      </view>
      <view style="width:100%;">
-       <button type="default" class="login_button" bindtap="myOrder"   hover-class="other-button-hover" style='background-color:#93bfdc;' open-type="navigate" > Tel:文印中心专线点击拨打 </button>
+       <a class="login_button a_btn" bindtap="gePhone"   hover-class="other-button-hover" style='background-color:#93bfdc;' open-type="navigate"  > Tel:文印中心专线点击拨打 </a>
       </view>
       <view style="width:100%;">
-       <button type="default" class="login_button" bindtap="myOrder"   hover-class="other-button-hover" style='background-color:#93bfdc;' open-type="navigate" > QQ:达令熊的私Q点击对话 </button>
+       <button type="default" class="login_button" hover-class="other-button-hover" style='background-color:#93bfdc;' open-type="navigate" open-type="launchApp" app-parameter="wechat" binderror="launchAppError"> QQ:达令熊的私Q点击对话 </button>
       </view>
       <view style="width:100%;">
      <button type="default" class="login_button"  bindtap="servicePrice" hover-class="other-button-hover" style='background-color:#93bfdc;' > 微信:达令熊的微信点击对话 </button>

@@ -31,17 +31,6 @@ Page({
           hasUserInfo: true
         })
       }
-    } else {
-      // 在没有 open-type=getUserInfo 版本的兼容处理
-      wx.getUserInfo({
-        success: res => {
-          app.globalData.userInfo = res.userInfo
-          this.setData({
-            userInfo: res.userInfo,
-            hasUserInfo: true
-          })
-        }
-      })
     }
   },
   getUserInfo: function(e) {
@@ -51,9 +40,16 @@ Page({
       userInfo: e.detail.userInfo,
       hasUserInfo: true
     })
-  }
+  },
+  gePhone:function(e){
+    wx.makePhoneCall({// 拨打号码
+      phoneNumber: '18518178485' //仅为示例，并非真实的电话号码
+    })
+  },
+  launchAppError: function (e) {
+    console.log(e.detail.errMsg)
+  } 
 })
-
 function get_single_by_slug(slug) {
   wx.request({
     url: "your-site/wp-json/wp/v2/posts?slug=" + slug,
