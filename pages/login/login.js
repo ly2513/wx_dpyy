@@ -1,9 +1,9 @@
 //index.js
 //获取应用实例
 const app = getApp()
-var dev = true;
+var dev = false;
 // 后端地址
-app.globalData.requestUrl = (dev===true) ? 'http://127.0.0.1:1025' : 'https://www.lovecangda.com';
+app.globalData.requestUrl = (dev === true) ? 'http://127.0.0.1:1025' : 'https://www.lovecangda.com';
 // openID
 app.globalData.openId = '';
 Page({

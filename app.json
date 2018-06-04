@@ -34,14 +34,7 @@
         "iconPath": "images/order_cc.png",
         "pagePath": "pages/order/order",
         "color": "#000",
-        "text": "历史订单"
-      },
-      {
-        "selectedIconPath": "images/my.png",
-        "iconPath": "images/my_cc.png",
-        "pagePath": "pages/index/index",
-        "color": "#000",
-        "text": "我"
+        "text": "我的订单"
       }
     ]
   }
