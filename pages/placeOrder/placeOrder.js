@@ -16,11 +16,15 @@ Page({
     })
   },
   onLoad: function () {
+    console.log(app.globalData.openId);
+    console.log(app.globalData.userInfo);
+    console.log(app.globalData.userInfo);
     if (app.globalData.userInfo) {
       this.setData({
         userInfo: app.globalData.userInfo,
         hasUserInfo: true,
-        openId: app.globalData.openId
+        openId: app.globalData.openId,
+        requestUrl: app.globalData.requestUrl
       })
     }
   },
@@ -29,7 +33,8 @@ Page({
     app.globalData.userInfo = e.detail.userInfo
     this.setData({
       userInfo: e.detail.userInfo,
-      hasUserInfo: true
+      hasUserInfo: true,
+     
     })
   },
   bindPickerChange: function (e) {

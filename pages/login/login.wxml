@@ -1,10 +1,18 @@
 <!--login.wxml-->
 <view class="container" style='padding-top:20%;'>
-  <view style='height:100%;padding:0% 20%;'>
+  <view style='width:75%;padding:0% 20%;'>
   <image src='/images/log.png' style='width:15em;height:5em;'></image>
   </view>
   <view class="userinfo">
-      <button type="default" class="login_button" bindtap='userLogin' hover-class="other-button-hover" open-type="getUserInfo" style='background-color:#9c9c9b;color:#ffffff;' > 登 入 达 派 </button>
+    <image src='/images/xcx.png' class='xcx'></image>
+    <view type="default" class="login_button" bindtap='userLogin' hover-class="other-button-hover" open-type="getUserInfo" style='background-color:#4b6e74;color:#ffffff;' > <text>登入达派云印</text>
+    </view>
+  </view>
+  <view class="userinfo">
+    <image src='/images/qq.png' class='qq'style="width:2.2em;"></image>
+    <view  class="qq_div"  style='background-color:#b3c1c1;color:#ffffff;' > 
+      <text >达派云印专线QQ  \n 122 5599 688</text>
+    </view>
   </view>
   <view class="" style='margin-top:6%;padding:9% 10%;'>
     <image src='/images/login_1.png' style='height:2.5em;width:12.5em;'></image>
