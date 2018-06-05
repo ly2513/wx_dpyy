@@ -56,8 +56,8 @@ Page({
       header: { 'content-type': 'application/json' },
       success: function (res) {
         console.log(res);
-        var nonceStr = res.data.nonce_str;
-        var appId = res.data.appid;
+        var nonceStr = res.data.nonceStr;
+        var appId = res.data.appId;
         var pkg = 'prepay_id=' + res.data.prepay_id;
         var timeStamp = res.data.timeStamp;
         var paySign = res.data.paySign;
