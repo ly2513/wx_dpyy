@@ -45,16 +45,36 @@ Page({
         
       }
     })
-      
-    
   },
-  getUserInfo: function(e) {
-    console.log(e)
-    app.globalData.userInfo = e.detail.userInfo
-    this.setData({
-      userInfo: e.detail.userInfo,
-      hasUserInfo: true
-    })
+  payOrder: function(e) {
+    // 订单ID
+    var id = e.currentTarget.dataset.favorite 
+    // 发起支付
+    wx.request({
+      url: app.globalData.requestUrl + '/Api/Order/payOrder/' + id,//后台语言的处理 
+      method: 'POST',   
+      header: { 'content-type': 'application/json' },
+      success: function (res) {
+        console.log(res);
+        var nonceStr = res.data.nonce_str;
+        var appId = res.data.appid;
+        var pkg = 'prepay_id=' + res.data.prepay_id;
+        var timeStamp = res.data.timeStamp;
+        var paySign = res.data.paySign;
+        var sign = res.data.sign;
+        //console.log(pkg);  
+        wx.requestPayment({
+          timeStamp: timeStamp,
+          nonceStr: nonceStr,
+          package: pkg,
+          signType: 'MD5',
+          paySign: paySign,
+          success: function (res) {
+            that.changeOrderIdPay(orderId);
+          }
+        })
+      }
+    }); 
   }
 })
 

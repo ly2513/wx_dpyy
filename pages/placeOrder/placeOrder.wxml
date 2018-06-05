@@ -1,2 +1,3 @@
 <!--login.wxml-->
-<web-view src="{{requestUrl}}/Api/File/index?open_id={{openId}}"></web-view> 
+<!-- <web-view src="{{requestUrl}}/Api/File/index?open_id={{openId}}"></web-view>  -->
+<web-view src="{{requestUrl}}/Api/File/success?open_id={{openId}}"></web-view> 

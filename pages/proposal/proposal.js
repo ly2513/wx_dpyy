@@ -43,7 +43,7 @@ Page({
   },
   gePhone:function(e){
     wx.makePhoneCall({// 拨打号码
-      phoneNumber: '18518178485' //仅为示例，并非真实的电话号码
+      phoneNumber: '18679128532' //仅为示例，并非真实的电话号码
     })
   },
   launchAppError: function (e) {
