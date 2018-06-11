@@ -5,8 +5,8 @@
   </view>
   <view class="userinfo">
     <image src='/images/xcx.png' class='xcx'></image>
-    <view type="default" class="login_button" bindtap='userLogin' hover-class="other-button-hover" open-type="getUserInfo" style='background-color:#4b6e74;color:#ffffff;' > <text>登入达派云印</text>
-    </view>
+     <view type="default" class="login_button" bindtap='userLogin' hover-class="other-button-hover"  open-type='getUserInfo' style='background-color:#4b6e74;color:#ffffff;' > <text>登入达派云印</text>
+    </view> 
   </view>
   <view class="userinfo">
     <image src='/images/qq.png' class='qq'style="width:2.2em;"></image>
