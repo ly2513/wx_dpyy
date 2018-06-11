@@ -40,7 +40,7 @@
           <span>订单状态：</span> 
           <span class="yellow" wx:if="{{value.status == '待支付'}}"> {{value.status}}</span>
           <span class="green" wx:else> {{value.status}}</span>
-          <button style="width:4em;height:2em;float:right;padding:2% 2%;font-size:15px;line-height:1.5em;background-color:#93bfdc" wx:if="{{value.status == '待支付'}}" bindtap="payOrder" data-favorite="{{value.id}}">支付</button>  
+          <button style="width:4em;height:2em;float:right;padding:2% 2%;font-size:15px;line-height:1.5em;background-color:#93bfdc" wx:if="{{value.status == '待支付' && value.price != 0}}" bindtap="payOrder" data-favorite="{{value.id}}">支付</button>  
         </view>
       </view>
     </view>
