@@ -41,31 +41,22 @@ Page({
       hasUserInfo: true
     })
   },
-  gePhone:function(e){
+  callPhone:function(e){
     wx.makePhoneCall({// 拨打号码
-      phoneNumber: '18679128532' //仅为示例，并非真实的电话号码
+      phoneNumber: '18679128532' //电话号码
     })
   },
   launchAppError: function (e) {
     console.log(e.detail.errMsg)
-  } 
+  }, 
+  navigation:function(e){
+    wx.openLocation({ //出发wx.openLocation API
+      latitude: 28.669291,  //坐标纬度（从地图获取坐标）
+      longitude: 115.819434,//坐标经度（从地图获取坐标
+      name: "南昌市沧达广告有限公司", //打开后显示的地址名称
+      scale: 28,
+      address: '沧达'  //打开后显示的地址汉字
+    })
+  }
+  
 })
-function get_single_by_slug(slug) {
-  wx.request({
-    url: "your-site/wp-json/wp/v2/posts?slug=" + slug,
-    success: function (res) {
-      if (res.data.length !== 0) {
-        let pid = res.data[0].id
-        wx.navigateTo({
-          url: '../single/single?pid=' + pid.toString(),
-          fail: function (res) {
-            no_request()
-          }
-        })
-      }
-    },
-    fail: function () {
-      no_request()
-    }
-  })
-}

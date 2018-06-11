@@ -37,6 +37,8 @@
         "text": "我的订单"
       }
     ]
+  },
+  "usingComponents": {
+    "map-route": "plugin://myPlugin/mapRoute"
   }
-  
 }
