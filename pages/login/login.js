@@ -7,7 +7,10 @@ app.globalData.requestUrl = (dev === true) ? 'http://127.0.0.1:1025' : 'https://
 // openID
 app.globalData.openId = '';
 Page({
-  data: {},
+  data: {
+    userInfo: {},
+    canIUse: wx.canIUse('button.open-type.getUserInfo')
+  },
   //事件处理函数
   bindViewTap: function() {
     wx.navigateTo({
@@ -18,6 +21,7 @@ Page({
 
   },
   userLogin:function(){
+    var that = this;
     wx.login({
       success: function (res) {
         console.log(res);
@@ -30,11 +34,13 @@ Page({
               'content-type': 'application/json'
             },
             success: function (res) {
-              
+              console.log(res);
               app.globalData.openId = res.data.openid //返回openid
               // 获取用户信息
               wx.getUserInfo({
                 success: function (res) {
+                  console.log(res);
+                  console.log(3333);
                   app.globalData.userInfo = res.userInfo
                   // openid
                   app.globalData.userInfo.openid = app.globalData.openId;
@@ -49,30 +55,67 @@ Page({
                       header: { 'Content-Type': 'application/json' },
                       success: function (res) {
                         console.log(res);
-                        // console.log('请求成功！')
                         if (res.data.code === 0) {
-                          // 登录成功后跳转到首页
-                          wx.switchTab({
-                            url: '../menu/menu',
-                            success: function (res) {
-                              console.log('跳转成功');
-                            },
-                            fail: function (e) {
-                              console.log(e);
-                              console.log('跳转失败');
+                          wx.showModal({
+                            title: '提示',
+                            content: '登录成功',
+                            showCancel: false,
+                            success: function (resbtn) {
+                              if (resbtn.confirm) {
+                                // 登录成功后跳转到首页
+                                wx.switchTab({
+                                  url: '../menu/menu',
+                                  success: function (res) {
+                                    console.log('跳转成功');
+                                  },
+                                  fail: function (e) {
+                                    console.log(e);
+                                    console.log('跳转失败');
+                                  }
+                                })
+                              }
                             }
                           })
                         } else {
+                          wx.showModal({
+                            title: '提示',
+                            content: res.data.msg,
+                            showCancel: false,
+                            success: function (resbtn) {
+                              if (resbtn.confirm) {
+                                
+                              }
+                            }
+                          })
                           console.log(res.data.msg)
                         }
                       },
                       fail: function () {
+                        wx.showModal({
+                          title: '用户未授权',
+                          content: '如需正常使用该小程序功能，请按确定并在授权管理中选中“用户信息”，然后点按确定。最后再重新进入小程序即可正常使用。',
+                          showCancel: false,
+                          success: function (resbtn) {
+                            if (resbtn.confirm) {
+                              wx.openSetting({
+                                success: function success(resopen) {
+                                  console.log(resopen);
+                                  //  获取用户数据
+                                  // that.checkSettingStatu();
+                                }
+                              });
+                            }
+                          }
+                        })
                         console.log('请求失败!')
                       }
                     })
                   }
+                }, fail: function (res) {
+                  console.log(res);
                 }
               })
+              // }
             }
           })
         } else {
