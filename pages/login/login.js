@@ -15,7 +15,7 @@ Page({
     })
   },
   onLoad: function () {
-    
+
   },
   userLogin:function(){
     wx.login({
