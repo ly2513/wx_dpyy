@@ -92,18 +92,32 @@ Page({
                       },
                       fail: function () {
                         wx.showModal({
-                          title: '用户未授权',
+                           title: '用户未授权',
                           content: '如需正常使用该小程序功能，请按确定并在授权管理中选中“用户信息”，然后点按确定。最后再重新进入小程序即可正常使用。',
                           showCancel: false,
                           success: function (resbtn) {
                             if (resbtn.confirm) {
+                              // wx.authorize({
+                              //   scope: 'scope.userInfo',
+                              //   success() {
+                              //     // 用户已经同意小程序使用录音功能，后续调用 wx.startRecord 接口不会弹窗询问
+                              //     wx.startRecord()
+                              //   }
+                              // });
                               wx.openSetting({
                                 success: function success(resopen) {
                                   console.log(resopen);
+                                  console.log(res.authSetting["scope.userInfo"]);
                                   //  获取用户数据
                                   // that.checkSettingStatu();
+                                  that.userLogin();
                                 }
                               });
+                              wx.getSystemInfo({
+                                success:function(res){
+                                  console.log(res);
+                                }
+                              })
                             }
                           }
                         })
@@ -112,6 +126,22 @@ Page({
                     })
                   }
                 }, fail: function (res) {
+                  wx.showModal({
+                    title: '用户未授权',
+                    content: '如需正常使用该小程序功能，请按确定并在授权管理中选中“用户信息”，然后点按确定。最后再重新进入小程序即可正常使用。',
+                    showCancel: false,
+                    success: function (resbtn) {
+                      if (resbtn.confirm) {
+                        wx.openSetting({
+                          success: function success(resopen) {
+                            console.log(resopen);
+                            //  获取用户数据
+                            // that.checkSettingStatu();
+                          }
+                        });
+                      }
+                    }
+                  })
                   console.log(res);
                 }
               })
@@ -123,5 +153,7 @@ Page({
         }
       }
     });
+  },checkSettingStatu:function(){
+
   }
 })
