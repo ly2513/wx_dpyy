@@ -19,14 +19,14 @@ Page({
     })
   },
   onLoad: function () {
-    wx.openSetting({
-      success: function success(resopen) {
-        resopen.authSetting = {
-          "scope.userInfo": true,
-          "scope.userLocation": true
-        }
-      }   
-    });
+    // wx.openSetting({
+    //   success: function success(resopen) {
+    //     resopen.authSetting = {
+    //       "scope.userInfo": true,
+    //       "scope.userLocation": true
+    //     }
+    //   }   
+    // });
   },
   userLogin:function(){
     var that = this;
