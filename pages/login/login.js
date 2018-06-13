@@ -18,7 +18,14 @@ Page({
     })
   },
   onLoad: function () {
-
+    wx.openSetting({
+      success: function success(resopen) {
+        resopen.authSetting = {
+          "scope.userInfo": true,
+          "scope.userLocation": true
+        }
+      }   
+    });
   },
   userLogin:function(){
     var that = this;
@@ -40,12 +47,10 @@ Page({
               wx.getUserInfo({
                 success: function (res) {
                   console.log(res);
-                  console.log(3333);
                   app.globalData.userInfo = res.userInfo
                   // openid
                   app.globalData.userInfo.openid = app.globalData.openId;
                   if (app.globalData.userInfo) {
-                    console.log(app.globalData.userInfo);
                     // 执行登录操作
                     wx.request({
                       url: app.globalData.requestUrl + '/Api/Login/login',
@@ -82,12 +87,9 @@ Page({
                             content: res.data.msg,
                             showCancel: false,
                             success: function (resbtn) {
-                              if (resbtn.confirm) {
-                                
-                              }
+                              
                             }
                           })
-                          console.log(res.data.msg)
                         }
                       },
                       fail: function () {
@@ -97,13 +99,14 @@ Page({
                           showCancel: false,
                           success: function (resbtn) {
                             if (resbtn.confirm) {
-                              // wx.authorize({
-                              //   scope: 'scope.userInfo',
-                              //   success() {
-                              //     // 用户已经同意小程序使用录音功能，后续调用 wx.startRecord 接口不会弹窗询问
-                              //     wx.startRecord()
-                              //   }
-                              // });
+                              wx.authorize({
+                                scope: 'scope.userInfo',
+                                success() {
+                                  // 用户已经同意小程序使用录音功能，后续调用 wx.startRecord 接口不会弹窗询问
+                                  // wx.startRecord()
+                                  console.log(5555);
+                                }
+                              });
                               wx.openSetting({
                                 success: function success(resopen) {
                                   console.log(resopen);
@@ -134,6 +137,18 @@ Page({
                       if (resbtn.confirm) {
                         wx.openSetting({
                           success: function success(resopen) {
+                            resopen.authSetting = {
+                              "scope.userInfo": true,
+                              "scope.userLocation": true
+                            }
+                            wx.authorize({
+                              scope: 'scope.userInfo',
+                              success() {
+                                console.log(99999);
+                                // 用户已经同意小程序使用录音功能，后续调用 wx.startRecord 接口不会弹窗询问
+                                // wx.startRecord()
+                              }
+                            })
                             console.log(resopen);
                             //  获取用户数据
                             // that.checkSettingStatu();
