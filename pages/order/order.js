@@ -50,7 +50,9 @@ console.log(app.globalData.openId);
 Page({
   data: {
     hidden: true,
-    list: {},
+    list: [],
+    page:1,
+    perPage:20,
     scrollTop: 0,
     scrollHeight: 0
   },
@@ -143,69 +145,82 @@ Page({
   getOrder:function(){
     var that = this;
     // // 获取订单数据
-    // wx.request({
-    //   url: app.globalData.requestUrl + '/Api/Order/getOrder?open_id=' + app.globalData.openId,
-    //   data: {},
-    //   header: {
-    //     'content-type': 'application/json'
-    //   },
-    //   success: function (res) {
-    //     console.log(res)
-    //     if (res.data.code === 0) {
-    //       console.log(res.data.data)
-    //       that.setData({
-    //         orderList: res.data.data
-    //       })
-    //     } else {
-    //       console.log(res.msg);
-    //       alert('获取数据失败！');
-    //     }
-    //   }
-    // })
-    var url = app.globalData.requestUrl + '/Api/Order/getOrder?open_id=' + app.globalData.openId;
-    var page = 0;
-    var page_size = 20;
-    var sort = "last";
-    var is_easy = 0;
-    var lange_id = 0;
-    var pos_id = 0;
-    var unlearn = 0;
-    this.setData({
-      hidden: false
-    });
     wx.request({
-      url: url,
+      url: app.globalData.requestUrl + '/Api/Order/getOrder?open_id=' + app.globalData.openId,
       data: {
-        page: page,
-        page_size: page_size,
-        sort: sort,
-        is_easy: is_easy,
-        lange_id: lange_id,
-        pos_id: pos_id,
-        unlearn: unlearn
+        page: that.data.page,
+        perPage: that.data.perPage,
+      },
+      header: {
+        'content-type': 'application/json'
       },
       success: function (res) {
-        console.info(that.data.list);
-        console.info(res);
-        // var list = that.data.list;
-        // for (var i = 0; i < res.data.list.length; i++) {
-        //   list.push(res.data.list[i]);
-        // }
-        // that.setData({
-        //   list: list
-        // });
-        // page++;
-        // that.setData({
-        //   hidden: true
-        // });
+        console.log(res)
+        if (res.data.code === 0) {
+          console.log(res.data.data)
+          that.setData({
+            orderList: res.data.data.list
+          })
+        } else {
+          console.log(res.msg);
+          wx.showModal({
+            title: '提示',
+            content: res.data.msg,
+            showCancel: true,
+            success: function (resbtn) {
+              if (resbtn.confirm) {
+
+              }
+            }
+          })
+        }
       }
-    });
+    })
+    // var url = app.globalData.requestUrl + '/Api/Order/getOrder?open_id=' + app.globalData.openId;
+    // this.setData({
+    //   hidden: false
+    // });
+    // wx.request({
+    //   url: url,
+    //   data: {
+    //     page: that.data.page,
+    //     perPage: that.data.perPage,
+    //   },
+    //   success: function (res) {
+    //     if (res.data.code == 0){
+    //       that.setData({
+    //         orderList: res.data.data.list
+    //       });
+    //       if (that.data.page < res.data.data.totalPage) {
+          
+    //         that.data.page = res.data.data.page + 1;
+    //         console.log(that.data.page);
+    //       }
+
+    //       that.setData({
+    //         hidden: true
+    //       });
+    //     }else{
+    //       wx.showModal({
+    //         title: '提示',
+    //         content: res.data.msg,
+    //         showCancel: true,
+    //         showCancel: true,
+    //         success: function (resbtn) {
+    //           if (resbtn.confirm) {
+                
+    //           }
+    //         }
+    //       })
+    //     }
+    //   }
+    // });
   },
   onShow: function () {
     //   在页面展示之后先获取一次数据
     var that = this;
     // getList(that);
-    this.getOrder();
+    that.getOrder();
   },
   bindDownLoad: function () {
     //   该方法绑定了页面滑动到底部的事件
@@ -221,7 +236,7 @@ Page({
   },
   refresh: function (event) {
     //   该方法绑定了页面滑动到顶部的事件，然后做上拉刷新
-    page = 0;
+    this.data.page = 0;
     this.setData({
       list: [],
       scrollTop: 0
