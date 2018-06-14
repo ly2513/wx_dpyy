@@ -19,20 +19,19 @@ Page({
     })
   },
   onLoad: function () {
-    // wx.openSetting({
-    //   success: function success(resopen) {
-    //     resopen.authSetting = {
-    //       "scope.userInfo": true,
-    //       "scope.userLocation": true
-    //     }
-    //   }   
-    // });
+    this.setData({
+      hidden: true
+    });
   },
   userLogin:function(){
     var that = this;
+    this.setData({
+      hidden: false
+    });
     wx.login({
       success: function (res) {
         console.log(res);
+        
         if (res.code) {
           //发起网络请求
           wx.request({
@@ -53,8 +52,10 @@ Page({
                 method: 'POST',
                 header: { 'Content-Type': 'application/json' },
                 success: function (res) {
-                  console.log(res);
                   if (res.data.code === 0) {
+                    that.setData({
+                      hidden: true
+                    });
                     app.globalData.userInfo.avatarUrl = res.data.data.avatar_url;
                     app.globalData.userInfo.nickName = res.data.data.nickname;
                     wx.showModal({
@@ -98,6 +99,9 @@ Page({
                             success: function (res) {
                               console.log(res);
                               if (res.data.code === 0) {
+                                that.setData({
+                                  hidden: true
+                                });
                                 wx.showModal({
                                   title: '提示',
                                   content: '登录成功',
@@ -122,12 +126,7 @@ Page({
                                 wx.showModal({
                                   title: '提示',
                                   content: res.data.msg,
-                                  showCancel: false,
-                                  success: function (resbtn) {
-                                    if (resbtn.confirm) {
-
-                                    }
-                                  }
+                                  showCancel: false
                                 })
                                 console.log(res.data.msg)
                               }
@@ -139,27 +138,12 @@ Page({
                                 showCancel: false,
                                 success: function (resbtn) {
                                   if (resbtn.confirm) {
-                                    // wx.authorize({
-                                    //   scope: 'scope.userInfo',
-                                    //   success() {
-                                    //     // 用户已经同意小程序使用录音功能，后续调用 wx.startRecord 接口不会弹窗询问
-                                    //     wx.startRecord()
-                                    //   }
-                                    // });
                                     wx.openSetting({
                                       success: function success(resopen) {
-                                        console.log(resopen);
-                                        console.log(res.authSetting["scope.userInfo"]);
                                         //  获取用户数据
-                                        // that.checkSettingStatu();
                                         that.userLogin();
                                       }
                                     });
-                                    wx.getSystemInfo({
-                                      success:function(res){
-                                        console.log(res);
-                                      }
-                                    })
                                   }
                                 }
                               })
@@ -176,9 +160,6 @@ Page({
                             if (resbtn.confirm) {
                               wx.openSetting({
                                 success: function success(resopen) {
-                                  console.log(resopen);
-                                  //  获取用户数据
-                                  // that.checkSettingStatu();
                                 }
                               });
                             }

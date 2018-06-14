@@ -18,4 +18,7 @@
   <view class="" style='margin-top:6%;padding:9% 10%;'>
     <image src='/images/login_1.png' style='height:2.5em;width:12.5em;'></image>
   </view>
+  <view class="body-view">
+    <loading hidden="{{hidden}}" bindchange="loadingChange">登录中,请稍后...</loading>
+  </view>  
 </view>
