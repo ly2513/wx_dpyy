@@ -177,7 +177,7 @@ Page({
       url: url,
       data: {
         page: page,
-        perPage: page_size,
+        page_size: page_size,
         sort: sort,
         is_easy: is_easy,
         lange_id: lange_id,

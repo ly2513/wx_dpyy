@@ -1,9 +1,11 @@
 <!--login.wxml-->
 <view class="container" style='padding-top:4%;'>
+   
   <div class="img_div">
     <image src='/images/min_log.png' style='width:6em;height:2em;'></image>
   </div>
   <view class="userinfo">
+    <!-- 头像 -->
     <view style="width:100%;min-height:3.7em;">
       <view wx:if="{{!hasUserInfo && canIUse}}" style='float:left;'>
         <image bindtap="bindViewTap" class="userinfo-avatar" style="float:left;width:50px;" src="/images/head.png" background-size="cover" ></image>
@@ -14,19 +16,21 @@
       <block wx:else>
       <view style='float:left;'>
         <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover" ></image>
-        </view>
-        <view style='float:left;padding:15% 0% 0% 0%;'>
-          <text class="userinfo-nickname" >{{userInfo.nickName}}，欢迎你</text>
-        </view>
+      </view>
+      <view style='float:left;padding:15% 0% 0% 0%;'>
+        <text class="userinfo-nickname" >{{userInfo.nickName}}，欢迎你</text>
+      </view>
       </block> 
-      </view>
-      <view style="width:100%;">
-        <view type="default" class="info" style='background-color:#93bfdc;margin-top:5%;'> 您在达令熊这里的存货如下... </view>
-      </view>
-      <!-- <scroll-view scroll-top="{{scrollTop}}" scroll-y="true" style="height:{{scrollHeight}}px;" class="list" bindscrolltolower="bindDownLoad" bindscroll="scroll" bindscrolltoupper="refresh"> -->
-        <view style='padding-bottom:10%;width:100%;'>
-          <view class='list' style='margin-top:0rpx;margin-bottom:20rpx;' wx:for="{{orderList}}" wx:for-index="id" wx:for-item="value" wx:key="value" >
-          <view>
+    </view>
+    <!-- 标题 -->
+    <view style="width:100%;">
+      <view type="default" class="info" style='background-color:#93bfdc;margin-top:5%;'> 您在达令熊这里的存货如下... </view>
+    </view>
+  <!-- <scroll-view scroll-top="{{scrollTop}}" scroll-y="true" style="height:{{scrollHeight}}px;" class="list" bindscrolltolower="bindDownLoad" bindscroll="scroll" bindscrolltoupper="refresh">  -->
+    <!-- 列表开始 -->
+    <view style='padding-bottom:10%;width:100%;'>
+      <view class='list' style='margin-top:0rpx;margin-bottom:20rpx;' wx:for="{{orderList}}" wx:for-index="id" wx:for-item="value" wx:key="value" >
+        <view>
           <span>订单号：</span> <span> {{value.order_no}}</span> 
         </view> 
         <view style='padding-top:20rpx;'>
@@ -43,13 +47,15 @@
           <span class="green" wx:else> {{value.status}}</span>
           <button style="width:4em;height:2em;float:right;padding:2% 2%;font-size:15px;line-height:1.5em;background-color:#93bfdc" wx:if="{{value.status == '待支付' && value.price != 0}}" bindtap="payOrder" data-favorite="{{value.id}}">支付</button>  
         </view>
-      <!-- </scroll-view> -->
-        <!-- <view class="body-view">
-          <loading hidden="{{hidden}}" bindchange="loadingChange">加载中...</loading>
-        </view> -->
       </view>
     </view>
+    <!-- 列表结束 -->
+   <!-- </scroll-view> 
+  <view class="body-view">
+    <loading hidden="{{hidden}}" bindchange="loadingChange">加载中...</loading>
+  </view>  -->
   </view>
+  
   <view class="foot" >
      <image src='/images/min_foot.png' style='height:1.5em;width:6.5em;'></image>
   </view>

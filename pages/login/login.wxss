@@ -34,6 +34,18 @@
   padding-bottom: 3.1%;
 }
 
+.login_button1{
+background-color:#93bfdc;
+color:#000;
+width:14em;
+height:3em;
+margin-bottom:10%;
+font-size:37rpx;
+line-height:3em;
+border-radius:50em;
+margin-top: 15%
+}
+
 .xcx{
   width:3em;
   height:3em;
