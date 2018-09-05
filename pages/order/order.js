@@ -79,9 +79,9 @@ Page({
       })
     }
     this.getOrder();
-    // getList(this)
   },
   payOrder: function(e) {
+    console.log(111);
     var that = this;
     // 订单ID
     var id = e.currentTarget.dataset.favorite 
@@ -127,16 +127,43 @@ Page({
               if (res.data){
                 console.log(res.data.msg);
               }
-              alert('支付取消！');
+              wx.showModal({
+                title: '支付取消',
+                content: '支付取消。',
+                showCancel: false,
+                success: function (resbtn) {
+                  if (resbtn.confirm) {
+                    
+                  }
+                }
+              })
             }
           })
         }else{
+          console.log(res.data.code);
           console.log(res.data.msg);
-          alert('支付失败！');
+          wx.showModal({
+            title: '支付失败',
+            content: res.data.msg,
+            showCancel: true,
+            showSuccess: false,
+            success: function (resbtn) {
+              
+            }
+          })
         }
       }, fail:function(res){
         console.log(res.data.msg);
-        alert('支付失败！');
+        wx.showModal({
+          title: '支付失败',
+          content: '支付失败。',
+          showCancel: true,
+          success: function (resbtn) {
+            if (resbtn.confirm) {
+              
+            }
+          }
+        })
       }
     }); 
   },
@@ -177,7 +204,7 @@ Page({
       url: url,
       data: {
         page: page,
-        page_size: page_size,
+        perPage: page_size,
         sort: sort,
         is_easy: is_easy,
         lange_id: lange_id,
@@ -187,6 +214,9 @@ Page({
       success: function (res) {
         console.info(that.data.list);
         console.info(res);
+        that.setData({
+            orderList: res.data.data.list
+        })
         // var list = that.data.list;
         // for (var i = 0; i < res.data.list.length; i++) {
         //   list.push(res.data.list[i]);
