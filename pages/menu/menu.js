@@ -1,4 +1,4 @@
-//index.js
+// menu.js
 //获取应用实例
 const app = getApp()
 
@@ -80,9 +80,11 @@ Page({
     })
   },
   complaintProposal : function(e){ // 投诉建议 
+    console.log(22222);
     wx.navigateTo({
       url: '../proposal/proposal',
       success: function (res) {
+        console.log(11111);
         console.log('跳转成功');
       },
       fail: function (e) {

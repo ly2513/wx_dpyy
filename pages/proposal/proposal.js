@@ -8,7 +8,8 @@ Page({
     motto: 'Hello World',
     userInfo: {},
     hasUserInfo: false,
-    canIUse: wx.canIUse('button.open-type.getUserInfo')
+    canIUse: wx.canIUse('button.open-type.getUserInfo'),
+    modalHidden: true
   },
   //事件处理函数
   bindViewTap: function() {
@@ -56,6 +57,21 @@ Page({
       name: "南昌市沧达广告有限公司", //打开后显示的地址名称
       scale: 28,
       address: '沧达'  //打开后显示的地址汉字
+    })
+  },callQq:function(){ // 复制QQ号
+    wx.setClipboardData({
+      data: '1225599688',
+      success: function (res) {
+        wx.showModal({
+          title: '提示',
+          content: '复制QQ成功',
+          showCancel: false
+        });
+      }
+    })
+  },callWx:function(){
+    this.setData({
+      modalHidden: false
     })
   }
   

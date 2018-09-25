@@ -1,11 +1,71 @@
-<!--login.wxml-->
-<view class="container" style='padding-top:4%;'>
+<!-- order.wxml -->
+<view class="container">
+  <view >
+    <image src='/images/v1.1/logo_min.jpg' class='logo_img'></image>
+  </view>
+  <view class='line'></view>
+  <view class='content_view'>
+    <view class='order_view'>
+      <input type='text' placeholder='文件名称查询'  class='search_input'></input> 
+      <button type='button' style='width:25%;float:left;margin-left:5%;' open-type='share'>查询</button>
+    </view>
+    <view class='list'>
+      <view class='order_list'>
+        <view>
+          <span>文件名称:</span> 
+          <span> 023adasdas</span> 
+        </view> 
+        <view style='padding-top:20rpx;'>
+          <span>下单时间：</span> 
+          <span> 2018-9-01</span>  
+        </view>
+        <view style='padding-top:20rpx;'>
+          <span>金额：</span> 
+          <span > 0.00元</span>
+          <span class="yellow" style='float:right;'> 待支付</span>
+        </view>
+        <view style='padding-top:20rpx;'>
+          <button style='background-color:#005690;color:#fff'>支付</button>  
+        </view>
+      </view>
+      <view class='order_list'>
+        <view>
+          <span>文件名称:</span> 
+          <span> 023adasdas</span> 
+        </view> 
+        <view style='padding-top:20rpx;'>
+          <span>下单时间：</span> 
+          <span> 2018-9-01</span>  
+        </view>
+        <view style='padding-top:20rpx;'>
+          <span>金额：</span> 
+          <span > 0.00元</span>
+          <span class="green" style='float:right;'> 已完成</span>
+        </view>
+        <view style='padding-top:20rpx;'>
+          <button style='background-color:#ff9d06;color:#fff'>查看详情</button>  
+        </view>
+      </view>
+    </view>
+    
+  
+  
+  
+  
+  
+  </view>
+
+
+
+</view>
+
+
+<!-- <view class="container" style='padding-top:4%;'>
    
   <div class="img_div">
     <image src='/images/min_log.png' style='width:6em;height:2em;'></image>
   </div>
   <view class="userinfo">
-    <!-- 头像 -->
     <view style="width:100%;min-height:3.7em;">
       <view wx:if="{{!hasUserInfo && canIUse}}" style='float:left;'>
         <image bindtap="bindViewTap" class="userinfo-avatar" style="float:left;width:50px;" src="/images/head.png" background-size="cover" ></image>
@@ -22,12 +82,11 @@
       </view>
       </block> 
     </view>
-    <!-- 标题 -->
+
     <view style="width:100%;">
       <view type="default" class="info" style='background-color:#93bfdc;margin-top:5%;'> 您在达令熊这里的存货如下... </view>
     </view>
-  <!-- <scroll-view scroll-top="{{scrollTop}}" scroll-y="true" style="height:{{scrollHeight}}px;" class="list" bindscrolltolower="bindDownLoad" bindscroll="scroll" bindscrolltoupper="refresh">  -->
-    <!-- 列表开始 -->
+
     <view style='padding-bottom:10%;width:100%;'>
       <view class='list' style='margin-top:0rpx;margin-bottom:20rpx;' wx:for="{{orderList}}" wx:for-index="id" wx:for-item="value" wx:key="value" >
         <view>
@@ -52,14 +111,11 @@
 
       </view>
     </view>
-    <!-- 列表结束 -->
-   <!-- </scroll-view> 
-  <view class="body-view">
-    <loading hidden="{{hidden}}" bindchange="loadingChange">加载中...</loading>
-  </view>  -->
+
+
   </view>
   
   <view class="foot" >
      <image src='/images/min_foot.png' style='height:1.5em;width:6.5em;'></image>
   </view>
-</view>
+</view> -->

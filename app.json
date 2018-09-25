@@ -1,6 +1,5 @@
 {
   "pages":[
-    "pages/login/login",
     "pages/menu/menu",
     "pages/placeOrder/placeOrder",
     "pages/price/price",
@@ -11,11 +10,11 @@
     "pages/logs/logs"
   ],
   "window":{
-    "backgroundTextStyle":"light",
-    "navigationBarBackgroundColor": "#005690",
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#172b50",
     "navigationBarTitleText": "达派云印",
-    "navigationBarTextStyle":"write",
-    "backgroundColor": "#005690"
+    "navigationBarTextStyle": "write",
+    "backgroundColor": "#172b50"
   },
   "tabBar": {
     "color": "#ccc",

@@ -1,39 +1,24 @@
-<!--login.wxml-->
-<view class="container" style='padding-top:4%;'>
-  <div class="img_div">
-  <image src='/images/min_log.png' style='width:6em;height:2em;'></image>
-  </div>
-  <view class="userinfo">
-     <view style="width:100%;height:3.7em;">
-        <view wx:if="{{!hasUserInfo && canIUse}}" style='float:left;'>
-          <image bindtap="bindViewTap" class="userinfo-avatar" style="float:left;width:50px;" src="/images/head.png" background-size="cover" ></image>
-          <view style='float:left;padding:15% 0% 0% 0%;'>
-            <text class="userinfo-nickname" >达派云印，欢迎你</text>
-          </view>
-        </view>
-         <block wx:else>
-        <view style='float:left;'>
-         <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover" ></image>
-         </view>
-         <view style='float:left;padding:15% 0% 0% 0%;'>
-         <text class="userinfo-nickname" >{{userInfo.nickName}}，欢迎你</text>
-         </view>
-        </block> 
-     </view>
-     <view style="width:100%;margin-top:15%;">
-     <button type="default" class="login_button" bindtap="placeOrder" hover-class="other-button-hover" style='background-color:#93bfdc;margin-top:5%;' > 我要下单打印 </button>
-     </view>
-      <view style="width:100%;">
-       <button type="default" class="login_button" bindtap="myOrder"   hover-class="other-button-hover" style='background-color:#93bfdc;' open-type="navigate" > 查询我的订单 </button>
-      </view>
-      <view style="width:100%;">
-     <button type="default" class="login_button"  bindtap="servicePrice" hover-class="other-button-hover" style='background-color:#93bfdc;' > 服务价格查询 </button>
-     </view>
-      <view style="width:100%;">
-     <button type="default" class="login_button"  bindtap="complaintProposal" hover-class="other-button-hover" style='background-color:#93bfdc;' > 联系达令熊 </button>
-      </view>
+<!-- menu.wxml -->
+<view class="container">
+  <view >
+    <image src='/images/v1.1/logo_min.jpg' class='logo_img'></image>
   </view>
-  <view class="foot" >
-     <image src='/images/min_foot.png' style='height:1.5em;width:6.5em;'></image>
+  <view class='line'></view>
+  <view style='padding-bottom:8%'>
+    <button class='add_order share' open-type='share' plain='true' style='border:1px solid #172b50; ' bindtap="placeOrder"> 
+      <image src='/images/v1.1/add_order_button.jpg' style='width:300rpx;height:300rpx;'></image>
+    </button>
+  </view>
+  <view style='padding-bottom:2%;width:100%;'>
+      <button class='share asearch_order'  plain='true' style='border:1px solid #172b50;padding:0px;'> 
+        <image src='/images/v1.1/search_order_button.jpg' style='width:110px;height:50px;'></image>
+      </button>
+      <button class='share asearch_order' plain='true' style='border:1px solid #172b50;padding:0px;'     bindtap="complaintProposal"> 
+        <image src='/images/v1.1/contect_ours_button.jpg' style='width:110px;height:50px;'></image>
+      </button>
+  </view>
+  <view class='line' style='position:fixed;bottom:10%;'></view>
+  <view class="text"  >
+    <text >From :  沧达广告</text>
   </view>
 </view>
