@@ -70,9 +70,19 @@ Page({
       }
     })
   },callWx:function(){
-    this.setData({
-      modalHidden: false
+    wx.navigateTo({
+      url: '../wx/wx',
+      success: function (res) {
+        console.log('跳转成功');
+      },
+      fail: function (e) {
+        console.log(e);
+        console.log('跳转失败');
+      }
     })
+    // this.setData({
+    //   modalHidden: false
+    // })
   }
   
 })

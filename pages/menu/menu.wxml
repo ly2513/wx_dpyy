@@ -5,7 +5,7 @@
   </view>
   <view class='line'></view>
   <view style='padding-bottom:8%'>
-    <button class='add_order share' open-type='share' plain='true' style='border:1px solid #172b50; ' bindtap="placeOrder"> 
+    <button class='add_order share'  plain='true' style='border:1px solid #172b50; ' bindtap="placeOrder"> 
       <image src='/images/v1.1/add_order_button.jpg' style='width:300rpx;height:300rpx;'></image>
     </button>
   </view>
