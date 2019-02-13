@@ -4,17 +4,19 @@
     <image src='/images/v1.1/logo_min.jpg' class='logo_img'></image>
   </view>
   <view class='line'></view>
-  <view style='padding-bottom:8%'>
-    <button class='add_order share'  plain='true' style='border:1px solid #172b50; ' bindtap="placeOrder"> 
-      <image src='/images/v1.1/add_order_button.jpg' style='width:300rpx;height:300rpx;'></image>
+  <view>
+    <button class='add_order'  plain='true' style='border:1px solid #172b50; ' bindtap="placeOrder"> 
+      <image src='/images/v1.1/add_order_button.png' style='width:540rpx;height:240rpx;'></image>
     </button>
   </view>
   <view style='padding-bottom:2%;width:100%;'>
-      <button class='share asearch_order'  plain='true' style='border:1px solid #172b50;padding:0px;'> 
-        <image src='/images/v1.1/search_order_button.jpg' style='width:110px;height:50px;'></image>
+      <button class=' asearch_order'  plain='true' style='border:1px solid #172b50;padding:0px;' bindtap="myOrder"> 
+        <image src='/images/v1.1/search_order_button.png' style='width:540rpx;height:120rpx;'></image>
       </button>
-      <button class='share asearch_order' plain='true' style='border:1px solid #172b50;padding:0px;'     bindtap="complaintProposal"> 
-        <image src='/images/v1.1/contect_ours_button.jpg' style='width:110px;height:50px;'></image>
+  </view>
+  <view>
+      <button class=' asearch_order' plain='true' style='border:1px solid #172b50;padding:0px;'     bindtap="complaintProposal"> 
+        <image src='/images/v1.1/contect_ours_button.png' style='width:540rpx;height:120rpx;'></image>
       </button>
   </view>
   <view class='line' style='position:fixed;bottom:10%;'></view>

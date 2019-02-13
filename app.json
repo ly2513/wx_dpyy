@@ -1,20 +1,21 @@
 {
   "pages":[
+    "pages/login/login",
     "pages/menu/menu",
     "pages/placeOrder/placeOrder",
     "pages/price/price",
     "pages/order/order",
     "pages/proposal/proposal",
+    "pages/orderDetail/orderDetail",
     "pages/success/success",
     "pages/index/index",
-    "pages/wx/wx",
     "pages/logs/logs"
   ],
   "window":{
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#172b50",
     "navigationBarTitleText": "达派云印",
-    "navigationBarTextStyle": "write",
+    "navigationBarTextStyle": "white",
     "backgroundColor": "#172b50"
   },
   "tabBar": {

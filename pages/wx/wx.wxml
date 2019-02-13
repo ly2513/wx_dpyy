@@ -1,3 +1,0 @@
-<!--login.wxml-->
-<web-view src="{{requestUrl}}/Api/File/getQrCode"></web-view>
-  <!-- <web-view src="{{requestUrl}}/Api/File/success?open_id={{openId}}"></web-view>    -->

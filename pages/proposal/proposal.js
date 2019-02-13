@@ -1,15 +1,11 @@
-//index.js
 //获取应用实例
 const app = getApp()
 // wx.showNavigationBarLoading(); // 在当前页面显示导航条加载动画
 // wx.hideNavigationBarLoading(); // 隐藏导航条加载动画
 Page({
   data: {
-    motto: 'Hello World',
     userInfo: {},
     hasUserInfo: false,
-    canIUse: wx.canIUse('button.open-type.getUserInfo'),
-    modalHidden: true
   },
   //事件处理函数
   bindViewTap: function() {
@@ -44,7 +40,7 @@ Page({
   },
   callPhone:function(e){
     wx.makePhoneCall({// 拨打号码
-      phoneNumber: '18679128532' //电话号码
+      phoneNumber: '17779185328' //电话号码
     })
   },
   launchAppError: function (e) {
@@ -70,19 +66,19 @@ Page({
       }
     })
   },callWx:function(){
-    wx.navigateTo({
-      url: '../wx/wx',
+    wx.setClipboardData({
+      data: '爱在沧达',
       success: function (res) {
-        console.log('跳转成功');
-      },
-      fail: function (e) {
-        console.log(e);
-        console.log('跳转失败');
+        wx.showModal({
+          title: '提示',
+          content: '复制微信公众号成功',
+          showCancel: false
+        });
       }
     })
-    // this.setData({
-    //   modalHidden: false
-    // })
   }
-  
+  // ,// 分享
+  // onShareAppMessage: function () {
+
+  // }
 })

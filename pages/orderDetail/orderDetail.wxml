@@ -1,0 +1,46 @@
+<!-- orderDetail.wxml -->
+<view class="container">
+  <view >
+    <image src='/images/v1.1/logo_min.jpg' class='logo_img'></image>
+  </view>
+  <view class='line'></view>
+  <view class='title'>
+  订单<strong style='color:red;'>{{orderNo}}</strong>的详情
+  </view>
+  <view class="table">
+    <view class="tr">
+      <view class="th">文件名</view>
+      <view class="th-1">金额(元)</view>
+    </view>
+    <block wx:for="{{fileList}}" wx:key="index">
+      <view class="tr bg-g" wx:if="{{index % 2 == 0}}">
+        <view class="td-1 text" selectable="true">{{item.source_name}}</view>
+        <view class="td-2" selectable="true" scroll-y="true" >
+          <text class="th-text"  style="overflow-y:auto;overflow-x:scroll" selectable="true">{{item.price}}</text>
+        </view>
+      </view>
+      <view class="tr bg-g2" wx:else>
+        <view class="td-1" selectable="true">{{item.source_name}}</view>
+        <view class="td-2" selectable="true"  scroll-y="true" >
+          <text class="th-text"  style="overflow-y:auto;overflow-x:scroll" selectable="true">{{item.price}}</text>
+        </view>
+      </view>
+    </block>
+  </view>
+  <block wx:if="{{delivery_method == 2}}">
+  <view style="width:90%;padding:5% 5% 0% 5%;background-color:#fff" bindtap='callPhone'>
+  派送状态：{{delivery_status}} 
+  </view>
+  <view style="width:90%;padding:5% 5% 0% 5%;background-color:#fff" bindtap='callPhone'>
+  预计配送时间：{{time}}（当天）
+  </view>
+  <view style="width:90%;padding:5%;background-color:#fff;font-size:16px;" bindtap='callPhone'>
+  催单电话：17779185328（点击我直接拨打）
+  </view>
+  </block>
+  <block wx:if="{{delivery_method != 2}}">
+  <view style="width:90%;padding:5%;background-color:#fff;font-size:16px;" bindtap='callPhone'>
+  客服电话：17779185328（点击我直接拨打）
+  </view>
+  </block>
+</view>
