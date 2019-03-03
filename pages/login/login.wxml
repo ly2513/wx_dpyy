@@ -6,9 +6,12 @@
   <view>
     <image src='/images/v1.1/login_logo1.jpg' style='width:17em;height:7em;'></image>
   </view>
-  <button open-type='getUserInfo' bindtap='userLogin' type="default" class="login_button" hover-class="other-button-hover" style='background-color:#162c53;color:#fff' > 登陆达派 </button>
-  <view class="text" >
+  <button bindgetuserinfo='agreeGetUser' type="default" class="login_button" hover-class="other-button-hover" style='background-color:#162c53;color:#fff' open-type="getUserInfo"> 登陆达派 </button>
+  <!-- <view class="text" >
     <text >From :  沧达广告</text>
+  </view> -->
+   <view class="text" >
+    <text >登录即为同意达派云印《软件服务协议》</text>
   </view>
   <view class="body-view">
     <loading hidden="{{hidden}}" bindchange="loadingChange">登录中,请稍后...</loading>

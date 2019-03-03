@@ -1,4 +1,4 @@
-<!--login.wxml-->
+<!--proposal.wxml-->
 <view class="container">
   <view >
     <image src='/images/v1.1/logo_min.jpg' class='logo_img'></image>
@@ -7,28 +7,28 @@
   <view style='width:90%;height:100%;padding:5%'>
     <!-- QQ -->
     <button class='add_order share' plain='true' style='border:1px solid #172b50;padding:0px; ' bindtap="callQq"> 
-      <image src='/images/v1.1/qq_button.jpg' style='width:540rpx;height:140rpx;'></image>
+      <image src='/images/v1.1/qq_button.png' style='width:540rpx;height:140rpx;'></image>
     </button>
     <!-- phone -->
     <button class='add_order share' plain='true' style='border:1px solid #172b50;padding:0px; ' bindtap="callPhone"> 
-      <image src='/images/v1.1/phone_button.jpg' style='width:540rpx;height:140rpx;'></image>
+      <image src='/images/v1.1/phone_button.png' style='width:540rpx;height:140rpx;'></image>
     </button>
     <!-- map -->
     <button class='add_order share' plain='true' style='border:1px solid #172b50;padding:0px; ' bindtap="navigation"> 
-      <image src='/images/v1.1/map_button.jpg' style='width:540rpx;height:140rpx;'></image>
+      <image src='/images/v1.1/map_button.png' style='width:540rpx;height:140rpx;'></image>
     </button>
     <!-- weixin -->
     <button class='add_order share' plain='true' style='border:1px solid #172b50;padding:0px; ' bindtap='callWx' > 
-      <image src='/images/v1.1/weixin_button.jpg' style='width:540rpx;height:140rpx;'></image>
+      <image src='/images/v1.1/weixin_button.png' style='width:540rpx;height:140rpx;'></image>
     </button>
   </view>
   <!-- 弹框 -->
-  <modal title="识别我" hidden="{{modalHidden}}" no-cancel='true' confirm-text='关闭'>
+  <!-- <modal title="识别我" hidden="{{modalHidden}}" no-cancel='true' confirm-text='关闭'>
     <view>
       <image class="image" src="/images/v1.1/Qr_code.jpg" mode='aspectFill'></image>
     </view>
     <view style='text-align:center;'>长按识别二维码,进入达派云印公众号</view>
-  </modal>
+  </modal> -->
   <!-- 分割线 -->
   <view class='line' style='position:fixed;bottom:10%;'></view>
   <view class="text"  >

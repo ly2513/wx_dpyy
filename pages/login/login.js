@@ -24,167 +24,94 @@ Page({
       hidden: true
     });
   },
-  userLogin:function(){
+  //获取用户信息新接口
+  agreeGetUser: function (e) {
+    //设置用户信息本地存储
+    try {
+      wx.setStorageSync('userInfo', e.detail.userInfo)
+    } catch (e) {
+      wx.showToast({
+        title: '系统提示:网络错误',
+        icon: 'warn',
+        duration: 1500,
+      })
+    }
+    let that = this
+    this.setData({
+      hidden: false
+    })
+    that.userLogin(e.detail.userInfo)
+  },
+  userLogin: function (e) {
     var that = this;
     this.setData({
       hidden: false
     });
+    app.globalData.userInfo = e;
+    console.log(e);
     wx.login({
       success: function (res) {
-        console.log(res);
-        
         if (res.code) {
-          //发起网络请求
+          // 登录后台
           wx.request({
-            url: app.globalData.requestUrl + '/Api/Login/getOpenId/' + res.code,
-            data: {},
-            header: {
-              'content-type': 'application/json'
-            },
+            url: app.globalData.requestUrl + '/Api/Login/login/' + res.code,
+            dataType: 'json',
+            data: app.globalData.userInfo,
+            method: 'POST',
+            header: { 'Content-Type': 'application/json' },
             success: function (res) {
               console.log(res);
-              app.globalData.openId = res.data.openid; //返回openid
-              app.globalData.userInfo.openid = res.data.openid;
-              // 登录后台
-              wx.request({
-                url: app.globalData.requestUrl + '/Api/Login/login',
-                data: app.globalData.userInfo,
-                dataType: 'json',
-                method: 'POST',
-                header: { 'Content-Type': 'application/json' },
-                success: function (res) {
-                  if (res.data.code === 0) {
+              if (res.data.code === 0) {
+                app.globalData.openId = res.data.data.open_id; //返回openid
+                that.setData({
+                  hidden: true
+                });
+                wx.showModal({
+                  title: '提示',
+                  content: '登录成功',
+                  showCancel: false,
+                  success: function (resbtn) {
+                    if (resbtn.confirm) {
+                      // 登录成功后跳转到首页
+                      wx.switchTab({
+                        url: '../menu/menu',
+                        success: function (res) {
+                          console.log('跳转成功');
+                        },
+                        fail: function (e) {
+                          console.log(e);
+                          console.log('跳转失败');
+                        }
+                      })
+                    }
+                  }
+                })
+              } else {
+                wx.showModal({
+                  title: '提示',
+                  content: '登录失败，请重新登陆',
+                  showCancel: false,
+                  success: function (resbtn) {
                     that.setData({
                       hidden: true
                     });
-                    app.globalData.userInfo.avatarUrl = res.data.data.avatar_url;
-                    app.globalData.userInfo.nickName = res.data.data.nickname;
-                    wx.showModal({
-                      title: '提示',
-                      content: '登录成功',
-                      showCancel: false,
-                      success: function (resbtn) {
-                        
-                        if (resbtn.confirm) {
-                          // 登录成功后跳转到首页
-                          wx.switchTab({
-                            url: '../menu/menu',
-                            success: function (res) {
-                              console.log('跳转成功');
-                            },
-                            fail: function (e) {
-                              console.log(e);
-                              console.log('跳转失败');
-                            }
-                          })
-                        }
-                      }
-                    })
-                  } else {
-                    // 获取用户信息
-                    wx.getUserInfo({
-                      success: function (res) {
-                        console.log(res);
-                        console.log(3333);
-                        app.globalData.userInfo = res.userInfo
-                        // openid
-                        app.globalData.userInfo.openid = app.globalData.openId;
-                        if (app.globalData.userInfo) {
-                          // 添加会员信息
-                          wx.request({
-                            url: app.globalData.requestUrl + '/Api/Login/addMember',
-                            data: app.globalData.userInfo,
-                            dataType: 'json',
-                            method: 'POST',
-                            header: { 'Content-Type': 'application/json' },
-                            success: function (res) {
-                              console.log(res);
-                              if (res.data.code === 0) {
-                                that.setData({
-                                  hidden: true
-                                });
-                                wx.showModal({
-                                  title: '提示',
-                                  content: '登录成功',
-                                  showCancel: false,
-                                  success: function (resbtn) {
-                                    if (resbtn.confirm) {
-                                      // 登录成功后跳转到首页
-                                      wx.switchTab({
-                                        url: '../menu/menu',
-                                        success: function (res) {
-                                          console.log('跳转成功');
-                                        },
-                                        fail: function (e) {
-                                          console.log(e);
-                                          console.log('跳转失败');
-                                        }
-                                      })
-                                    }
-                                  }
-                                })
-                              } else {
-                                wx.showModal({
-                                  title: '提示',
-                                  content: res.data.msg,
-                                  showCancel: false
-                                })
-                                console.log(res.data.msg)
-                              }
-                            },
-                            fail: function () {
-                              wx.showModal({
-                                title: '用户未授权',
-                                content: '如需正常使用该小程序功能，请按确定并在授权管理中选中“用户信息”，然后点按确定。最后再重新进入小程序即可正常使用。',
-                                showCancel: false,
-                                success: function (resbtn) {
-                                  if (resbtn.confirm) {
-                                    wx.openSetting({
-                                      success: function success(resopen) {
-                                        //  获取用户数据
-                                        that.userLogin();
-                                      }
-                                    });
-                                  }
-                                }
-                              })
-                              console.log('请求失败!')
-                            }
-                          })
-                        }
-                      }, fail: function (res) {
-                        wx.showModal({
-                          title: '用户未授权',
-                          content: '如需正常使用该小程序功能，请按确定并在授权管理中选中“用户信息”，然后点按确定。最后再重新进入小程序即可正常使用。',
-                          showCancel: false,
-                          success: function (resbtn) {
-                            if (resbtn.confirm) {
-                              wx.openSetting({
-                                success: function success(resopen) {
-                                }
-                              });
-                            }
-                          }
-                        })
-                        console.log(res);
-                        
-                      }
-                    })
+                    that.agreeGetUser();
+                    that.userLogin();
                   }
-                },
-                fail: function () {
-                  wx.showModal({
-                    title: '提示',
-                    content: '服务器异常!',
-                    showCancel: false,
-                    success: function (resbtn) {
-                      
-                    }
-                  })
-                  console.log('服务器异常!')
+                })
+              }
+            },
+            fail: function () {
+              wx.showModal({
+                title: '提示',
+                content: '服务器休息了!',
+                showCancel: false,
+                success: function (resbtn) {
+                  that.setData({
+                    hidden: true
+                  });
                 }
               })
-              
             }
           })
         } else {
@@ -192,7 +119,5 @@ Page({
         }
       }
     });
-  },checkSettingStatu:function(){
-
   }
 })
