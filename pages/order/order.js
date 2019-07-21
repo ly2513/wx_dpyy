@@ -214,7 +214,45 @@ Page({
     //       })
     //     }
     //   }
-    // });
+    // })
+    var url = app.globalData.requestUrl + '/Api/Order/getOrder?open_id=' + app.globalData.openId;
+    var page = 0;
+    var page_size = 20;
+    var sort = "last";
+    var is_easy = 0;
+    var lange_id = 0;
+    var pos_id = 0;
+    var unlearn = 0;
+    this.setData({
+      hidden: false
+    });
+    wx.request({
+      url: url,
+      data: {
+        page: page,
+        perPage: page_size,
+        sort: sort,
+        is_easy: is_easy,
+        lange_id: lange_id,
+        pos_id: pos_id,
+        unlearn: unlearn
+      },
+      success: function (res) {
+        console.info(that.data.list);
+        console.info(res);
+        // var list = that.data.list;
+        // for (var i = 0; i < res.data.list.length; i++) {
+        //   list.push(res.data.list[i]);
+        // }
+        // that.setData({
+        //   list: list
+        // });
+        // page++;
+        // that.setData({
+        //   hidden: true
+        // });
+      }
+    });
   },
   onShow: function () {
     //   在页面展示之后先获取一次数据

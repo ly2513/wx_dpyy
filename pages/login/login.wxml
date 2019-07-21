@@ -15,6 +15,7 @@
       <text >达派云印专线QQ  \n 122 5599 688</text>
     </view>
   </view>
+  
   <view class="" style='margin-top:6%;padding:9% 10%;'>
     <image src='/images/login_1.png' style='height:2.5em;width:12.5em;'></image>
   </view>
