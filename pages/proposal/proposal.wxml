@@ -1,5 +1,51 @@
-<!--login.wxml-->
-<view class="container" style='padding-top:4%;'>
+<!--proposal.wxml-->
+<view class="container">
+  <view >
+    <image src='/images/v1.1/logo_min.jpg' class='logo_img'></image>
+  </view>
+  <view class='line'></view>
+  <view style='width:90%;height:100%;padding:5%'>
+    <!-- QQ -->
+    <button class='add_order share' plain='true' style='border:1px solid #172b50;padding:0px; ' bindtap="callQq"> 
+      <image src='/images/v1.1/qq_button.png' style='width:540rpx;height:140rpx;'></image>
+    </button>
+    <!-- phone -->
+    <button class='add_order share' plain='true' style='border:1px solid #172b50;padding:0px; ' bindtap="callPhone"> 
+      <image src='/images/v1.1/phone_button.png' style='width:540rpx;height:140rpx;'></image>
+    </button>
+    <!-- map -->
+    <button class='add_order share' plain='true' style='border:1px solid #172b50;padding:0px; ' bindtap="navigation"> 
+      <image src='/images/v1.1/map_button.png' style='width:540rpx;height:140rpx;'></image>
+    </button>
+    <!-- weixin -->
+    <button class='add_order share' plain='true' style='border:1px solid #172b50;padding:0px; ' bindtap='callWx' > 
+      <image src='/images/v1.1/weixin_button.png' style='width:540rpx;height:140rpx;'></image>
+    </button>
+  </view>
+  <!-- 弹框 -->
+  <!-- <modal title="识别我" hidden="{{modalHidden}}" no-cancel='true' confirm-text='关闭'>
+    <view>
+      <image class="image" src="/images/v1.1/Qr_code.jpg" mode='aspectFill'></image>
+    </view>
+    <view style='text-align:center;'>长按识别二维码,进入达派云印公众号</view>
+  </modal> -->
+  <!-- 分割线 -->
+  <view class='line' style='position:fixed;bottom:10%;'></view>
+  <view class="text"  >
+    <text >From :  沧达广告</text>
+  </view>
+
+
+
+
+
+
+</view>
+
+
+
+
+<!-- <view class="container" style='padding-top:4%;'>
   <div class="img_div">
   <image src='/images/min_log.png' style='width:6em;height:2em;'></image>
   </div>
@@ -34,14 +80,9 @@
      </view>
       <view style="width:100%;">
      <button type="default" class="login_button"  bindtap="navigation" hover-class="other-button-hover" style='background-color:#93bfdc;' > 地址:点击直接导航</button>
-     <!-- <map id="map" longitude="116.715790" latitude="23.362490" markers="{{markers}}"  
-scale="18"  style="width: 100%; height: 300px;" bindtap="click">  
-</map> -->
-     <!-- <map-route route-info="{{routeInfo}}" style="padding:10%"></map-route> -->
-
       </view>
   </view>
   <view class="foot" >
      <image src='/images/min_foot.png' style='height:1.5em;width:6.5em;'></image>
   </view>
-</view>
+</view> -->

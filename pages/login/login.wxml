@@ -1,23 +1,17 @@
 <!--login.wxml-->
-<view class="container" style='padding-top:20%;'>
-  <view style='width:75%;padding:0% 20%;'>
-  <image src='/images/log.png' style='width:15em;height:5em;'></image>
+<view class="container" style='padding-top:16%;'>
+  <view>
+    <image src='/images/v1.1/login_logo.jpg' style='width:6em;height:8em;'></image>
   </view>
-  <!-- <view class="userinfo">
-    <image src='/images/xcx.png' class='xcx'></image>
-     <view type="default" class="login_button" bindtap='userLogin' hover-class="other-button-hover"  open-type='getUserInfo' style='background-color:#4b6e74;color:#ffffff;' > <text>登入达派云印</text>
-    </view> 
+  <view>
+    <image src='/images/v1.1/login_logo1.jpg' style='width:17em;height:7em;'></image>
+  </view>
+  <button bindgetuserinfo='agreeGetUser' type="default" class="login_button" hover-class="other-button-hover" style='background-color:#162c53;color:#fff' open-type="getUserInfo"> 登陆达派 </button>
+  <!-- <view class="text" >
+    <text >From :  沧达广告</text>
   </view> -->
-  <button open-type='getUserInfo' bindtap='userLogin' type="default" class="login_button1" hover-class="other-button-hover" style='background-color:#93bfdc;' > 登入达派云印 </button>
-  <view class="userinfo">
-    <image src='/images/qq.png' class='qq'style="width:2.2em;"></image>
-    <view  class="qq_div"  style='background-color:#b3c1c1;color:#ffffff;' > 
-      <text >达派云印专线QQ  \n 122 5599 688</text>
-    </view>
-  </view>
-  
-  <view class="" style='margin-top:6%;padding:9% 10%;'>
-    <image src='/images/login_1.png' style='height:2.5em;width:12.5em;'></image>
+   <view class="text" >
+    <text >登录即为同意达派云印《软件服务协议》</text>
   </view>
   <view class="body-view">
     <loading hidden="{{hidden}}" bindchange="loadingChange">登录中,请稍后...</loading>

@@ -6,16 +6,17 @@
     "pages/price/price",
     "pages/order/order",
     "pages/proposal/proposal",
+    "pages/orderDetail/orderDetail",
     "pages/success/success",
     "pages/index/index",
     "pages/logs/logs"
   ],
   "window":{
-    "backgroundTextStyle":"light",
-    "navigationBarBackgroundColor": "#005690",
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#172b50",
     "navigationBarTitleText": "达派云印",
-    "navigationBarTextStyle":"black",
-    "backgroundColor": "#005690"
+    "navigationBarTextStyle": "white",
+    "backgroundColor": "#172b50"
   },
   "tabBar": {
     "color": "#ccc",

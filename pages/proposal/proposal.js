@@ -1,14 +1,11 @@
-//index.js
 //获取应用实例
 const app = getApp()
 // wx.showNavigationBarLoading(); // 在当前页面显示导航条加载动画
 // wx.hideNavigationBarLoading(); // 隐藏导航条加载动画
 Page({
   data: {
-    motto: 'Hello World',
     userInfo: {},
     hasUserInfo: false,
-    canIUse: wx.canIUse('button.open-type.getUserInfo')
   },
   //事件处理函数
   bindViewTap: function() {
@@ -43,7 +40,7 @@ Page({
   },
   callPhone:function(e){
     wx.makePhoneCall({// 拨打号码
-      phoneNumber: '18679128532' //电话号码
+      phoneNumber: '17779185328' //电话号码
     })
   },
   launchAppError: function (e) {
@@ -57,6 +54,31 @@ Page({
       scale: 28,
       address: '沧达'  //打开后显示的地址汉字
     })
+  },callQq:function(){ // 复制QQ号
+    wx.setClipboardData({
+      data: '1225599688',
+      success: function (res) {
+        wx.showModal({
+          title: '提示',
+          content: '复制QQ成功',
+          showCancel: false
+        });
+      }
+    })
+  },callWx:function(){
+    wx.setClipboardData({
+      data: '爱在沧达',
+      success: function (res) {
+        wx.showModal({
+          title: '提示',
+          content: '复制微信公众号成功',
+          showCancel: false
+        });
+      }
+    })
   }
-  
+  // ,// 分享
+  // onShareAppMessage: function () {
+
+  // }
 })

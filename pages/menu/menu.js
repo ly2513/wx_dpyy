@@ -1,4 +1,4 @@
-//index.js
+// menu.js
 //获取应用实例
 const app = getApp()
 
@@ -90,7 +90,11 @@ Page({
         console.log('跳转失败');
       }
     })
-  }
+  },
+  // 分享
+  // onShareAppMessage: function () {
+
+  // }
 })
 
 

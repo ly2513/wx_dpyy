@@ -17,3 +17,7 @@ const formatNumber = n => {
 module.exports = {
   formatTime: formatTime
 }
+// 分享
+wx.showShareMenu({
+  withShareTicket: true
+})

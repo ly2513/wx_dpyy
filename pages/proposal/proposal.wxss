@@ -1,5 +1,26 @@
 /**menu.wxss**/
-.userinfo {
+ .logo_img{
+  width:17em;
+  height:6em;
+  padding:5% 0%
+}
+.line{
+  width:100%;
+  height:10rpx;
+  background-color:#fff;
+}
+.text{
+  margin-top:5%;
+  color:#fff;
+  position: fixed;
+  bottom:3%;
+}
+
+
+
+
+
+/* .userinfo {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -61,4 +82,4 @@ box-sizing:border-box;
 text-decoration:none;
 -webkit-tap-highlight-color:transparent;
 overflow:hidden;
-}
+} */

@@ -1,65 +1,78 @@
-<!--login.wxml-->
-<view class="container" style='padding-top:4%;'>
-   
-  <div class="img_div">
-    <image src='/images/min_log.png' style='width:6em;height:2em;'></image>
-  </div>
-  <view class="userinfo">
-    <!-- 头像 -->
-    <view style="width:100%;min-height:3.7em;">
-      <view wx:if="{{!hasUserInfo && canIUse}}" style='float:left;'>
-        <image bindtap="bindViewTap" class="userinfo-avatar" style="float:left;width:50px;" src="/images/head.png" background-size="cover" ></image>
-        <view style='float:left;padding:15% 0% 0% 0%;'>
-          <text class="userinfo-nickname" >达派云印，欢迎你</text>
-        </view>
-      </view>
-      <block wx:else>
-      <view style='float:left;'>
-        <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover" ></image>
-      </view>
-      <view style='float:left;padding:15% 0% 0% 0%;'>
-        <text class="userinfo-nickname" >{{userInfo.nickName}}，欢迎你</text>
-      </view>
-      </block> 
+<view class="container">
+  <view >
+    <image src='/images/v1.1/logo_min.jpg' class='logo_img'></image>
+  </view>
+  <view class='line'></view>
+  <scroll-view class="" style="height: 1208rpx" scroll-y="true" bindscrolltoupper="refresh" bindscrolltolower="loadMore">
+  <!-- 主要订单内容 -->
+  <view class='content_view'>
+    <view class='order_view'>
+      <input type='text' placeholder='请输入文件名称查询' class='search_input'  bindinput='formName' name="{{file_name}}"></input> 
+      <button type='button' class='button_search' bindtap='seachOrder' style='padding:0px;'>查询</button>
+      <button type='button' class='button_search flash_button' bindtap='seachOrder'style='padding:0px;'>刷新</button>
     </view>
-    <!-- 标题 -->
-    <view style="width:100%;">
-      <view type="default" class="info" style='background-color:#93bfdc;margin-top:5%;'> 您在达令熊这里的存货如下... </view>
-    </view>
-  <!-- <scroll-view scroll-top="{{scrollTop}}" scroll-y="true" style="height:{{scrollHeight}}px;" class="list" bindscrolltolower="bindDownLoad" bindscroll="scroll" bindscrolltoupper="refresh">  -->
-    <!-- 列表开始 -->
-    <view style='padding-bottom:10%;width:100%;'>
-      <view class='list' style='margin-top:0rpx;margin-bottom:20rpx;' wx:for="{{orderList}}" wx:for-index="id" wx:for-item="value" wx:key="value" >
-        <view>
-          <span>订单号：</span> <span> {{value.order_no}}</span> 
-        </view> 
-        <view style='padding-top:20rpx;'>
-          <span>下单时间：</span> <span> {{value.create_time}}</span>  
-        </view>
-        <view style='padding-top:20rpx;'>
-          <span>金额：</span> 
-          <span wx:if="{{value.price == 0}}"> 正在核算中</span>  
-          <span wx:else> {{value.price}}元</span>
-        </view>
-        <view style='padding-top:20rpx;'>
-          <span>订单状态：</span> 
-          <span class="yellow" wx:if="{{value.status == '待支付'}}"> {{value.status}}</span>
-          <span class="green" wx:else> {{value.status}}</span>
-          <button style="width:4em;height:2em;float:right;padding:2% 2%;font-size:15px;line-height:1.5em;background-color:#93bfdc" wx:if="{{value.status == '待支付' && value.price != 0}}" bindtap="payOrder" data-favorite="{{value.id}}">支付</button>  
+      <view class='list' wx:for="{{contentlist}}" wx:key="index">
+        <view class='order_list'>
+          <view>
+            <span>订单编号:</span> 
+            <span> {{item.order_no}}</span> 
+            <block wx:if="{{item.status==1}}">
+            <button class='cancel' bindtap='cancelOrder' data-order_id="{{item.id}}" style='padding:0px;'>取消</button> 
+            </block>
+          </view> 
+          <view style='padding-top:20rpx;'>
+            <span>下单时间：</span> 
+            <span> {{item.create_time}}</span>  
+          </view>
+          <view style='padding-top:20rpx;'>
+            <span>金额：</span> 
+            <block wx:if="{{item.is_first==1}}">
+            <span > {{item.discount_price}}元</span>
+            </block>
+            <block wx:else>
+            <span > {{item.price}}元</span>
+            </block>
+            <block wx:if="{{item.status==1}}">
+            <span class="yellow" style='float:right;'> {{item.status_str}}</span>
+            </block>
+            <block wx:if="{{item.status!=1}}">
+            <span class="green" style='float:right;'> {{item.status_str}}</span>
+            </block>
+          </view>
+          <block wx:if="{{item.is_first==1}}">
+            <block wx:if="{{item.status==1 && item.discount_price!='0.00'}}">
+            <view style='padding-top:20rpx;height:50px;width100%;' wx:if="{{item.status==1}}">
+              <button  class="button" style='background-color:#ff9d06;' bindtap='getOrderDetail' data-order_id="{{item.id}}" data-order_no="{{item.order_no}}">查看详情</button> 
+              <button class="button"style='background-color:#005690;' bindtap='payOrder' data-favorite="{{item.id}}">支付</button>  
+            </view>
+            </block>
+            <block wx:else>
+              <view style='padding-top:20rpx;'>
+                <button style='background-color:#ff9d06;color:#fff' bindtap='getOrderDetail' data-order_id="{{item.id}}" data-order_no="{{item.order_no}}">查看详情 </button>  
+              </view>
+            </block>
+          </block>
+          <block wx:else>
+            <block wx:if="{{item.status==1 && item.price !='0.00'}}">
+            <view style='padding-top:20rpx;height:50px;width100%;' wx:if="{{item.status==1}}">
+              <button  class="button" style='background-color:#ff9d06;' bindtap='getOrderDetail' data-order_id="{{item.id}}" data-order_no="{{item.order_no}}">查看详情</button> 
+              <button class="button"style='background-color:#005690;' bindtap='payOrder' data-favorite="{{item.id}}">支付</button>  
+            </view>
+            </block>
+            <block wx:else>
+              <view style='padding-top:20rpx;'>
+                <button style='background-color:#ff9d06;color:#fff' bindtap='getOrderDetail' data-order_id="{{item.id}}" data-order_no="{{item.order_no}}">查看详情 </button>  
+              </view>
+            </block>
+          </block>
         </view>
         <view class="loading" hidden="{{!searchLoading}}">正在载入更多...</view>
       <view class="loading complete" hidden="{{!searchLoadingComplete}}">已加载全部</view>
 
       </view>
     </view>
-    <!-- 列表结束 -->
-   <!-- </scroll-view> 
-  <view class="body-view">
-    <loading hidden="{{hidden}}" bindchange="loadingChange">加载中...</loading>
-  </view>  -->
-  </view>
-  
-  <view class="foot" >
-     <image src='/images/min_foot.png' style='height:1.5em;width:6.5em;'></image>
+  </scroll-view>
+  <view class="bottom" hidden="{{hideBottom}}">
+    <view >{{loadMoreData}}</view>
   </view>
 </view>
