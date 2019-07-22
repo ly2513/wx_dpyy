@@ -14,7 +14,7 @@
     "backgroundTextStyle":"light",
     "navigationBarBackgroundColor": "#005690",
     "navigationBarTitleText": "达派云印",
-    "navigationBarTextStyle":"write",
+    "navigationBarTextStyle":"black",
     "backgroundColor": "#005690"
   },
   "tabBar": {
@@ -37,8 +37,5 @@
         "text": "我的订单"
       }
     ]
-  },
-  "usingComponents": {
-    "map-route": "plugin://myPlugin/mapRoute"
   }
 }
