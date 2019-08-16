@@ -5,7 +5,7 @@ app.globalData.userInfo = {};
 var dev = true;
 // https://www.lovecangda.com
 // 后端地址
-app.globalData.requestUrl = (dev === true) ? 'http://127.0.0.1:1025' : 'https://www.lovecangda.com';
+app.globalData.requestUrl = (dev === false) ? 'http://127.0.0.1:1025' : 'https://www.dpyunyin.com';
 // openID
 app.globalData.openId = '';
 Page({
