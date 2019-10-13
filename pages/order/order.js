@@ -53,6 +53,7 @@ Page({
       url: app.globalData.requestUrl + '/Api/Order/getOrder',
       data: {
         open_id: app.globalData.openId,
+        union_id: app.globalData.unionId,
         perPage: 5,
         page: pageIndex,
         fileName: this.data.file_name

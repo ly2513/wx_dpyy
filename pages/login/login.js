@@ -8,6 +8,7 @@ var dev = true;
 app.globalData.requestUrl = (dev === false) ? 'http://127.0.0.1:1025' : 'https://www.dpyunyin.com';
 // openID
 app.globalData.openId = '';
+app.globalData.unionId = '';
 Page({
   data: {
     userInfo: {},
@@ -63,6 +64,7 @@ Page({
               console.log(res);
               if (res.data.code === 0) {
                 app.globalData.openId = res.data.data.open_id; //返回openid
+                app.globalData.unionId = res.data.data.union_id; //返回unionid
                 that.setData({
                   hidden: true
                 });

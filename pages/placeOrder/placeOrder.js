@@ -14,11 +14,13 @@ Page({
   },
   onLoad: function () {
     console.log(app.globalData.openId);
+    console.log(app.globalData.unionId);
     if (app.globalData.userInfo) {
       this.setData({
         userInfo: app.globalData.userInfo,
         hasUserInfo: true,
         openId: app.globalData.openId,
+        unionId: app.globalData.unionId,
         requestUrl: app.globalData.requestUrl
       })
     }
