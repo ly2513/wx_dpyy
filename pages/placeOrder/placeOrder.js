@@ -14,11 +14,14 @@ Page({
   },
   onLoad: function () {
     console.log(app.globalData.openId);
+    console.log(app.globalData.unionId);
+    console.log(app.globalData.requestUrl + '/Api/File/index?union_id=' + app.globalData.unionId);
     if (app.globalData.userInfo) {
       this.setData({
         userInfo: app.globalData.userInfo,
         hasUserInfo: true,
         openId: app.globalData.openId,
+        unionId: app.globalData.unionId,
         requestUrl: app.globalData.requestUrl
       })
     }
