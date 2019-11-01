@@ -24,15 +24,22 @@
     "borderStyle": "black",
     "list": [
       {
-        "selectedIconPath": "images/home.png",
-        "iconPath": "images/home_cc.png",
+        "selectedIconPath": "images/home_blue.png",
+        "iconPath": "images/home_black.png",
         "pagePath": "pages/menu/menu",
         "color":"#000",
         "text": "首页"
       },
       {
-        "selectedIconPath": "images/order.png",
-        "iconPath": "images/order_cc.png",
+        "selectedIconPath": "images/add_blue.png",
+        "iconPath": "images/add_black.png",
+        "pagePath": "pages/menu/menu",
+        "color": "#000",
+        "text": "上传打印"
+      },
+      {
+        "selectedIconPath": "images/order_blue1.png",
+        "iconPath": "images/order_black.png",
         "pagePath": "pages/order/order",
         "color": "#000",
         "text": "我的订单"
