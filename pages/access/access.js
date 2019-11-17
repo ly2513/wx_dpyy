@@ -2,10 +2,10 @@
 //获取应用实例
 const app = getApp();
 app.globalData.userInfo = {};
-var dev = false;
+var dev = true;
 // https://www.lovecangda.com
 // 后端地址
-app.globalData.requestUrl = (dev === false) ? 'http://127.0.0.1:1026' : 'https://dp-stg.dpyunyin.com';
+app.globalData.requestUrl = (dev === false) ? 'http://127.0.0.1:1026' : 'https://www.dpyunyin.com';
 // openID
 app.globalData.openId = '';
 app.globalData.unionId = '';

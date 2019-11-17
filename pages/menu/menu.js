@@ -5,6 +5,7 @@ app.globalData.openId = '';
 app.globalData.unionId = '';
 Page({
   data: {
+    phone:''
   },
   //事件处理函数
   bindViewTap: function() {
@@ -35,6 +36,10 @@ Page({
         hasUserInfo: true
       })
     }
+    // 设置手机号码
+    this.setData({
+      phone: app.globalData.phone,
+    })
   },
   getUserInfo: function(e) {
     console.log(e)
@@ -92,89 +97,63 @@ Page({
       }
     })
   },
-  //获取用户信息新接口
-  agreeGetUser: function (e) {
-    //设置用户信息本地存储
-    try {
-      wx.setStorageSync('userInfo', e.detail.userInfo)
-    } catch (e) {
-      wx.showToast({
-        title: '系统提示:网络错误',
-        icon: 'warn',
-        duration: 1500,
-      })
-    }
-    let that = this
-    this.setData({
-      hidden: false
-    })
-    that.userLogin(e.detail.userInfo)
-  },
-  userLogin: function (e) {
+  getPhoneNumber: function (e) { // 手机号码授权
+    var ivObj = e.detail.iv
+    var telObj = e.detail.encryptedData
+    var codeObj = "";
     var that = this;
-    this.setData({
-      hidden: false
-    });
-    app.globalData.userInfo = e;
-    console.log(e);
+    if (e.detail.errMsg == 'getPhoneNumber:fail user deny') { //用户点击拒绝
+      wx.showModal({
+        title: '提示',
+        content: '拒绝授权!',
+        showCancel: false,
+        success: function (resbtn) {
+
+        }
+      })
+      return false;
+    }
+    //------执行Login
     wx.login({
-      success: function (res) {
+      success: res => {
+        console.log('code转换', res.code); //用code传给服务器调换session_key
         if (res.code) {
-          // 登录后台
           wx.request({
-            url: app.globalData.requestUrl + '/Api/Login/login/' + res.code,
+            url: app.globalData.requestUrl + '/Api/Login/getWxPhone', //接口地址
             dataType: 'json',
-            data: app.globalData.userInfo,
+            data: { code: res.code, encryptedData: telObj, iv: ivObj },
             method: 'POST',
-            header: { 'Content-Type': 'application/json' },
+            header: { 'content-type': 'application/json' },// 默认值
             success: function (res) {
               console.log(res);
-              if (res.data.code === 0) {
-                app.globalData.openId = res.data.data.open_id; //返回openid
-                app.globalData.unionId = res.data.data.union_id; //返回unionid
-                that.setData({
-                  hidden: true
-                });
+              if (res.data.code == 0) {
+                //存储数据并准备发送给下一页使用
+                app.globalData.phone = res.data.data.phoneNumber;
                 wx.showModal({
-                  title: '登陆提示',
-                  content: '登录成功',
-                  showCancel: true,
+                  title: '提示',
+                  content: '授权成功!',
+                  showCancel: false,
                   success: function (resbtn) {
-                    if (resbtn.confirm) {
-                      // 登录成功后跳转到首页
-                      wx.switchTab({
-                        url: '../menu/menu',
-                        success: function (res) {
-                          console.log('跳转成功');
-                        },
-                        fail: function (e) {
-                          console.log(e);
-                          console.log('跳转失败');
-                        }
-                      })
-                    }
+
                   }
                 })
               } else {
                 wx.showModal({
-                  title: '告示',
-                  content: '亲爱的小达达们：达派云印小程序正在更新升级中，烦请移驾网站版下单，谢谢！请期待更新后的小程序为您带来更佳的体验吧！',
-                  showCancel: true,
+                  title: '提示',
+                  content: res.data.msg,
+                  showCancel: false,
                   success: function (resbtn) {
                     that.setData({
                       hidden: true
                     });
-
-                    //that.agreeGetUser();
-                    //that.userLogin();
                   }
                 })
               }
             },
-            fail: function () {
+            fail: function (e) {
               wx.showModal({
-                title: '登陆提示',
-                content: '服务器休息了!',
+                title: '提示',
+                content: '授权失败！',
                 showCancel: false,
                 success: function (resbtn) {
                   that.setData({
@@ -184,9 +163,17 @@ Page({
               })
             }
           })
-        } else {
-          console.log('获取用户登录态失败！' + res.errMsg)
         }
+      }
+    });
+    //---------登录有效期检查
+    wx.checkSession({
+      success: function () {
+        //session_key 未过期，并且在本生命周期一直有效
+      },
+      fail: function () {
+        // session_key 已经失效，需要重新执行登录流程
+        wx.login() //重新登录
       }
     });
   }
