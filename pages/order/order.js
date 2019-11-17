@@ -185,11 +185,64 @@ Page({
       }
     });
   },
+  reAddOrder: function (e) { // 再次下单
+    // 订单ID
+    var id = e.currentTarget.dataset.order_id;
+    console.log(id);
+    // 再次下单
+    wx.request({
+      url: app.globalData.requestUrl + '/Api/Order/reAddOrder/' + id,//后台语言的处理 
+      method: 'POST',
+      header: { 'content-type': 'application/json', 'content-type': 'application/x-www-form-urlencoded' },
+      dataType: 'json',
+      success: function (res) {
+        if (res.data.code == 0) {
+          wx.showModal({
+            title: '提示',
+            content: '下单成功',
+            showCancel: true,
+            success: function (resbtn) {
+              if (resbtn.confirm) {
+                aa.setData({
+                  currentPage: 1,
+                  hideHeader: false
+                })
+                aa.getData();
+              }
+            }
+          })
+        } else {
+          wx.showModal({
+            title: '支付失败',
+            content: res.data.msg,
+            showCancel: true,
+            showSuccess: false,
+            success: function (resbtn) {
+
+            }
+          })
+        }
+      }, fail: function (res) {
+        console.log(res.data.msg);
+        wx.showModal({
+          title: '支付失败',
+          content: '支付失败。',
+          showCancel: true,
+          success: function (resbtn) {
+            if (resbtn.confirm) {
+
+            }
+          }
+        })
+      }
+    });
+  },
   getOrderDetail: function(e){ // 订单详情
     var that = this;
     // 订单ID
     var id = e.currentTarget.dataset.order_id;
     var orderNo = e.currentTarget.dataset.order_no;
+    console.log(id);
     console.log(orderNo);
     // 登录成功后跳转到首页
     wx.navigateTo({
@@ -235,6 +288,18 @@ Page({
       }
     });
   },
+  autoFile: function() {
+    wx.navigateTo({
+      url: '../placeOrder/placeOrder',
+      success: function (res) {
+        console.log('跳转成功');
+      },
+      fail: function (e) {
+        console.log(e);
+        console.log('跳转失败');
+      }
+    })
+  }
   // 分享
   // onShareAppMessage: function () {
 

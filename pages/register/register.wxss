@@ -1,15 +1,12 @@
+
+
 page,.page {
+	height:100%;
   background-color: #29abe0;
 }
 
-.logo_img{  
-  width:15.8em;
-  height:4.5em;
-  padding:7.7% 0% 6.0% 0%;
-}
-
 .weui-form{
-  padding:5% 0 0;
+  padding:56px 0 0;
   padding:calc(56px + constant(safe-area-inset-top)) constant(safe-area-inset-right) constant(safe-area-inset-bottom) constant(safe-area-inset-left);
   padding:calc(56px + env(safe-area-inset-top)) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
   display:-webkit-box;

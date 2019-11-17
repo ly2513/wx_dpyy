@@ -1,8 +1,8 @@
 /** menu.wxss **/
-.logo_img{
-  width:17em;
-  height:6em;
-  padding:5% 0%
+.logo_img{  
+  width:15.8em;
+  height:4.5em;
+  padding:7.7% 0% 6.0% 0%;
 }
 .line{
   width:100%;

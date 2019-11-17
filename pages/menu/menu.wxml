@@ -1,26 +1,27 @@
 <!-- menu.wxml -->
 <view class="container">
   <view >
-    <image src='/images/v1.1/logo_min.jpg' class='logo_img'></image>
+    <image src='/images/v1.1/new_small_logo.png' class='logo_img'></image>
   </view>
   <view class='line'></view>
-  <view>
-    <button class='add_order'  plain='true' style='border:1px solid #172b50; ' bindtap="placeOrder"> 
+  <view style='margin-top:20rpx;margin-bottom:17px'>
+    <button class='add_order'  plain='true' style='border:1px solid #29abe0;font-size:8px ' bindtap="placeOrder"> 
       <image src='/images/v1.1/add_order_button.png' style='width:540rpx;height:240rpx;'></image>
+
     </button>
   </view>
-  <view style='padding-bottom:2%;width:100%;'>
-      <button class=' asearch_order'  plain='true' style='border:1px solid #172b50;padding:0px;' bindtap="myOrder"> 
+  <view style='padding-bottom:6%;width:100%;'>
+      <button class=' asearch_order'  plain='true' style='border:1px solid #29abe0;font-size:8px' bindtap="myOrder" > 
         <image src='/images/v1.1/search_order_button.png' style='width:540rpx;height:120rpx;'></image>
       </button>
   </view>
   <view>
-      <button class=' asearch_order' plain='true' style='border:1px solid #172b50;padding:0px;'     bindtap="complaintProposal"> 
+      <button class=' asearch_order' plain='true' style='border:1px solid #29abe0;font-size:8px'     bindtap="complaintProposal"> 
         <image src='/images/v1.1/contect_ours_button.png' style='width:540rpx;height:120rpx;'></image>
       </button>
   </view>
   <view class='line' style='position:fixed;bottom:10%;'></view>
   <view class="text"  >
-    <text >From :  沧达广告</text>
+    <text >达派创投旗下直营品牌</text>
   </view>
 </view>

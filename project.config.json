@@ -12,7 +12,7 @@
 		"uglifyFileName": true
 	},
 	"compileType": "miniprogram",
-	"libVersion": "1.9.96",
+	"libVersion": "2.9.3",
 	"appid": "wxdf7ab6b5266fa384",
 	"projectname": "wx_dpyy",
 	"isGameTourist": false,

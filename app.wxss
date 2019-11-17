@@ -7,8 +7,10 @@
   justify-content: space-between;
   /* padding: 200rpx 0; */
   box-sizing: border-box;
-  background-color: #172b50;
+  background-color: #29abe0;
 } 
 page{
-  background-color: #172b50;
+  background-color: #29abe0;
 }
+
+

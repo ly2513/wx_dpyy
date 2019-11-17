@@ -1,2 +1,2 @@
 <!--login.wxml-->
-<web-view src="{{requestUrl}}/Api/File/index?union_id={{unionId}}"></web-view>    
+<web-view src="{{requestUrl}}" class="page"></web-view>    

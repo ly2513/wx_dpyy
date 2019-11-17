@@ -1,24 +1,24 @@
 <!--proposal.wxml-->
 <view class="container">
   <view >
-    <image src='/images/v1.1/logo_min.jpg' class='logo_img'></image>
+    <image src='/images/v1.1/new_small_logo.png' class='logo_img'></image>
   </view>
   <view class='line'></view>
   <view style='width:90%;height:100%;padding:5%'>
     <!-- QQ -->
-    <button class='add_order share' plain='true' style='border:1px solid #172b50;padding:0px; ' bindtap="callQq"> 
+    <button class='add_order share' plain='true' style='border:1px solid #29abe0;padding:0px; ' bindtap="callQq"> 
       <image src='/images/v1.1/qq_button.png' style='width:540rpx;height:140rpx;'></image>
     </button>
     <!-- phone -->
-    <button class='add_order share' plain='true' style='border:1px solid #172b50;padding:0px; ' bindtap="callPhone"> 
+    <button class='add_order share' plain='true' style='border:1px solid #29abe0;padding:0px; ' bindtap="callPhone"> 
       <image src='/images/v1.1/phone_button.png' style='width:540rpx;height:140rpx;'></image>
     </button>
     <!-- map -->
-    <button class='add_order share' plain='true' style='border:1px solid #172b50;padding:0px; ' bindtap="navigation"> 
+    <button class='add_order share' plain='true' style='border:1px solid #29abe0;padding:0px; ' bindtap="navigation"> 
       <image src='/images/v1.1/map_button.png' style='width:540rpx;height:140rpx;'></image>
     </button>
     <!-- weixin -->
-    <button class='add_order share' plain='true' style='border:1px solid #172b50;padding:0px; ' bindtap='callWx' > 
+    <button class='add_order share' plain='true' style='border:1px solid #29abe0;padding:0px; ' bindtap='callWx' > 
       <image src='/images/v1.1/weixin_button.png' style='width:540rpx;height:140rpx;'></image>
     </button>
   </view>

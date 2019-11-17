@@ -1,8 +1,8 @@
 /* pages/orderDetail/orderDetail.wxss */
- .logo_img{
-  width:17em;
-  height:6em;
-  padding:5% 0%
+.logo_img{  
+  width:15.8em;
+  height:4.5em;
+  padding:7.7% 0% 6.0% 0%;
 }
 .line{
   width:100%;
@@ -10,7 +10,7 @@
   background-color:#fff;
 }
 .table {
-  border: 1px solid darkgray;
+  border: 1px solid #2c2c2c;
   width: 100%;
   margin-bottom: 10rpx;
 }
@@ -27,7 +27,7 @@
   color: #fff;
   display: flex;
   align-items: center;
-  border-right: 1px solid darkgray;
+  border-right: 1px solid #2c2c2c;
   padding:2%;
   height: 68%;
 }

@@ -1,17 +1,11 @@
 //index.js
 //获取应用实例
-const app = getApp();
-app.globalData.userInfo = {};
-var dev = false;
-// https://www.lovecangda.com
-// 后端地址
-app.globalData.requestUrl = (dev === false) ? 'http://127.0.0.1:1026' : 'https://www.dpyunyin.com';
-// openID
-app.globalData.openId = '';
-app.globalData.unionId = '';
+const app = getApp()
+var utilMd5 = require('../../js/md5.js');
 Page({
   data: {
     userInfo: {},
+    hasUserInfo: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo')
   },
   //事件处理函数
@@ -21,35 +15,81 @@ Page({
     })
   },
   onLoad: function () {
-    this.setData({
-      hidden: true
-    });
-  },
-  //获取用户信息新接口
-  agreeGetUser: function (e) {
-    //设置用户信息本地存储
-    try {
-      wx.setStorageSync('userInfo', e.detail.userInfo)
-    } catch (e) {
-      wx.showToast({
-        title: '系统提示:网络错误',
-        icon: 'warn',
-        duration: 1500,
+    if (app.globalData.userInfo) {
+      this.setData({
+        userInfo: app.globalData.userInfo,
+        hasUserInfo: true
+      })
+    } else if (this.data.canIUse){
+      // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
+      // 所以此处加入 callback 以防止这种情况
+      app.userInfoReadyCallback = res => {
+        this.setData({
+          userInfo: res.userInfo,
+          hasUserInfo: true
+        })
+      }
+    } else {
+      // 在没有 open-type=getUserInfo 版本的兼容处理
+      wx.getUserInfo({
+        success: res => {
+          app.globalData.userInfo = res.userInfo
+          this.setData({
+            userInfo: res.userInfo,
+            hasUserInfo: true
+          })
+        }
       })
     }
-    let that = this
-    this.setData({
-      hidden: false
-    })
-    that.userLogin(e.detail.userInfo)
   },
-  userLogin: function (e) {
-    var that = this;
-    this.setData({
-      hidden: false
-    });
-    app.globalData.userInfo = e;
+  getInputPhone: function (e) {// 获取手机号码
     console.log(e);
+    var that = this;
+    that.setData({
+      phone: e.detail.value
+    })
+  },
+  getInputPassword: function (e) {// 获取密码
+    console.log(e);
+    var that = this;
+    that.setData({
+      password: e.detail.value
+    })
+  },
+  login: function(){
+    var that = this;
+    if (that.data.phone == ''){
+      wx.showModal({
+        title: '提示',
+        content: '请输入手机号',
+        showCancel: false,
+        success: function (resbtn) {
+          that.setData({
+            hidden: true
+          });
+        }
+      })
+      console.log(phone);
+      return false;
+    }
+    if (that.data.password == '') {
+      wx.showModal({
+        title: '提示',
+        content: '请输入密码',
+        showCancel: false,
+        success: function (resbtn) {
+          that.setData({
+            hidden: true
+          });
+        }
+      })
+      console.log(phone);
+      return false;
+    }
+    var password = utilMd5.hexMD5(that.data.password); 
+    app.globalData.userInfo.password = password;
+    app.globalData.userInfo.phone = that.data.phone;
+    console.log(app.globalData.userInfo);
     wx.login({
       success: function (res) {
         if (res.code) {
@@ -69,9 +109,9 @@ Page({
                   hidden: true
                 });
                 wx.showModal({
-                  title: '提示',
+                  title: '登陆提示',
                   content: '登录成功',
-                  showCancel: false,
+                  showCancel: true,
                   success: function (resbtn) {
                     if (resbtn.confirm) {
                       // 登录成功后跳转到首页
@@ -90,23 +130,20 @@ Page({
                 })
               } else {
                 wx.showModal({
-                  title: '提示',
-                  content: '登录失败，请重新登陆',
-                  showCancel: false,
+                  title: '告示',
+                  content: '亲爱的小达达们：达派云印小程序正在更新升级中，烦请移驾网站版下单，谢谢！请期待更新后的小程序为您带来更佳的体验吧！',
+                  showCancel: true,
                   success: function (resbtn) {
                     that.setData({
                       hidden: true
                     });
-
-                    //that.agreeGetUser();
-                    //that.userLogin();
                   }
                 })
               }
             },
             fail: function () {
               wx.showModal({
-                title: '提示',
+                title: '登陆提示',
                 content: '服务器休息了!',
                 showCancel: false,
                 success: function (resbtn) {
@@ -122,5 +159,17 @@ Page({
         }
       }
     });
+  },
+  getUserInfo: function(e) {
+    console.log(e)
+    app.globalData.userInfo = e.detail.userInfo
+    this.setData({
+      userInfo: e.detail.userInfo,
+      hasUserInfo: true
+    })
+  },
+  cancel: function (e) { // 取消
+    // 跳转到登陆页面
+    wx.navigateBack({})
   }
 })

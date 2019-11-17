@@ -1,0 +1,22 @@
+<!-- login.wxml -->
+<view class="container" style='padding-top:16%;'>
+  <view>
+    <image src='/images/v1.1/new_big_logo.png' style='width:21em;height:15em;'></image>
+  </view>
+  <view style='float:left;'>
+    <!-- <button type="default" class="login_button" hover-class="other-button-hover" style='background-color:#29abe0;color:#fff;margin-right:2em;' open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber" > 注册 </button> -->
+    <button bindgetuserinfo='agreeGetUser' type="default" class="login_button" hover-class="other-button-hover" style='background-color:#29abe0;color:#fff' open-type="getUserInfo"> 开始使用 </button>
+  </view>
+  
+  <view class='explain'>
+    说明：<view>达派云印将为您提供在线打印服务</view>
+    <view>您可以在登录后进行文件下单打印</view> 
+    <view>以及对您已经上传的订单进行查询</view> 
+  </view>
+  <view class="text" >
+    <navigator url="../agree/agree">登录即为同意达派云印《软件服务协议》</navigator>
+  </view>
+  <view class="body-view">
+    <loading hidden="{{hidden}}" bindchange="loadingChange">登录中,请稍后...</loading>
+  </view>  
+</view>

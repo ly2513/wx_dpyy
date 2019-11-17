@@ -1,25 +1,30 @@
 {
   "pages":[
-    "pages/login/login",
     "pages/menu/menu",
+    "pages/access/access",
+
+
+    "pages/register/register",
+    "pages/login/login",
     "pages/placeOrder/placeOrder",
     "pages/price/price",
     "pages/order/order",
     "pages/proposal/proposal",
     "pages/orderDetail/orderDetail",
     "pages/success/success",
+    "pages/agree/agree",
     "pages/index/index",
     "pages/logs/logs"
   ],
   "window":{
     "backgroundTextStyle": "light",
-    "navigationBarBackgroundColor": "#172b50",
+    "navigationBarBackgroundColor": "#29abe0",
     "navigationBarTitleText": "达派云印",
     "navigationBarTextStyle": "white",
-    "backgroundColor": "#172b50"
+    "backgroundColor": "#29abe0"
   },
   "tabBar": {
-    "color": "#ccc",
+    "color": "#2c2c2c",
     "selectedColor": "#005690",
     "borderStyle": "black",
     "list": [
@@ -27,21 +32,12 @@
         "selectedIconPath": "images/home_blue.png",
         "iconPath": "images/home_black.png",
         "pagePath": "pages/menu/menu",
-        "color":"#000",
         "text": "首页"
-      },
-      {
-        "selectedIconPath": "images/add_blue.png",
-        "iconPath": "images/add_black.png",
-        "pagePath": "pages/menu/menu",
-        "color": "#000",
-        "text": "上传打印"
       },
       {
         "selectedIconPath": "images/order_blue1.png",
         "iconPath": "images/order_black.png",
         "pagePath": "pages/order/order",
-        "color": "#000",
         "text": "我的订单"
       }
     ]

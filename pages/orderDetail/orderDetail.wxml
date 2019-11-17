@@ -1,7 +1,7 @@
 <!-- orderDetail.wxml -->
 <view class="container">
   <view >
-    <image src='/images/v1.1/logo_min.jpg' class='logo_img'></image>
+    <image src='/images/v1.1/new_small_logo.png' class='logo_img'></image>
   </view>
   <view class='line'></view>
   <view class='title'>

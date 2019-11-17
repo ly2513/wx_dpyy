@@ -1,0 +1,24 @@
+/**login.wxss**/
+.login_button{
+width:10em;
+height:3em;
+margin-bottom:10%;
+font-size:large;
+line-height:3em;
+border: 4rpx #fff solid;
+letter-spacing:3rpx;
+/* margin-top: 17% */
+float: left;
+}
+
+.text{
+  margin-top:6%;
+  padding:9% 10%;
+  color:#fff;
+}
+
+.explain{
+   color: #fff;
+}
+
+
