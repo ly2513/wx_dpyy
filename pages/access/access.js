@@ -5,7 +5,7 @@ app.globalData.userInfo = {};
 var dev = true;
 // https://www.lovecangda.com
 // 后端地址
-app.globalData.requestUrl = (dev === false) ? 'http://127.0.0.1:1026' : 'https://www.dpyunyin.com';
+app.globalData.requestUrl = (dev === false) ? 'http://127.0.0.1:1025' : 'https://dp-stg.dpyunyin.com';
 // openID
 app.globalData.openId = '';
 app.globalData.unionId = '';
@@ -76,8 +76,8 @@ Page({
                   })
                 } else {
                   wx.showModal({
-                    title: '告示',
-                    content: '亲爱的小达达们：达派云印小程序正在更新升级中，烦请移驾网站版下单，谢谢！请期待更新后的小程序为您带来更佳的体验吧！',
+                    title: '提示',
+                    content: res.data.msg,
                     showCancel: true,
                     success: function (resbtn) {
                       that.setData({
@@ -115,10 +115,6 @@ Page({
     that.userLogin(e.detail.userInfo)
   },
   userLogin: function (e) {
-    var that = this;
-    this.setData({
-      hidden: true
-    });
     // 设置用户信息
     app.globalData.userInfo = e;
     // 跳转到登陆页面
@@ -126,87 +122,87 @@ Page({
     //   url: '../login/login',
     // })
   },
-  getPhoneNumber: function (e){ // 手机号码授权
-    var ivObj = e.detail.iv
-    var telObj = e.detail.encryptedData
-    var codeObj = "";
-    var that = this;
-    if (e.detail.errMsg == 'getPhoneNumber:fail user deny') { //用户点击拒绝
-      wx.showModal({
-        title: '提示',
-        content: '拒绝授权!',
-        showCancel: false,
-        success: function (resbtn) {
+  // getPhoneNumber: function (e){ // 手机号码授权
+  //   var ivObj = e.detail.iv
+  //   var telObj = e.detail.encryptedData
+  //   var codeObj = "";
+  //   var that = this;
+  //   if (e.detail.errMsg == 'getPhoneNumber:fail user deny') { //用户点击拒绝
+  //     wx.showModal({
+  //       title: '提示',
+  //       content: '拒绝授权!',
+  //       showCancel: false,
+  //       success: function (resbtn) {
          
-        }
-      })
-      return false;
-    }
-    //------执行Login
-    wx.login({
-      success: res => {
-        console.log('code转换', res.code); //用code传给服务器调换session_key
-        if (res.code) {
-          wx.request({
-            url: app.globalData.requestUrl + '/Api/Login/getWxPhone', //接口地址
-            dataType: 'json',
-            data: {code: res.code,encryptedData: telObj,iv: ivObj},
-            method: 'POST',
-            header: { 'content-type': 'application/json'  },// 默认值
-            success: function (res) {
-              console.log(res);
-              if(res.data.code ==0){
-                //phoneObj = res.data.phoneNumber;
-                console.log("手机号=", res.data.data.phoneNumber)
-                //存储数据并准备发送给下一页使用
-                wx.setStorage(
-                  { key: "phoneNo",data: res.data.data.phoneNumber}
-                );
-                wx.setStorage(
-                  { key: "unionId", data: res.data.data.unionId }
-                );
-                // 跳转到注册页面
-                wx.navigateTo({
-                  url: '../register/register',
-                })
-              } else {
-                wx.showModal({
-                  title: '提示',
-                  content: res.data.msg,
-                  showCancel: false,
-                  success: function (resbtn) {
-                    that.setData({
-                      hidden: true
-                    });
-                  }
-                })
-              }
-            },
-            fail:function(e){
-              wx.showModal({
-                title: '提示',
-                content: '授权失败！',
-                showCancel: false,
-                success: function (resbtn) {
-                  that.setData({
-                    hidden: true
-                  });
-                }
-              })
-            }
-          })
-        }
-      }
-    });
-    //---------登录有效期检查
-    wx.checkSession({
-      success: function () {
-        //session_key 未过期，并且在本生命周期一直有效
-      },
-      fail: function () {
-        // session_key 已经失效，需要重新执行登录流程
-        wx.login() //重新登录
-      }
-    });
-  }
+  //       }
+  //     })
+  //     return false;
+  //   }
+  //   //------执行Login
+  //   wx.login({
+  //     success: res => {
+  //       console.log('code转换', res.code); //用code传给服务器调换session_key
+  //       if (res.code) {
+  //         wx.request({
+  //           url: app.globalData.requestUrl + '/Api/Login/getWxPhone', //接口地址
+  //           dataType: 'json',
+  //           data: {code: res.code,encryptedData: telObj,iv: ivObj},
+  //           method: 'POST',
+  //           header: { 'content-type': 'application/json'  },// 默认值
+  //           success: function (res) {
+  //             console.log(res);
+  //             if(res.data.code ==0){
+  //               //phoneObj = res.data.phoneNumber;
+  //               console.log("手机号=", res.data.data.phoneNumber)
+  //               //存储数据并准备发送给下一页使用
+  //               wx.setStorage(
+  //                 { key: "phoneNo",data: res.data.data.phoneNumber}
+  //               );
+  //               wx.setStorage(
+  //                 { key: "unionId", data: res.data.data.unionId }
+  //               );
+  //               // 跳转到注册页面
+  //               wx.navigateTo({
+  //                 url: '../register/register',
+  //               })
+  //             } else {
+  //               wx.showModal({
+  //                 title: '提示',
+  //                 content: res.data.msg,
+  //                 showCancel: false,
+  //                 success: function (resbtn) {
+  //                   that.setData({
+  //                     hidden: true
+  //                   });
+  //                 }
+  //               })
+  //             }
+  //           },
+  //           fail:function(e){
+  //             wx.showModal({
+  //               title: '提示',
+  //               content: '授权失败！',
+  //               showCancel: false,
+  //               success: function (resbtn) {
+  //                 that.setData({
+  //                   hidden: true
+  //                 });
+  //               }
+  //             })
+  //           }
+  //         })
+  //       }
+  //     }
+  //   });
+  //   //---------登录有效期检查
+  //   wx.checkSession({
+  //     success: function () {
+  //       //session_key 未过期，并且在本生命周期一直有效
+  //     },
+  //     fail: function () {
+  //       // session_key 已经失效，需要重新执行登录流程
+  //       wx.login() //重新登录
+  //     }
+  //   });
+  // }
 })

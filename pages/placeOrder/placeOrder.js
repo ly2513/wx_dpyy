@@ -16,6 +16,7 @@ Page({
   onLoad: function () {
     var flag = Math.floor(Math.random() * 10);
     if (app.globalData.userInfo) {
+      console.log(app.globalData.requestUrl + '/Api/File/index?union_id=' + app.globalData.unionId + '&falg=' + flag);
       this.setData({
         userInfo: app.globalData.userInfo,
         hasUserInfo: true,
