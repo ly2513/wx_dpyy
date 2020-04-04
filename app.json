@@ -1,5 +1,5 @@
 {
-  "pages":[
+  "pages": [
     "pages/access/access",
     "pages/menu/menu",
     "pages/register/register",
@@ -14,7 +14,7 @@
     "pages/index/index",
     "pages/logs/logs"
   ],
-  "window":{
+  "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#29abe0",
     "navigationBarTitleText": "达派云印",
@@ -39,5 +39,6 @@
         "text": "我的订单"
       }
     ]
-  }
+  },
+  "sitemapLocation": "sitemap.json"
 }

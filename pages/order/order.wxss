@@ -79,3 +79,18 @@ font-size: 12px;
    background-color: green;
    color: #fff;
  }
+ .store_name{
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space:nowrap;
+ }
+
+ .th {
+  /* justify-content: center; */
+  color: black;
+  display: flex;
+  
+  /* align-items: center; */
+  /* border: 1px solid #2c2c2c; */
+}

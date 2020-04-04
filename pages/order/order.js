@@ -62,6 +62,16 @@ Page({
         var dataModel = res.data;
         console.log(dataModel);
         if (dataModel.code == 0) {
+          for(var i=0;i<dataModel.data.list.length;i++){
+            // console.log("i="+i);
+            // console.log(dataModel.data.list[i].order_no);
+            var first_no=dataModel.data.list[i].order_no.substring(0,9);
+            var last_no=dataModel.data.list[i].order_no.substring(9);
+            // console.log('first:'+first_no);
+            // console.log('last:'+last_no);
+            dataModel.data.list[i].first_no=first_no.trim();
+            dataModel.data.list[i].last_no=last_no.trim();
+          }
           if (pageIndex == 1) { // 下拉刷新
             self.setData({
               allPages: dataModel.data.totalPage,
@@ -242,11 +252,17 @@ Page({
     // 订单ID
     var id = e.currentTarget.dataset.order_id;
     var orderNo = e.currentTarget.dataset.order_no;
+    var status=e.currentTarget.dataset.status;
+    var store_name=e.currentTarget.dataset.store_name;
+    var phone_no=e.currentTarget.dataset.phone_no;
+    console.log(store_name);
+    console.log(phone_no);
     console.log(id);
-    console.log(orderNo);
+    console.log(status);
+    console.log(phone_no);
     // 登录成功后跳转到首页
     wx.navigateTo({
-      url: '../orderDetail/orderDetail?order_id=' + id + '&orderNo=' + orderNo,
+      url: '../orderDetail/orderDetail?order_id=' + id + '&orderNo=' + orderNo+'&status='+status+'&store_name='+store_name+'&phone_no='+phone_no,
       success: function (res) {
         
       },
@@ -288,6 +304,15 @@ Page({
       }
     });
   },
+
+  showtoast:function(e){
+    console.log(e.currentTarget.dataset.content);
+      wx.showToast({
+        title: e.currentTarget.dataset.content,
+        icon:'none',
+      })
+  },
+  
   autoFile: function() {
     wx.navigateTo({
       url: '../placeOrder/placeOrder',
