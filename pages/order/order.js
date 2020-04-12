@@ -152,6 +152,15 @@ Page({
                       hideHeader: false
                     })
                     aa.getData();
+                    wx.requestSubscribeMessage({
+                      tmplIds: ['fUBqODd2mYiBNkasdBseV1InmntcrHvKNOdUCJwqNrM'],
+                      success(res){
+                        console.log(res.errMsg+res.TEMPLATE_ID);
+                      },
+                      fail(res){
+                        console.log(res.errCode+res.errMsg);
+                      }
+                    })
                   }
                 }
               })

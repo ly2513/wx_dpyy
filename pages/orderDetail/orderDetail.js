@@ -72,20 +72,200 @@ Page({
       }
     });
   },
+  ifFile: function (cachePath) {
+    wx.getFileSystemManager().access({
+      path: cachePath,
+      success(res) {
+        console.log("路径存在");
+        return true;
+      },
+      fail(res) {
+        console.log("路径不存在")
+        return false;
+      }
+    })
+  },
+  mkdir: function (cachePath) {
+    let fm = wx.getFileSystemManager();
+    fm.mkdir({
+      dirPath: cachePath,
+      recursive: true,
+      success: function (res) {
+
+      },
+      fail: function (err) {
+        // wx.showToast({
+        //   // title: 'title',
+        //   // icon: "none"
+        // })
+      }
+    });
+  },
+  downFile: function (file_path, source_name) {
+    var self = this;
+    var timestamp = Date.parse(new Date());
+    timestamp = timestamp / 1000;
+    console.log("当前时间戳为：" + timestamp);
+    var url = app.globalData.requestUrl + '/Api/Order/getFile?' + "1=" + encodeURI(file_path) + "&2=" + encodeURI(source_name)+"&3="+encodeURI(timestamp);
+    console.log(url);
+    // wx.getFileSystemManager().mkdirSync( "/dpyy",true)
+    var rootPath = wx.env.USER_DATA_PATH;
+    var cachePath = rootPath + "/dpyy";
+    if (!self.ifFile(cachePath)) {
+      console.log("创建路径");
+      self.mkdir(cachePath);
+    }
+    wx.showLoading({
+      title: '下载中......',
+      mask: true
+    })
+    wx.downloadFile({
+      url: url,
+      filePath: cachePath + "/" + source_name,
+      success(res) {
+        console.log(res.filePath);
+        wx.openDocument({
+          filePath: res.filePath,
+        })
+      },
+      fail(res) {
+        console.log(res.errMsg);
+      },
+      complete() {
+        wx.hideLoading({
+          complete: (res) => { },
+        })
+      }
+    })
+  },
+  getfile: function (e) {
+    // console.log(encodeURI("张宝刚")); 
+    var self = this;
+    var file_path = e.currentTarget.dataset.file_path;
+    var source_name = e.currentTarget.dataset.source_name;
+    console.log(file_path);
+    console.log(source_name);
+
+
+    // var url = app.globalData.requestUrl + '/Api/Order/getFile?' + "file_path=" + file_path + "&source_name=" + source_name;
+    //         console.log(url);
+    //         // wx.getFileSystemManager().mkdirSync( "/dpyy",true)
+    //         var rootPath = wx.env.USER_DATA_PATH;
+    //         var cachePath = rootPath+"/cache";
+    //         if(!this.ifFile(cachePath)){
+    //           this.mkdir(cachePath);
+    //         }
+    //         wx.downloadFile({
+    //           url: url,
+    //           filePath: cachePath+"/"+source_name,
+    //           success(res) {
+    //             console.log(res.filePath);
+    //             wx.openDocument({
+    //               filePath: res.filePath,
+    //             })
+    //           },
+    //           fail(res) {
+    //             console.log(res.errMsg);
+    //           }
+    //         })
+
+
+    wx.checkIsSupportSoterAuthentication({
+      success(res) {
+        var str = "";
+        // for(var i=0;i<res.supportMode.length;i++){
+        //   console.log(res.supportMode[i]);
+        //   str=str+res.supportMode[i];
+        // }
+        var modeType = ""
+        var isFinger = false;
+        for (var i = 0; i < res.supportMode.length; i++) {
+          if (res.supportMode[i] == 'fingerPrint') {
+            isFinger = true;
+            modeType = "fingerPrint";
+          }
+        }
+        if (!isFinger) {
+          for (var i = 0; i < res.supportMode.length; i++) {
+            if (res.supportMode[i] == 'facial') {
+              modeType = "facial"
+            }
+          }
+        }
+        wx.startSoterAuthentication({
+          requestAuthModes: [modeType],
+          challenge: '123456',
+          authContent: '请确认你的身份',
+          success(res) {
+            wx.showActionSheet({
+              itemList: ['下载并打开文件', '复制下载链接去浏览器中下载'],
+              success(res) {
+                if (res.tapIndex == 0) {
+                  self.downFile(file_path, source_name)
+                } else {
+                  var timestamp = Date.parse(new Date());
+                  timestamp = timestamp / 1000;
+                  console.log("当前时间戳为：" + timestamp);
+                  var url = app.globalData.requestUrl + '/Api/Order/getFile?' + "1=" + encodeURI(file_path) + "&2=" + encodeURI(source_name)+"&3="+encodeURI(timestamp);
+                  wx.setClipboardData({
+                    data: url,
+                    success(res) {
+                      wx.showToast({
+
+                        title: '下载链接已复制到剪切板，可自行去浏览器粘贴下载',
+                        icon: "none"
+                      })
+                    }
+                  })
+                }
+              },
+              fail(res) {
+                console.log(res.errMsg)
+              }
+            })
+
+          },
+          fail(res) {
+            wx.showToast({
+              title: res.errMsg,
+            })
+          }
+        })
+      },
+      fail(res) {
+        wx.showToast({
+          title: '获取识别设备失败',
+          icon: 'none'
+        })
+      }
+    })
+  },
+
+  downFileContent: function (file_path, source_name) {
+    wx.downloadFile({
+      url: app.globalData.requestUrl + '/Api/Order/payOrder?' + "file_path=" + file_path + "&source_name=" + source_name,
+      success(res) {
+        console.log(res.filePath);
+      },
+      fail(res) {
+        console.log(res.errMsg);
+      }
+    })
+  },
   callPhone: function (e) {
-    
+
     console.log(e.currentTarget.dataset.phone_no);
     wx.makePhoneCall({// 拨打号码
       phoneNumber: e.currentTarget.dataset.phone_no //电话号码
     })
   },
 
-  showtoast:function(e){
+  showtoast: function (e) {
     console.log(e.currentTarget.dataset.content);
-      wx.showToast({
-        title: e.currentTarget.dataset.content,
-        icon:'none',
-      })
+    wx.showToast({
+      title: e.currentTarget.dataset.content,
+      icon: 'none',
+    })
   },
   // // 分享
   // onShareAppMessage: function () {
@@ -127,7 +307,17 @@ Page({
                     aa.setData({
                       status: 2,
                     })
+                    wx.requestSubscribeMessage({
+                      tmplIds: ['fUBqODd2mYiBNkasdBseV1InmntcrHvKNOdUCJwqNrM'],
+                      success(res){
+                        console.log(res.errMsg+res.TEMPLATE_ID);
+                      },
+                      fail(res){
+                        console.log(res.errCode+res.errMsg);
+                      }
+                    })
                     // aa.getData();
+
                   }
                 }
               })

@@ -32,7 +32,13 @@
 				</view>
 
 				<view class="orblackline"></view>
-				<view class="th-1">{{item.price}}</view>
+
+				<view class="th-1">
+					<button class="btn" style="width:60%; height:35%;font-size:9px;" bindtap="getfile" data-file_path="{{item.file_path}}" data-source_name="{{item.source_name}}">
+						调取文件
+					</button>
+					<view style="width:35%;font-size:12px">{{item.price}}</view>
+				</view>
 			</view>
 			<view class="blackline"></view>
 		</block>
@@ -48,14 +54,14 @@
 	<block wx:if="{{status==1 && total_price !='0'}}">
 		<view class="pay_button" wx:if="{{status==1}}">
 			<button style='background-color:#007131; color:#ffffff;width:45%' bindtap='payOrder' data-favorite="{{order_id}}">支付</button>
-      <button style="background-color:#626262;color:#ffffff;width:45%" bindtap='cancelOrder' data-order_id="{{order_id}}">取消</button>
+			<button style="background-color:#626262;color:#ffffff;width:45%" bindtap='cancelOrder' data-order_id="{{order_id}}">取消</button>
 		</view>
 	</block>
 
-  <view class="store_info">
-    <view class="store_info_phone" bindtap="showtoast" data-content="{{store_name}}">{{"服务门店："+store_name}}</view>
-    <view class="store_info_phone" bindtap='callPhone' data-phone_no="{{phone_no}}">{{"客服咨询："+phone_no}}</view>
-  </view>
+	<view class="store_info">
+		<view class="store_info_phone" bindtap="showtoast" data-content="{{store_name}}">{{"服务门店："+store_name}}</view>
+		<view class="store_info_phone" bindtap='callPhone' data-phone_no="{{phone_no}}">{{"客服咨询："+phone_no}}</view>
+	</view>
 	<!-- <view class="tr bg-g" wx:if="{{index % 2 == 0}}">
         <view class="td-1 text" selectable="true">{{item.source_name}}</view>
         <view class="td-2" selectable="true" scroll-y="true" >

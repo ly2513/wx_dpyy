@@ -1,7 +1,7 @@
 //index.js
 //获取应用实例
 const app = getApp();
-app.globalData.userInfo = {};
+app.globalData.userInftrueo = {};
 var dev = false;
 // https://www.lovecangda.com
 // 后端地址
@@ -61,6 +61,8 @@ Page({
                     success: function (resbtn) {
                       if (resbtn.confirm) {
                         // 登录成功后跳转到首页
+                        // wx.get
+                        
                         wx.switchTab({
                           url: '../menu/menu',
                           success: function (res) {

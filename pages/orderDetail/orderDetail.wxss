@@ -34,6 +34,7 @@
   /* justify-content: center; */
   height: 2.5rem;
   align-items: center;
+  overflow: hidden;
 }
 
 .tr1 {
@@ -86,13 +87,21 @@
   /* border: 1px solid #2c2c2c; */
   height: 100%;
   flex-direction: column;
+  overflow: hidden;
 }
-
+.btn{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: #f4b51a;
+  color: black;
+}
 .td {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space:nowrap;
   font-size: 14px;
+  word-break: break-all;
 }
 
 .td-1 {

@@ -105,6 +105,7 @@ Page({
               if (res.data.code === 0) {
                 app.globalData.openId = res.data.data.open_id; //返回openid
                 app.globalData.unionId = res.data.data.union_id; //返回unionid
+                console.log(res.data.data.open_id);
                 that.setData({
                   hidden: true
                 });
@@ -114,6 +115,7 @@ Page({
                   showCancel: true,
                   success: function (resbtn) {
                     if (resbtn.confirm) {
+                      
                       // 登录成功后跳转到首页
                       wx.switchTab({
                         url: '../menu/menu',

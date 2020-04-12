@@ -75,7 +75,7 @@
           </block>
           <block wx:else>
             <view style='padding-top:20rpx;height:50px;width:100%;'>
-              <button class="button" style='background-color:#ff9d06;color:#fff;width:100%' bindtap='getOrderDetail' data-order_id="{{item.id}}" data-order_no="{{item.order_no}}"  data-status="{{item.status}}"  data-order_id="{{item.store_name}}" data-order_id="{{item.phone_no}}">查看详情 </button>
+              <button class="button" style='background-color:#ff9d06;color:#fff;width:100%' bindtap='getOrderDetail' data-order_id="{{item.id}}" data-order_no="{{item.order_no}}"  data-status="{{item.status}}"  data-store_name="{{item.store_name}}" data-phone_no="{{item.phone_no}}">查看详情 </button>
               <!-- <button class="button" style='background-color:green;' bindtap='reAddOrder' data-order_id="{{item.id}}">再次下单</button>    -->
             </view>
           </block>
