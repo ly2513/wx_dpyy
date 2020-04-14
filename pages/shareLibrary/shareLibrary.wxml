@@ -1,0 +1,2 @@
+<!--pages/shareLibrary.wxml-->
+<web-view src="{{requestUrl}}" class="page"></web-view> 

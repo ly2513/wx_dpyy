@@ -1,0 +1,5 @@
+/* pages/shareLibrary.wxss */
+page{
+  /*background-color:lightgree;*/
+  background-color:#29abe0;
+  }

@@ -23,7 +23,7 @@
   </view>
   <view>
       <button class=' asearch_order' plain='true' style='border:1px solid #29abe0;font-size:8px'     bindtap="complaintProposal"> 
-        <image src='/images/v1.1/contect_ours_button.png' style='width:540rpx;height:120rpx;'></image>
+        <image src='/images/v1.1/share_libaray_btn.png' style='width:540rpx;height:120rpx;'></image>
       </button>
   </view>
   <view class='line' style='position:fixed;bottom:10%;'></view>

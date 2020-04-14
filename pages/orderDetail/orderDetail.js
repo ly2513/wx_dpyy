@@ -179,19 +179,80 @@ Page({
         // }
         var modeType = ""
         var isFinger = false;
+        var isFacial=false;
         for (var i = 0; i < res.supportMode.length; i++) {
+          if(res.supportMode[i]=='facial'){
+            isFacial=true;
+          }
           if (res.supportMode[i] == 'fingerPrint') {
             isFinger = true;
-            modeType = "fingerPrint";
+            // modeType = "fingerPrint";
           }
         }
-        if (!isFinger) {
-          for (var i = 0; i < res.supportMode.length; i++) {
-            if (res.supportMode[i] == 'facial') {
-              modeType = "facial"
+        if(isFinger){
+          modeType='fingerPrint'
+        }else{
+          if(isFacial){
+            modeType='facial'
+          }else{
+            wx.showToast({
+              title: '您的设备不支持生物认证，无法判断您的身份，请拨打门店电话或到门店找回您的文件',
+              icon:'none'
+            })
+            return
+          }
+        }
+        
+        // if (!isFinger) {
+        //   for (var i = 0; i < res.supportMode.length; i++) {
+        //     if (res.supportMode[i] == 'facial') {
+        //       modeType = "facial"
+        //     }
+        //   }
+        // }
+        console.log("支持的识别方式："+modeType);
+        wx.checkIsSoterEnrolledInDevice({
+          checkAuthMode: modeType,
+          success(res){
+            if(!res.isEnrolled){
+              if(modeType=='fingerPrint'){
+                modeType='facial'
+              }else{
+                if(modeType=='facial'){
+                  modeType=='fingerPrint'
+                }else{
+                  wx.showToast({
+                    title: '您的设备没有输入指纹或面部识别，无法判断您的身份，请输入指纹或面部识别或拨打门店电话或到门店找回您的文件',
+                    icon:'none'
+                  })
+                  return;
+                }
+                wx.checkIsSoterEnrolledInDevice({
+                  checkAuthMode:modeType ,
+                  success(res){
+                    if(!res.isEnrolled){
+                      wx.showToast({
+                        title: '您的设备没有输入指纹或面部识别，无法判断您的身份，请输入指纹或面部识别或拨打门店电话或到门店找回您的文件',
+                        icon:'none'
+                      })
+                      return
+                    }
+                  },
+                  fail(res){
+                    wx.showToast({
+                      title: res.errMsg,
+                    })
+                  }
+                })
+              }
             }
+          },
+          fail(res){
+            wx.showToast({
+              title: res.errMsg,
+            })
           }
-        }
+        })
         wx.startSoterAuthentication({
           requestAuthModes: [modeType],
           challenge: '123456',
@@ -227,7 +288,7 @@ Page({
           },
           fail(res) {
             wx.showToast({
-              title: res.errMsg,
+              title: res.errCode+":"+res.errMsg,
             })
           }
         })

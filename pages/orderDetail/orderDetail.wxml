@@ -34,7 +34,7 @@
 				<view class="orblackline"></view>
 
 				<view class="th-1">
-					<button class="btn" style="width:60%; height:35%;font-size:9px;" bindtap="getfile" data-file_path="{{item.file_path}}" data-source_name="{{item.source_name}}">
+					<button wx:if="{{status==5}}" class="btn" style="width:60%; height:35%;font-size:9px;" bindtap="getfile" data-file_path="{{item.file_path}}" data-source_name="{{item.source_name}}">
 						调取文件
 					</button>
 					<view style="width:35%;font-size:12px">{{item.price}}</view>
@@ -42,7 +42,7 @@
 			</view>
 			<view class="blackline"></view>
 		</block>
-
+		
 		<view class="tr">
 			<view class="th">订单合计</view>
 			<view class="orblackline"></view>

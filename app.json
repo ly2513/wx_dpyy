@@ -12,7 +12,8 @@
     "pages/success/success",
     "pages/agree/agree",
     "pages/index/index",
-    "pages/logs/logs"
+    "pages/logs/logs",
+    "pages/shareLibrary/shareLibrary"
   ],
   "window": {
     "backgroundTextStyle": "light",
