@@ -1,0 +1,7 @@
+/* pages/temPay.wxss */
+
+.btn{
+  margin-top: 50%;
+  margin-left: 10%;
+  margin-right: 10%;
+}

@@ -1,0 +1,2 @@
+<!--pages/temPay.wxml-->
+<button class="btn" wx:if="{{action==2}}" open-type="share"  >分享</button>

@@ -6,7 +6,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+      
   },
 
   /**
@@ -14,12 +14,13 @@ Page({
    */
   onLoad: function (options) {
     var flag = Math.floor(Math.random() * 10);
+    console.log(app.globalData.openId);
     if (app.globalData.userInfo) {
-      console.log(app.globalData.requestUrl + '/Api/File/sharLibrary?union_id=' + app.globalData.unionId + '&falg=' + flag);
+      console.log(app.globalData.requestUrl + '/Static/daipai-project/daipai-project/indexList.html?open_id=' + app.globalData.openId + '&url='+encodeURI(app.globalData.requestUrl));
       this.setData({
         userInfo: app.globalData.userInfo,
         hasUserInfo: true,
-        requestUrl: app.globalData.requestUrl + '/Api/File/sharLibrary?union_id=' + app.globalData.unionId + '&falg=' + flag,
+        requestUrl: app.globalData.requestUrl + '/Static/daipai-project/daipai-project/indexList.html?open_id=' + app.globalData.openId + '&url=' + app.globalData.requestUrl,
       })
     }
   },

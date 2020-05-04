@@ -13,7 +13,8 @@
     "pages/agree/agree",
     "pages/index/index",
     "pages/logs/logs",
-    "pages/shareLibrary/shareLibrary"
+    "pages/shareLibrary/shareLibrary",
+    "pages/temPay/temPay"
   ],
   "window": {
     "backgroundTextStyle": "light",
