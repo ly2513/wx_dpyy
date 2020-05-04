@@ -6,7 +6,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    requestUrl:'',
   },
 
   /**
@@ -14,13 +14,29 @@ Page({
    */
   onLoad: function (options) {
     var flag = Math.floor(Math.random() * 10);
-    if (app.globalData.userInfo) {
-      console.log(app.globalData.requestUrl + '/Api/File/sharLibrary?union_id=' + app.globalData.unionId + '&falg=' + flag);
-      this.setData({
-        userInfo: app.globalData.userInfo,
-        hasUserInfo: true,
-        requestUrl: app.globalData.requestUrl + '/Api/File/sharLibrary?union_id=' + app.globalData.unionId + '&falg=' + flag,
+    var token = wx.getStorageSync("token");
+    if(!token){
+      wx.showModal({
+        title: '系统提示',
+        content: "请登录后在操作!",
+        showCancel: true,
+        success: function (resbtn) {
+          if (resbtn.confirm) {
+            // 跳转登录页
+            wx.navigateTo({
+              url: '../access/access'
+            })
+          }
+          return false;
+        }
       })
+    }else{
+      if (app.globalData.userInfo) {
+        console.log(app.globalData.requestUrl + '/Api/File/sharLibrary?token=' + token + '&falg=' + flag);
+        this.setData({
+          requestUrl: app.globalData.requestUrl + '/Api/File/sharLibrary?token=' + token + '&falg=' + flag,
+        })
+      }
     }
   },
 

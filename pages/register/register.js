@@ -124,7 +124,7 @@ Page({
           wx.removeStorageSync('token') ;
           //储存res.data.data.token
           //wx.setStorageSync("token", res.data.data.token) ;
-          wx.setStorageSync("token", dataModel.data.token) ;
+          wx.setStorageSync("token",  dataModel.data.token) ;
           wx.showModal({
             title: '提示',
             content: '注册成功',

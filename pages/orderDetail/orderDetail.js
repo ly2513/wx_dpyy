@@ -41,7 +41,7 @@ Page({
 
       url: app.globalData.requestUrl + '/Api/Order/getOrderInfo/' + id,
       method: 'POST',
-      header: { 'content-type': 'application/json', 'content-type': 'application/x-www-form-urlencoded' },
+      header: { 'content-type': 'application/json', 'content-type': 'application/x-www-form-urlencoded', 'token': wx.getStorageSync("token")},
       dataType: 'json',
       success: function (res) {
         console.log(id);
@@ -341,7 +341,7 @@ Page({
     wx.request({
       url: app.globalData.requestUrl + '/Api/Order/payOrder/' + id,//后台语言的处理 
       method: 'POST',
-      header: { 'content-type': 'application/json', 'content-type': 'application/x-www-form-urlencoded' },
+      header: { 'content-type': 'application/json', 'content-type': 'application/x-www-form-urlencoded', 'token': wx.getStorageSync("token")},
       dataType: 'json',
       success: function (res) {
         if (res.data.code == 0) {
@@ -430,7 +430,7 @@ Page({
     wx.request({
       url: app.globalData.requestUrl + '/Api/Order/cancelOrder/' + id,//后台语言的处理 
       method: 'POST',
-      header: { 'content-type': 'application/json', 'content-type': 'application/x-www-form-urlencoded' },
+      header: { 'content-type': 'application/json', 'content-type': 'application/x-www-form-urlencoded', 'token':wx.getStorageSync("token")},
       dataType: 'json',
       success: function (res) {
         if (res.data.code == 0) {

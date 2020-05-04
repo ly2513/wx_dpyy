@@ -1,9 +1,9 @@
 {
   "pages": [
     "pages/menu/menu",
+    "pages/access/access",
     "pages/login/login",
     "pages/register/register",
-    "pages/access/access",
     "pages/placeOrder/placeOrder",
     "pages/price/price",
     "pages/order/order",

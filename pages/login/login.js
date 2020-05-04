@@ -25,13 +25,6 @@ Page({
       phone: e.detail.value
     })
   },
-  getInputPassword: function (e) {// 获取密码
-    console.log(e);
-    var that = this;
-    that.setData({
-      password: e.detail.value
-    })
-  },
   login: function(){
     var myreg = /^(14[0-9]|13[0-9]|15[0-9]|17[0-9]|18[0-9]|19[0-9])\d{8}$$/;
     var that = this;
@@ -43,7 +36,6 @@ Page({
       })
       return false;
     }
-
     if (!myreg.test(that.data.phone)) {
       wx.showToast({
         title: '请输入正确的手机号',
@@ -61,80 +53,158 @@ Page({
       })
       return false;
     }
-    // 登录后台
-    wx.request({
-      url: app.globalData.requestUrl + '/Api/Login/newLogin/',
-      dataType: 'json',
-      data: { phone: that.data.phone, code: that.data.code},
-      method: 'POST',
-      header: { 'Content-Type': 'application/json' },
-      success: function (res) {
-        console.log(res);
-        if (res.data.code === 0) {
-          //必须先清除，否则res.data.data.token会报错
-          wx.removeStorageSync('token') ;
-          //储存res.data.data.token
-          //wx.setStorageSync("token", res.data.data.token) ;
-          wx.setStorageSync("token", res.data.data.token) ;
-          that.setData({
-            hidden: true
-          });
-          wx.showModal({
-            title: '登陆提示',
-            content: '登录成功',
-            showCancel: true,
-            success: function (resbtn) {
-              if (resbtn.confirm) {
-                // 登录成功后跳转到首页
-                wx.switchTab({
-                  url: '../menu/menu',
-                  success: function (res) {
-                    console.log('跳转成功');
-                  },
-                  fail: function (e) {
-                    console.log(e);
-                    console.log('跳转失败');
-                  }
+
+    try {
+      wx.login({
+        success: function (res) {
+          if (res.code) {
+            var data = app.globalData.userInfo;
+            data.phone = that.data.phone;
+            data.code = that.data.code;
+            // 登录后台
+            wx.request({
+              url: app.globalData.requestUrl + '/Api/Login/newLogin/' +  res.code,
+              dataType: 'json',
+              data: data,
+              method: 'POST',
+              header: { 'Content-Type': 'application/json' },
+              success: function (res) {
+                console.log(res);
+                if (res.data.code === 0) {
+                  //必须先清除，否则res.data.data.token会报错
+                  wx.removeStorageSync('token') ;
+                  wx.removeStorageSync('phone') ;
+                  //储存res.data.data.token
+                  //wx.setStorageSync("token", res.data.data.token) ;
+                  wx.setStorageSync("token", res.data.data.token) ;
+                  wx.setStorageSync("phone", res.data.data.phone) ;
+                  that.setData({
+                    hidden: true
+                  });
+                  wx.showModal({
+                    title: '登陆提示',
+                    content: '登录成功',
+                    showCancel: true,
+                    success: function (resbtn) {
+                      if (resbtn.confirm) {
+                        // 登录成功后跳转到首页
+                        wx.switchTab({
+                          url: '../menu/menu',
+                          success: function (res) {
+                            console.log('跳转成功');
+                          },
+                          fail: function (e) {
+                            console.log(e);
+                            console.log('跳转失败');
+                          }
+                        })
+                      }
+                    }
+                  })
+                }else {
+                  wx.showModal({
+                    title: '告示',
+                    content: res.data.msg,
+                    showCancel: true,
+                    success: function (resbtn) {
+                      
+                    }
+                  })
+                }
+              },
+              fail: function () {
+                wx.showToast({
+                  title: '系统提示:服务器休息了',
+                  icon: 'warn',
+                  duration: 1500,
                 })
               }
-            }
-          })
-        } else if(res.data.code === 3){ // 进行跳转注册
-          wx.redirectTo({
-            url: '../register/register',
-            success: function (res) {
-              console.log('跳转成功');
-            },
-            fail: function (e) {
-              console.log('跳转失败');
-            }
-          })
-        } else {
-          wx.showModal({
-            title: '告示',
-            content: res.data.msg,
-            showCancel: true,
-            success: function (resbtn) {
-              that.setData({
-                hidden: true
-              });
-            }
-          })
-        }
-      },
-      fail: function () {
-        wx.showModal({
-          title: '登陆提示',
-          content: '服务器休息了!',
-          showCancel: false,
-          success: function (resbtn) {
-            that.setData({
-              hidden: true
             });
+
+            // wx.request({
+            //   url: app.globalData.requestUrl + '/Api/Login/login/' + res.code,
+            //   dataType: 'json',
+            //   data: app.globalData.userInfo,
+            //   method: 'POST',
+            //   success: function (res) {
+            //     console.log(res);
+            //     if (res.data.code === 0) {
+            //       that.setData({
+            //         hidden: true
+            //       });
+            //       //必须先清除，否则res.data.data.token会报错
+            //       wx.removeStorageSync('token') ;
+            //       //储存res.data.data.token
+            //       //wx.setStorageSync("token", res.data.data.token) ;
+            //       wx.setStorageSync("token", res.data.data.token) ;
+            //       wx.showModal({
+            //         title: '登陆提示',
+            //         content: '登录成功',
+            //         showCancel: true,
+            //         success: function (resbtn) {
+            //           if (resbtn.confirm) {
+            //             // 登录成功后跳转到首页
+            //             wx.switchTab({
+            //               url: '../menu/menu',
+            //               success: function (res) {
+            //                 console.log('跳转成功');
+            //               },
+            //               fail: function (e) {
+            //                 console.log(e);
+            //                 console.log('跳转失败');
+            //               }
+            //             })
+            //           }
+            //         }
+            //       })
+            //     } else {
+            //       wx.showModal({
+            //         title: '提示',
+            //         content: res.data.msg,
+            //         showCancel: true,
+            //         success: function (resbtn) {
+            //           that.setData({
+            //             hidden: true
+            //           });
+            //         }
+            //       })
+            //     }
+            //   },
+            //   fail: function () {
+            //     wx.showModal({
+            //       title: '登陆提示',
+            //       content: '服务器休息了!',
+            //       showCancel: false,
+            //       success: function (resbtn) {
+            //         that.setData({
+            //           hidden: true
+            //         });
+            //       }
+            //     })
+            //   }
+            // })
+          } else {
+            console.log('获取用户登录态失败！' + res.errMsg)
           }
-        })
-      }
-    });
+        },
+        fail: function (res) {
+
+        }
+      });
+    } catch (e) {
+      wx.showToast({
+        title: '系统提示:网络错误',
+        icon: 'warn',
+        duration: 1500,
+      })
+    }
+
+
+
+
+
+    // 登录后台
+    
   },
   getUserInfo: function(e) {
     console.log(e)

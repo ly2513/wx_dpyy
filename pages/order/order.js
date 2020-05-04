@@ -106,7 +106,6 @@ Page({
   }, 
   onPullDownRefresh: function () {
     var self = this;
-    console.log(1111);
     wx.showNavigationBarLoading() //在标题栏中显示加载
     self.getData();
     //模拟加载
@@ -132,7 +131,7 @@ Page({
     wx.request({
       url: app.globalData.requestUrl + '/Api/Order/payOrder/' + id,//后台语言的处理 
       method: 'POST',
-      header: { 'content-type': 'application/json', 'content-type': 'application/x-www-form-urlencoded' },
+      header: { 'content-type': 'application/json', 'content-type': 'application/x-www-form-urlencoded', 'token': wx.getStorageSync("token")},
       dataType: 'json',
       success: function (res) {
         if (res.data.code == 0) {
@@ -221,7 +220,7 @@ Page({
     wx.request({
       url: app.globalData.requestUrl + '/Api/Order/reAddOrder/' + id,//后台语言的处理 
       method: 'POST',
-      header: { 'content-type': 'application/json', 'content-type': 'application/x-www-form-urlencoded' },
+      header: { 'content-type': 'application/json', 'content-type': 'application/x-www-form-urlencoded', 'token': wx.getStorageSync("token")},
       dataType: 'json',
       success: function (res) {
         if (res.data.code == 0) {
@@ -273,11 +272,6 @@ Page({
     var status=e.currentTarget.dataset.status;
     var store_name=e.currentTarget.dataset.store_name;
     var phone_no=e.currentTarget.dataset.phone_no;
-    console.log(store_name);
-    console.log(phone_no);
-    console.log(id);
-    console.log(status);
-    console.log(phone_no);
     // 登录成功后跳转到首页
     wx.navigateTo({
       url: '../orderDetail/orderDetail?order_id=' + id + '&orderNo=' + orderNo+'&status='+status+'&store_name='+store_name+'&phone_no='+phone_no,
@@ -296,7 +290,7 @@ Page({
     wx.request({
       url: app.globalData.requestUrl + '/Api/Order/cancelOrder/' + id,//后台语言的处理 
       method: 'POST',
-      header: { 'content-type': 'application/json', 'content-type': 'application/x-www-form-urlencoded' },
+      header: { 'content-type': 'application/json', 'content-type': 'application/x-www-form-urlencoded', 'token': wx.getStorageSync("token")},
       dataType: 'json',
       success: function (res) {
         if (res.data.code == 0) {

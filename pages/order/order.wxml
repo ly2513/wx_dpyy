@@ -26,16 +26,16 @@
           <span class="yellow" style='float:right;'> {{item.status_str}}</span>
           </block> -->
           <block wx:if="{{item.status == 2}}">
-          <span class="green" style='float:right;color:#ffffff;background:#f3a014;padding:20rpx'> {{item.status_str}}</span>
+          <span class="green" style='float:right;color:#ffffff;background:#f3a014;padding:20rpx;border-radius:5px;'> {{item.status_str}}</span>
           </block>
           <block wx:if="{{item.status == 3}}">
-          <span class="red" style='float:right;color:#ffffff;background:#D3D3D3;padding:20rpx'> {{item.status_str}}</span>
+          <span class="red" style='float:right;color:#ffffff;background:#D3D3D3;padding:20rpx;border-radius:5px;'> {{item.status_str}}</span>
           </block>
           <block wx:if="{{item.status == 4}}">
-          <span class="red" style='float:right;color:#ffffff;background:#7ab42a;padding:20rpx'> {{item.status_str}}</span>
+          <span class="red" style='float:right;color:#ffffff;background:#7ab42a;padding:20rpx;border-radius:5px;'> {{item.status_str}}</span>
           </block>
           <block wx:if="{{item.status == 5}}">
-          <span class="green" style='float:right;color:#ffffff;background:#2c9ab3;padding:20rpx'> {{item.status_str}}</span>
+          <span class="green" style='float:right;color:#ffffff;background:#2c9ab3;padding:20rpx;border-radius:5px;'> {{item.status_str}}</span>
           </block>
         </view> 
         <view style='padding-top:20rpx;'>

@@ -28,11 +28,12 @@
     <image src='/images/v1.1/new_big_logo.png' style="width:200px;height:170px;"></image>
   </view>
   <view style='float:left;'>
-    <button bindgetuserinfo='agreeGetUser' type="default" class="login_button" hover-class="other-button-hover" style="background-color:#29abe0;color:#fff,font-size:16px;" open-type="getUserInfo"> 老用户一键登录 </button>
+    <button bindgetuserinfo='agreeGetUser' type="default" class="login_button" hover-class="other-button-hover" style='background-color:#29abe0;color:#fff' open-type="getUserInfo"> 快速注册登陆 </button>
+    <!-- <button bindgetuserinfo='agreeGetUser' type="default" class="login_button" hover-class="other-button-hover" style="background-color:#29abe0;color:#fff,font-size:16px;" open-type="getUserInfo"> 老用户一键登录 </button> -->
   </view>
-  <view style='float:left;'>
+  <!-- <view style='float:left;'>
     <button bindgetuserinfo='agreeGetUser' type="default" class="login_button" hover-class="other-button-hover" style="background-color:#29abe0;color:#fff,font-size:16px;" bindtap="noticeUserMsg"> 新用户登录/注册 </button>
-  </view>
+  </view> -->
   
   <!-- <view class='explain'>
     说明：<view>达派云印将为您提供在线打印服务</view>
@@ -43,6 +44,6 @@
     登录即为同意达派云印<navigator url="../agree/agree">《软件服务协议》</navigator>
   </view>
   <view class="body-view">
-    <loading hidden="{{hidden}}" bindchange="loadingChange">登录中,请稍后...</loading>
+    <loading hidden="{{hidden}}" bindchange="loadingChange">跳转中,请稍后...</loading>
   </view>  
 </view>
