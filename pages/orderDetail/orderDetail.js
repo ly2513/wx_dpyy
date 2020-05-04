@@ -91,7 +91,7 @@ Page({
       dirPath: cachePath,
       recursive: true,
       success: function (res) {
-
+        
       },
       fail: function (err) {
         // wx.showToast({

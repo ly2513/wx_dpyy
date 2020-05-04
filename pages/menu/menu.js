@@ -253,39 +253,6 @@ Page({
         }
       })
     }
-    // wx.request({
-    //   url: app.globalData.requestUrl + '/Api/Login/checkLogin',
-    //   dataType: 'json',
-    //   method: 'POST',
-    //   header: { 'Content-Type': 'application/json','token': wx.getStorageSync("token") },
-    //   success: function (res) {
-    //     var dataModel = res.data;
-    //     console.log(dataModel);
-    //     if (dataModel.code == 0) {
-    //       // 跳转到菜单
-    //       wx.switchTab({
-    //         url: '../menu/menu',
-    //       })
-    //     }else{
-    //       wx.showModal({
-    //         title: '系统提示',
-    //         content: dataModel.msg,
-    //         showCancel: true,
-    //         success: function (resbtn) {
-    //           if (resbtn.confirm) {
-    //             // 跳转登录页
-    //             wx.navigateTo({
-    //               url: '../access/access'
-    //             })
-    //           }
-    //         }
-    //       })
-    //     }
-    //     return false;
-    //   },
-    //   fail: function () {
-    //   }
-    // })
   }
   // 分享
   // onShareAppMessage: function () {
