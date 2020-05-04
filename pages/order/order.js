@@ -1,7 +1,6 @@
 // menu.js
 //获取应用实例
 const app = getApp()
-
 Page({
   data: {
     hideHeader: true,
@@ -58,17 +57,14 @@ Page({
         page: pageIndex,
         fileName: this.data.file_name
       },
+      header: { 'Content-Type': 'application/json','token': wx.getStorageSync("token") },
       success: function (res) {
         var dataModel = res.data;
         console.log(dataModel);
         if (dataModel.code == 0) {
           for(var i=0;i<dataModel.data.list.length;i++){
-            // console.log("i="+i);
-            // console.log(dataModel.data.list[i].order_no);
             var first_no=dataModel.data.list[i].order_no.substring(0,9);
             var last_no=dataModel.data.list[i].order_no.substring(9);
-            // console.log('first:'+first_no);
-            // console.log('last:'+last_no);
             dataModel.data.list[i].first_no=first_no.trim();
             dataModel.data.list[i].last_no=last_no.trim();
           }
@@ -78,7 +74,6 @@ Page({
               contentlist: dataModel.data.list,
               hideHeader: true
             })
-           
           } else { // 加载更多
             console.log('加载更多');
             var tempArray = self.data.contentlist;
@@ -89,6 +84,20 @@ Page({
               hideBottom: true
             })
           }
+        }else if(dataModel.code == 999){
+          wx.showModal({
+            title: '系统提示',
+            content: dataModel.msg,
+            showCancel: true,
+            success: function (resbtn) {
+              if (resbtn.confirm) {
+                // 跳转登录页
+                wx.navigateTo({
+                  url: '../access/access'
+                })
+              }
+            }
+          })
         }
       },
       fail: function () {
@@ -313,7 +322,6 @@ Page({
       }
     });
   },
-
   showtoast:function(e){
     console.log(e.currentTarget.dataset.content);
       wx.showToast({
@@ -321,19 +329,36 @@ Page({
         icon:'none',
       })
   },
-  
   autoFile: function() {
-    wx.navigateTo({
-      url: '../placeOrder/placeOrder',
-      success: function (res) {
-        console.log('跳转成功');
-      },
-      fail: function (e) {
-        console.log(e);
-        console.log('跳转失败');
-      }
-    })
-  }
+    var token = wx.getStorageSync("token");
+    if(!token){
+      wx.showModal({
+        title: '系统提示',
+        content: "请登录后在操作!",
+        showCancel: true,
+        success: function (resbtn) {
+          if (resbtn.confirm) {
+            // 跳转登录页
+            wx.navigateTo({
+              url: '../access/access'
+            })
+          }
+          return false;
+        }
+      })
+    }else{
+      wx.navigateTo({
+        url: '../placeOrder/placeOrder',
+        success: function (res) {
+          console.log('跳转成功');
+        },
+        fail: function (e) {
+          console.log(e);
+          console.log('跳转失败');
+        }
+      })
+    }
+  },
   // 分享
   // onShareAppMessage: function () {
 

@@ -7,8 +7,7 @@ Page({
     phone: '',//手机号
     code: '',//验证码
     codename: '获取验证码',
-    password:'',
-    rePassword: '',
+    phonename: '自动获取',
   },
   //事件处理函数
   bindViewTap: function() {
@@ -17,36 +16,8 @@ Page({
     })
   },
   onLoad: function () {
-    var phoneNo = '';
-    var unionId = '';
-    var that = this;
-    wx.getStorage({//获取本地缓存
-      key: "phoneNo",
-      success: function (res) {
-        that.setData({
-          phoneNo: res.data
-        });
-      },
-    })
-    wx.getStorage({//获取本地缓存
-      key: "unionId",
-      success: function (res) {
-        that.setData({
-          unionId: res.data
-        });
-      },
-    })
-    wx.getStorage({//获取本地缓存
-      key: "unionId",
-      success: function (res) {
-        that.setData({
-          unionId: res.data
-        });
-      },
-    })
   },
   getInputPhone: function (e) {// 获取手机号码
-    console.log(e);
     var that = this;
     that.setData({
       phone: e.detail.value
@@ -59,27 +30,11 @@ Page({
       code: e.detail.value
     })
   },
-  getInputPassword:function(e){
-    console.log(e);
-    var that = this;
-    that.setData({
-      password: utilMd5.hexMD5(e.detail.value)
-    })
-  },
-  getInputRePassword: function (e) {
-    console.log(e);
-    var that = this;
-    that.setData({
-      rePassword: utilMd5.hexMD5(e.detail.value)
-    })
-  },
   sentValidateCode: function(e){ // 获取验证码
     var that = this;
     console.log(this.data);
     var  phone = that.data.phone;
     phone = phone ? phone : e.currentTarget.dataset.phone;
-    console.log(phone);
-    die;
     if (!phone){
       wx.showModal({
         title: '提示',
@@ -91,7 +46,6 @@ Page({
           });
         }
       })
-      console.log(phone);
       return false;
     }
     // 发送验证码
@@ -101,7 +55,6 @@ Page({
       data: {phone: phone},
       success: function (res) {
         var dataModel = res.data;
-        console.log(dataModel);
         if (dataModel.code == 0) { // 
           that.countDown(60); // 60s倒计时
         }else{ // 
@@ -132,9 +85,8 @@ Page({
     })
   },
   save:function(e){
-    var myreg = /^(14[0-9]|13[0-9]|15[0-9]|17[0-9]|18[0-9])\d{8}$$/;
+    var myreg = /^(14[0-9]|13[0-9]|15[0-9]|17[0-9]|18[0-9]|19[0-9])\d{8}$$/;
     var that = this;
-
     if (that.data.phone == "") {
       wx.showToast({
         title: '手机号不能为空',
@@ -159,48 +111,35 @@ Page({
       })
       return false;
     }
-    if (that.data.password == ""){
-      wx.showToast({
-        title: '密码不能为空',
-        icon: 'none',
-        duration: 1000
-      })
-      return false;
-    }
-    if (that.data.rePassword == "") {
-      wx.showToast({
-        title: '确认密码不能为空',
-        icon: 'none',
-        duration: 1000
-      })
-      return false;
-    }
-    if (that.data.rePassword != that.data.password) {
-      wx.showToast({
-        title: '两次密码不一致',
-        icon: 'none',
-        duration: 1000
-      })
-      return false;
-    }
     // 发送验证码
     wx.request({
       url: app.globalData.requestUrl + '/Api/Login/register',
       method: "POST",
-      data: { phone: that.data.phone, password: that.data.password, rePassword: that.data.rePassword, code: that.data.code, unionId: that.data.unionId},
+      data: { phone: that.data.phone, code: that.data.code},
       success: function (res) {
         var dataModel = res.data;
-        console.log(res);
         console.log(dataModel);
         if (dataModel.code == 0) { // 
+          //必须先清除，否则res.data.data.token会报错
+          wx.removeStorageSync('token') ;
+          //储存res.data.data.token
+          //wx.setStorageSync("token", res.data.data.token) ;
+          wx.setStorageSync("token", dataModel.data.token) ;
           wx.showModal({
             title: '提示',
             content: '注册成功',
             showCancel: false,
             success: function (resbtn) {
               // 跳转到登陆页面
-              wx.redirectTo({
-                url: '../login/login',
+              wx.switchTab({
+                url: '../menu/menu',
+                success: function (res) {
+                  console.log('跳转成功');
+                },
+                fail: function (e) {
+                  console.log(e);
+                  console.log('跳转失败');
+                }
               })
             }
           })
@@ -230,8 +169,6 @@ Page({
         })
       }
     })
-      
-    
   },
   countDown:function (total_micro_second) { //发送验证码按钮
     var that = this;
@@ -270,6 +207,88 @@ Page({
   },
   cancel:function(e){ // 取消
     // 跳转到登陆页面
-    wx.navigateBack({})
+    //wx.navigateBack({})
+    // 跳转到登陆页面
+    wx.redirectTo({
+      url: '../access/access',
+      success: function (res) {
+        console.log('跳转成功');
+      },
+      fail: function (e) {
+        console.log('跳转失败');
+      }
+    })
+  },
+  getPhoneNumber: function (e) { // 自动获取手机号码
+    var ivObj = e.detail.iv
+    var telObj = e.detail.encryptedData
+    var codeObj = "";
+    var that = this;
+    if (e.detail.errMsg == 'getPhoneNumber:fail user deny') { //用户点击拒绝
+      wx.showModal({
+        title: '提示',
+        content: '拒绝授权!',
+        showCancel: false,
+        success: function (resbtn) {
+        }
+      })
+      return false;
+    }
+    //------执行Login
+    wx.login({
+      success: res => {
+        console.log('code转换', res.code); //用code传给服务器调换session_key
+        if (res.code) {
+          wx.request({
+            url: app.globalData.requestUrl + '/Api/Login/getWxPhone', //接口地址
+            dataType: 'json',
+            data: { code: res.code, encryptedData: telObj, iv: ivObj },
+            method: 'POST',
+            header: { 'content-type': 'application/json' },// 默认值
+            success: function (res) {
+              console.log(res);
+              if (res.data.code == 0) {
+                //存储数据并准备发送给下一页使用
+                app.globalData.phone = res.data.data.phoneNumber;
+                wx.showModal({
+                  title: '提示',
+                  content: '授权成功!',
+                  showCancel: false,
+                  success: function (resbtn) {
+                    that.setData({
+                      phone:res.data.data.phoneNumber,
+                      hidden: true
+                    });
+                  }
+                })
+              } else {
+                wx.showModal({
+                  title: '提示',
+                  content: res.data.msg,
+                  showCancel: false,
+                  success: function (resbtn) {
+                    that.setData({
+                      hidden: true
+                    });
+                  }
+                })
+              }
+            },
+            fail: function (e) {
+              wx.showModal({
+                title: '提示',
+                content: '授权失败！',
+                showCancel: false,
+                success: function (resbtn) {
+                  that.setData({
+                    hidden: true
+                  });
+                }
+              })
+            }
+          })
+        }
+      }
+    });
   }
 })
