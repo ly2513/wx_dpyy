@@ -203,9 +203,7 @@
       </view>
     本《协议》版权由所有，保留一切解释权利。等本文中提及的软件和服务名称有可能为的注册商标或商标，受法律保护。
     </view>
-    <view>
-    南昌市沧达广告有限公司保留所有权利和解释权利。
-    </view>
+    <view>南昌市沧达广告有限公司保留所有权利和解释权利。</view>
     <button class='reback' bindtap="reback">返回</button>
     <view class='menu'>
     </view>

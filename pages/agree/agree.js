@@ -11,8 +11,8 @@ Page({
   },
   //事件处理函数
   reback: function() {
-    wx.navigateTo({
-      url: '../login/login'
+    wx.navigateBack({//返回
+      delta: 1
     })
   }
 })

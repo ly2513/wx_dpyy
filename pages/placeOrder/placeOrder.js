@@ -7,20 +7,14 @@ const app = getApp()
 // '请选择派送时间',
 Page({
   data: {},
-    //事件处理函数
-  // bindViewTap: function() {
-  //     wx.navigateTo({
-  //         url: '../logs/logs'
-  //     })
-  // },
   onLoad: function () {
     var flag = Math.floor(Math.random() * 10);
     if (app.globalData.userInfo) {
-      console.log(app.globalData.requestUrl + '/Api/File/index?union_id=' + app.globalData.unionId + '&falg=' + flag);
+      console.log(app.globalData.requestUrl + '/Api/File/index?token=' + wx.getStorageSync("token") + '&falg=' + flag);
       this.setData({
         userInfo: app.globalData.userInfo,
         hasUserInfo: true,
-        requestUrl: app.globalData.requestUrl + '/Api/File/index?union_id=' + app.globalData.unionId + '&falg=' + flag,
+        requestUrl: app.globalData.requestUrl + '/Api/File/index?token=' + wx.getStorageSync("token") + '&falg=' + flag,
       })
     }
   },

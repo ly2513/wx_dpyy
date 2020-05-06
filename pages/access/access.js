@@ -6,10 +6,9 @@ var dev = false;
 // https://www.lovecangda.com
 // 后端地址
 app.globalData.requestUrl = (dev === false) ? 'http://dp-dev.dpyunyin.com' : 'https://dp-stg.dpyunyin.com';
-// openID
-app.globalData.openId = '';
-app.globalData.unionId = '';
+// app.globalData.requestUrl = (dev === false) ? 'http://127.0.0.1:1026' : 'https://dp-stg.dpyunyin.com';
 app.globalData.phone = '';
+app.globalData.token = '';
 Page({
   data: {
     userInfo: {},
@@ -26,8 +25,7 @@ Page({
       hidden: true
     });
   },
-  //获取用户信息新接口
-  agreeGetUser: function (e) {
+  agreeGetUser: function (e) { //获取用户信息新接口
     let that = this;
     that.setData({
       hidden: false
@@ -44,16 +42,17 @@ Page({
               dataType: 'json',
               data: app.globalData.userInfo,
               method: 'POST',
-              header: { 'Content-Type': 'application/json' },
+              // header: { 'Content-Type': 'application/json','token': wx.getStorageSync("token") },
               success: function (res) {
-                console.log(res);
                 if (res.data.code === 0) {
-                  app.globalData.openId = res.data.data.open_id; //返回openid
-                  app.globalData.unionId = res.data.data.union_id; //返回unionid
-                  app.globalData.phone = res.data.data.phone;
                   that.setData({
                     hidden: true
                   });
+                  //必须先清除，否则res.data.data.token会报错
+                  wx.removeStorageSync('token') ;
+                  //储存res.data.data.token
+                  //wx.setStorageSync("token", res.data.data.token) ;
+                  wx.setStorageSync("token", res.data.data.token) ;
                   wx.showModal({
                     title: '登陆提示',
                     content: '登录成功',
@@ -61,8 +60,6 @@ Page({
                     success: function (resbtn) {
                       if (resbtn.confirm) {
                         // 登录成功后跳转到首页
-                        // wx.get
-                        
                         wx.switchTab({
                           url: '../menu/menu',
                           success: function (res) {
@@ -123,6 +120,41 @@ Page({
     // wx.redirectTo({
     //   url: '../login/login',
     // })
+  },
+  noticeUserMsg: function (e){
+    wx.showModal({
+      title: '温馨提示',
+      content: '为确保用户的文印数据安全和服务，请您设置手机号码，以此作平台唯一的安全身份标识。',
+      success: function (res) {
+        console.log(res);
+        // 取消
+        if (res.cancel){
+          // 跳转到菜单
+          wx.switchTab({
+            url: '../menu/menu',
+          })
+        }
+        // 确定
+        if(res.confirm){
+          // 跳转到注册页面
+          wx.navigateTo({
+            url: '../register/register',
+          })
+        }
+      },
+      fail: function (rs){
+        wx.showModal({
+          title: '提示',
+          content: '网络异常，请稍后继续操作。',
+          success: function (res) {
+            
+          },
+          fail: function (rs) {
+
+          }
+        })
+      }
+    })
   },
   // getPhoneNumber: function (e){ // 手机号码授权
   //   var ivObj = e.detail.iv
