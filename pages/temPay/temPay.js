@@ -28,13 +28,13 @@ Page({
       this.action=1;
       console.log(app.globalData.unionId);
     wx.request({
-      url: app.globalData.requestUrl + '/Api/Library/addOrder',
+      url: app.globalData.requestUrl + '/Api/Library/addOrder?token='+wx.getStorageSync("token"),
       method: 'POST',
       header: { 'content-type': 'application/json', 'content-type': 'application/x-www-form-urlencoded' },
       dataType: 'json',
       data:{
         document_id:document_id,
-        union_id:app.globalData.unionId
+        token:wx.getStorageSync("token")
       },
       success(res){
         console.log(res.data);
@@ -67,7 +67,7 @@ Page({
             }
           })
         }else{
-          console.log('失败'+res.data.msg)
+          console.log('失败'+res.msg)
           wx.showToast({
             title: res.data.msg,
           })
@@ -94,7 +94,7 @@ Page({
       this.action=3;
       var timestamp = Date.parse(new Date());
       timestamp = timestamp / 1000;
-      var url = app.globalData.requestUrl + '/Api/Library/downDocument' + "?1=" + app.globalData.openId + "&2=" + document_id+"&3="+timestamp;
+      var url = app.globalData.requestUrl + '/Api/Library/downDocument?2=' + document_id+"&3="+timestamp+'&token='+wx.getStorageSync("token");
       console.log(url);
       wx.downloadFile({
         url: url,
