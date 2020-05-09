@@ -5,8 +5,8 @@ app.globalData.userInfo = {};
 var dev = true;
 // https://www.lovecangda.com
 // 后端地址
-app.globalData.requestUrl = (dev === false) ? 'http://dp-dev.dpyunyin.com' : 'https://dp-stg.dpyunyin.com';
-// app.globalData.requestUrl = (dev === false) ? 'http://127.0.0.1:1026' : 'https://dp-stg.dpyunyin.com';
+// app.globalData.requestUrl = (dev === false) ? 'http://dp-dev.dpyunyin.com' : 'https://dp-stg.dpyunyin.com';
+app.globalData.requestUrl = (dev === false) ? 'http://127.0.0.1:1026' : 'https://dp-stg.dpyunyin.com';
 app.globalData.phone = '';
 app.globalData.token = '';
 Page({
@@ -27,7 +27,6 @@ Page({
   },
   agreeGetUser: function (e) { //获取用户信息新接口
     let that = this;
-    wx.setStorageSync('userInfo', e.detail.userInfo);
     wx.showModal({
       title: '系统提示',
       content: '为确保用户的文印数据安全和服务，请您设置手机号码，以此作平台唯一的安全身份标识。',
@@ -48,11 +47,6 @@ Page({
         }
       }
     })
-    that.userLogin(e.detail.userInfo)
-  },
-  userLogin: function (e) {
-    // 设置用户信息
-    app.globalData.userInfo = e;
   },
   noticeUserMsg: function (e){
     wx.showModal({

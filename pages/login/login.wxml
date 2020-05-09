@@ -14,8 +14,10 @@
                 <label class="weui-label">手机号</label>
               </view>
               <view class="weui-cell__bd">
-                  <input class="weui-input" type="number" pattern="[0-9]*" placeholder="请输入手机号" maxlength='11' name='phone' value='{{phone}}'  bindblur="getInputPhone"  placeholder-class="notice" />
+                  <input class="weui-input" type="number" pattern="[0-9]*" placeholder="请输入手机号" maxlength='11' name='phone' value='{{phone}}'   bindinput="getInputPhone" placeholder-class="notice" />
                   <!-- bindinput="getInputPhone" -->
+                  <!-- bindblur="getInputPhone" -->
+                  <!-- bindfocus="getInputPhone"  -->
               </view>
               <view class="weui-cell__ft" style="padding-left:5px;">
                 <button class="weui-btn weui-btn_default weui-vcode-btn" open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber"  data-phone="{{phone}}" type='button' form-type="submit"  style='width:100%;'>{{phonename}}</button>
@@ -26,7 +28,9 @@
                 <label class="weui-label">验证码</label>
               </view>
               <view class="weui-cell__bd">
-                  <input class="weui-input" type="number" pattern="[0-9]*" placeholder="请输入验证码"  bindblur="getInputCode" maxlength='4' name='code' placeholder-class="notice"/>
+                  <input class="weui-input" type="number" pattern="[0-9]*" placeholder="请输入验证码"  maxlength='4' bindinput="getInputCode" name='code' placeholder-class="notice"/>
+                  <!-- bindblur="getInputCode"  -->
+                  <!-- bindfocus="getInputCode" -->
               </view>
               <view class="weui-cell__ft" style="padding-left:10px;">
                 <button class="weui-btn weui-btn_default weui-vcode-btn" bindtap="sentValidateCode" data-phone="{{phoneNo}}" type='button' form-type="submit"  style='width:100%;'>{{codename}}</button>

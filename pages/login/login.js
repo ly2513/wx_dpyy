@@ -17,13 +17,6 @@ Page({
     })
   },
   onLoad: function () {
-},
-  getInputPhone: function (e) {// 获取手机号码
-    console.log(e);
-    var that = this;
-    that.setData({
-      phone: e.detail.value
-    })
   },
   login: function(){
     var myreg = /^(14[0-9]|13[0-9]|15[0-9]|17[0-9]|18[0-9]|19[0-9])\d{8}$$/;
@@ -54,11 +47,12 @@ Page({
       return false;
     }
     try {
-      // 检查登录态是否过期
-      wx.checkSession({
-        success(res) {
-            // session_key 未过期，并且在本生命周期一直有效
-            // console.log(res);
+      wx.login({
+        success: function (res) {
+          if (res.code) {
+            var data = app.globalData.userInfo;
+            data.phone = that.data.phone;
+            data.code = that.data.code;
             // 登录后台
             wx.request({
               url: app.globalData.requestUrl + '/Api/Login/newLogin/' +  res.code,
@@ -118,101 +112,14 @@ Page({
                 })
               }
             });
+          } else {
+            console.log('获取用户登录态失败！' + res.errMsg)
+          }
         },
-        fail(err) {
-            // session_key 已经失效，需要重新执行登录流程
-            wx.login({
-                success: res => {
-                    that.data.code = res.code
-                }
-            })
+        fail: function (res) {
+
         }
-      })
-
-
-
-
-
-
-
-
-
-
-
-
-    //   wx.login({
-    //     success: function (res) {
-    //       if (res.code) {
-    //         var data = app.globalData.userInfo;
-    //         data.phone = that.data.phone;
-    //         data.code = that.data.code;
-    //         // 登录后台
-    //         wx.request({
-    //           url: app.globalData.requestUrl + '/Api/Login/newLogin/' +  res.code,
-    //           dataType: 'json',
-    //           data: data,
-    //           method: 'POST',
-    //           header: { 'Content-Type': 'application/json' },
-    //           success: function (res) {
-    //             console.log(res);
-    //             if (res.data.code === 0) {
-    //               //必须先清除，否则res.data.data.token会报错
-    //               wx.removeStorageSync('token') ;
-    //               wx.removeStorageSync('phone') ;
-    //               //储存res.data.data.token
-    //               //wx.setStorageSync("token", res.data.data.token) ;
-    //               wx.setStorageSync("token", res.data.data.token) ;
-    //               wx.setStorageSync("phone", res.data.data.phone) ;
-    //               that.setData({
-    //                 hidden: true
-    //               });
-    //               wx.showModal({
-    //                 title: '登陆提示',
-    //                 content: '登录成功',
-    //                 showCancel: true,
-    //                 success: function (resbtn) {
-    //                   if (resbtn.confirm) {
-    //                     // 登录成功后跳转到首页
-    //                     wx.switchTab({
-    //                       url: '../menu/menu',
-    //                       success: function (res) {
-    //                         console.log('跳转成功');
-    //                       },
-    //                       fail: function (e) {
-    //                         console.log(e);
-    //                         console.log('跳转失败');
-    //                       }
-    //                     })
-    //                   }
-    //                 }
-    //               })
-    //             }else {
-    //               wx.showModal({
-    //                 title: '告示',
-    //                 content: res.data.msg,
-    //                 showCancel: true,
-    //                 success: function (resbtn) {
-                      
-    //                 }
-    //               })
-    //             }
-    //           },
-    //           fail: function () {
-    //             wx.showToast({
-    //               title: '系统提示:服务器休息了',
-    //               icon: 'warn',
-    //               duration: 1500,
-    //             })
-    //           }
-    //         });
-    //       } else {
-    //         console.log('获取用户登录态失败！' + res.errMsg)
-    //       }
-    //     },
-    //     fail: function (res) {
-
-    //     }
-    //   });
+      });
     } catch (e) {
       wx.showToast({
         title: '系统提示:网络错误',
@@ -220,14 +127,6 @@ Page({
         duration: 1500,
       })
     }
-  },
-  getUserInfo: function(e) {
-    console.log(e)
-    app.globalData.userInfo = e.detail.userInfo
-    this.setData({
-      userInfo: e.detail.userInfo,
-      hasUserInfo: true
-    })
   },
   cancel: function (e) { // 取消
     // 跳转到登陆页面
@@ -310,82 +209,24 @@ Page({
       })
       return false;
     }
-
-    // 检查登录态是否过期
-  //   wx.checkSession({
-  //     success(res) {
-  //         // session_key 未过期，并且在本生命周期一直有效
-  //         console.log(res);
-  //         wx.request({
-  //             url: app.globalData.requestUrl + '/Api/Login/getWxPhone',
-  //             data: {
-  //                 code: that.data.jsCode,
-  //                 encryptedData: telObj,
-  //                 iv: ivObj,
-  //             },
-  //             method: "POST",
-  //             header: { 'content-type': 'application/json' },// 默认值
-  //             success:function (res) {
-  //                 console.log(res);
-  //                 if (res.data.code == 0) {
-  //                   //存储数据并准备发送给下一页使用
-  //                   app.globalData.phone = res.data.data.phoneNumber;
-  //                   wx.showModal({
-  //                     title: '提示',
-  //                     content: '授权成功!',
-  //                     showCancel: false,
-  //                     success: function (resbtn) {
-  //                       that.setData({
-  //                         phone:res.data.data.phoneNumber,
-  //                         hidden: true
-  //                       });
-  //                     }
-  //                   })
-  //                 } else {
-  //                   wx.showModal({
-  //                     title: '提示',
-  //                     content: res.data.msg,
-  //                     showCancel: false,
-  //                     success: function (resbtn) {
-  //                       that.setData({
-  //                         hidden: true
-  //                       });
-  //                     }
-  //                   })
-  //                 }
-  //             },
-  //             fail: function (e) {
-  //               wx.showModal({
-  //                 title: '提示',
-  //                 content: '授权失败！',
-  //                 showCancel: false,
-  //                 success: function (resbtn) {
-  //                   that.setData({
-  //                     hidden: true
-  //                   });
-  //                 }
-  //               })
-  //             },
-  //             complete: res => {
-  //                 wx.hideLoading();
-  //             }
-  //         })
-  //     },
-  //     fail(err) {
-  //         // session_key 已经失效，需要重新执行登录流程
-  //         wx.login({
-  //             success: res => {
-  //                 that.data.jsCode = res.code
-  //             }
-  //         })
-  //     }
-  // })
-
-    //------执行Login
+    that.setData({
+      phonename: '获取中',
+    });
+    // 执行Login
     wx.login({
       success: res => {
         console.log('code转换', res.code); //用code传给服务器调换session_key
         if (res.code) {
+          wx.getUserInfo({
+            success: function(res) {
+              wx.removeStorageSync('userInfo') ;
+              // 设置用户信息
+              wx.setStorageSync('userInfo', res.userInfo);
+              app.globalData.userInfo = res.userInfo;
+              telObj = res.encryptedData;
+              ivObj = res.iv;
+            }
+          })
           wx.request({
             url: app.globalData.requestUrl + '/Api/Login/getWxPhone', //接口地址
             dataType: 'json',
@@ -397,17 +238,11 @@ Page({
               if (res.data.code == 0) {
                 //存储数据并准备发送给下一页使用
                 app.globalData.phone = res.data.data.phoneNumber;
-                wx.showModal({
-                  title: '提示',
-                  content: '授权成功!',
-                  showCancel: false,
-                  success: function (resbtn) {
-                    that.setData({
-                      phone:res.data.data.phoneNumber,
-                      hidden: true
-                    });
-                  }
-                })
+                that.setData({
+                  phone:res.data.data.phoneNumber,
+                  phonename: '自动获取',
+                  hidden: true
+                });
               } else {
                 wx.showModal({
                   title: '提示',
@@ -415,6 +250,7 @@ Page({
                   showCancel: false,
                   success: function (resbtn) {
                     that.setData({
+                      phonename: '自动获取',
                       hidden: true
                     });
                   }
@@ -428,6 +264,7 @@ Page({
                 showCancel: false,
                 success: function (resbtn) {
                   that.setData({
+                    phonename: '自动获取',
                     hidden: true
                   });
                 }
@@ -444,7 +281,7 @@ Page({
       that.setData({
         codename: "重新发送"
       });
-      console.log(codename);
+      // console.log(codename);
       // timeout则跳出递归
       return false;
     } else {
@@ -452,7 +289,7 @@ Page({
       that.setData({
         codename: total_micro_second + "s"
       });
-      console.log(that.data);
+      // console.log(that.data);
       total_micro_second--;
       if (total_micro_second >0) {
         setTimeout(function () {
@@ -467,6 +304,7 @@ Page({
   },
   getInputPhone: function (e) {// 获取手机号码
     var that = this;
+    console.log(e);
     that.setData({
       phone: e.detail.value
     })
