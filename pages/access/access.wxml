@@ -28,7 +28,8 @@
     <!-- width:200px;height:170px; -->
   </view>
   <view style='float:left;'>
-    <button type="default" bindtap='agreeGetUser' class="login_button" hover-class="other-button-hover" style='background-color:#29abe0;color:#fff' bindgetuserinfo='agreeGetUser'> 快速注册登陆 </button>
+  <!-- bindtap='agreeGetUser' -->
+    <button type="default"  class="login_button" hover-class="other-button-hover" style='background-color:#29abe0;color:#fff' open-type="getUserInfo" bindgetuserinfo='agreeGetUser'> 快速注册登陆 </button>
   </view>  
   <!-- <view class='explain'>
     说明：<view>达派云印将为您提供在线打印服务</view>

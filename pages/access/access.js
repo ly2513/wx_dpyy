@@ -2,7 +2,7 @@
 //获取应用实例
 const app = getApp();
 app.globalData.userInfo = {};
-var dev = false;
+var dev = true;
 // https://www.lovecangda.com
 // 后端地址
 // app.globalData.requestUrl = (dev === false) ? 'http://dp-dev.dpyunyin.com' : 'https://dp-stg.dpyunyin.com';
@@ -26,6 +26,7 @@ Page({
     });
   },
   agreeGetUser: function (e) { //获取用户信息新接口
+    wx.setStorageSync('userInfo', e.detail.userInfo);
     let that = this;
     wx.showModal({
       title: '系统提示',

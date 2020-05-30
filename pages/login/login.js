@@ -223,7 +223,6 @@ Page({
               wx.removeStorageSync('userInfo') ;
               // 设置用户信息
               wx.setStorageSync('userInfo', res.userInfo);
-              console.log(res);
               app.globalData.userInfo = res.userInfo;
               telObj = res.encryptedData;
               ivObj = res.iv;
@@ -318,7 +317,4 @@ Page({
       code: e.detail.value
     })
   },
-  agreeGetUser: function(e){
-    console.log(e);
-  }
 })
