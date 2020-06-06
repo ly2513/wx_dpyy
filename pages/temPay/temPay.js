@@ -13,13 +13,14 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    console.log(options.action);
     var action = options.action;
     var document_id = options.document_id;
     var source_name = options.source_name;
+    var order_id=options.order_id;
     console.log(action);
     console.log(document_id);
-    if (!document_id || !action) {
+    console.log(order_id)
+    if (!document_id && !action&&!order_id) {
       wx.navigateBack({
         delta: 1,
       })
@@ -91,7 +92,108 @@ Page({
       this.setData({
         action: 2
       });
-    } else {
+    } else if(action=='print_pay'){
+      this.setData({
+        action: 4
+      });
+      console.log(order_id)
+      wx.request({
+        url: app.globalData.requestUrl + '/Api/Order/payOrder/' + order_id,//后台语言的处理 
+        method: 'POST',
+        header: { 'content-type': 'application/json', 'content-type': 'application/x-www-form-urlencoded', 'token': wx.getStorageSync("token")},
+        dataType: 'json',
+        success: function (res) {
+          if (res.data.code == 0) {
+            console.log(res);
+            var nonceStr = res.data.data.nonceStr;
+            var appId = res.data.data.appId;
+            var pkg = res.data.data.package;
+            var timeStamp = res.data.data.timeStamp;
+            var paySign = res.data.data.paySign;
+            wx.requestPayment({
+              timeStamp: timeStamp,
+              nonceStr: nonceStr,
+              package: pkg,
+              signType: 'MD5',
+              paySign: paySign,
+              success: function (res) {
+                console.log(res)
+                wx.showModal({
+                  title: '提示',
+                  content: '支付成功',
+                  showCancel: true,
+                  success: function (resbtn) {
+                    if (resbtn.confirm) {
+                      wx.requestSubscribeMessage({
+                        tmplIds: ['fUBqODd2mYiBNkasdBseV1InmntcrHvKNOdUCJwqNrM'],
+                        success(res){
+                          console.log(res.errMsg+res.TEMPLATE_ID);
+                          wx.navigateBack({
+                            complete: (res) => {},
+                          })
+                        },
+                        fail(res){
+                          console.log(res.errCode+res.errMsg);
+                          wx.navigateBack({
+                            complete: (res) => {},
+                          })
+                        }
+                      })
+                      // aa.getData();
+  
+                    }
+                  }
+                })
+              },
+              fail: function (res) {
+                wx.navigateBack({
+                  complete: (res) => {},
+                })
+                wx.showModal({
+                  title: '支付取消',
+                  content: '支付取消。',
+                  showCancel: false,
+                  success: function (resbtn) {
+                    if (resbtn.confirm) {
+                      
+                    }
+                  }
+                })
+              }
+            })
+          } else {
+            wx.navigateBack({
+              complete: (res) => {},
+            })
+            wx.showModal({
+              title: '支付失败',
+              content: res.data.msg,
+              showCancel: true,
+              showSuccess: false,
+              success: function (resbtn) {
+  
+              }
+            })
+          }
+        }, fail: function (res) {
+          console.log(res.data.msg);
+          wx.navigateBack({
+            complete: (res) => {},
+          })
+          wx.showModal({
+            title: '支付失败',
+            content: '支付失败。',
+            showCancel: true,
+            success: function (resbtn) {
+              if (resbtn.confirm) {
+  
+              }
+            }
+          })
+        }
+      });
+
+    }else {
       var self=this;
       this.action = 3;
       var typeUrl = app.globalData.requestUrl + '/Api/Library/getDocumenType?document_id=' + document_id + '&token=' + wx.getStorageSync("token");
