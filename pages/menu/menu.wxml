@@ -1,16 +1,31 @@
 <!-- menu.wxml -->
-<view class="container">
-  <view >
+<view>
+	<image class='background' src="/images/home_backgroud.png" mode="aspectFill"></image>
+
+	<view class="cent_layout">
+			<view class="layout_horizontal">
+				<image class="print_order" src="/images/print_btn.png" bindtap="placeOrder"></image>
+				<view class="layout_vertical">
+					<image class="other_btn" src="/images/order_search_btn.png" bindtap="myOrder"></image>
+					<image class="other_btn" src="/images/share_library_btn.png" bindtap="complaintProposal"></image>
+				</view>
+			</view>
+	</view>
+
+
+
+
+	<!-- <view >
     <image src='/images/v1.1/new_small_logo.png' class='logo_img'></image>
   </view>
-  <view class='line'></view>
-  
-  <!-- <view style='padding-top:20rpx;' wx:if="{{phone == ''}}" data-phone="{{phone}}">
+  <view class='line'></view> -->
+
+	<!-- <view style='padding-top:20rpx;' wx:if="{{phone == ''}}" data-phone="{{phone}}">
     <view style='float:left;color:#fff;padding-right:20rpx;font-size:12px;padding:5px 10px 5px 0px;'>打印完成是否需要短信通知(需要请选OK)</view>  
     <view style='float:left'>
     <button  plain='true' style='border:1px solid #29abe0;font-size:12px;background-color:#fff;'  open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber"> <strong>ok</strong>  </button></view>    
   </view> -->
-  <view style='margin-top:0rpx;margin-bottom:17px'>
+	<!-- <view style='margin-top:0rpx;margin-bottom:17px'>
     <button class='add_order'  plain='true' style='border:1px solid #29abe0;font-size:8px ' bindtap="placeOrder"> 
       <image src='/images/v1.1/add_order_button.png' style='width:540rpx;height:240rpx;'></image>
 
@@ -27,6 +42,9 @@
       </button>
   </view>
   <view class='line' style='position:fixed;bottom:10%;'></view>
+  <view class="text"  >
+    <text >达派创投旗下直营品牌</text>
+  </view> -->
   <view class="text"  >
     <text >达派创投旗下直营品牌</text>
   </view>

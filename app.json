@@ -24,19 +24,19 @@
     "backgroundColor": "#29abe0"
   },
   "tabBar": {
-    "color": "#2c2c2c",
-    "selectedColor": "#005690",
+    "color": "#9CA3BF",
+    "selectedColor": "#18294F",
     "borderStyle": "black",
     "list": [
       {
-        "selectedIconPath": "images/home_blue.png",
-        "iconPath": "images/home_black.png",
+        "selectedIconPath": "images/first_page_select.png",
+        "iconPath": "images/first_page.png",
         "pagePath": "pages/menu/menu",
         "text": "首页"
       },
       {
-        "selectedIconPath": "images/order_blue1.png",
-        "iconPath": "images/order_black.png",
+        "selectedIconPath": "images/my_order_select.png",
+        "iconPath": "images/my_order.png",
         "pagePath": "pages/order/order",
         "text": "我的订单"
       }
