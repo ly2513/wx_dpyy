@@ -1,0 +1,2 @@
+<!--pages/choseFile.wxml-->
+<web-view src="{{requestUrl}}" class="page" bindmessage="msgHandler"></web-view> 

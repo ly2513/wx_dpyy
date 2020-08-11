@@ -1,63 +1,104 @@
-<view class="page">
-  <view style='text-align:center;'>
-    <image src='/images/v1.1/new_small_logo.png' class='logo_img'></image>
-  </view>
-  <view class="weui-form">
-    <view class="weui-form__text-area">
-      <view class="weui-form__title">微信绑定手机号</view>
-    </view>
-    <view class="weui-form__control-area" style="margin: 5% 0% 0% 0%;flex:0;">
-      <view class="weui-cells__group weui-cells__group_form">
-          <view class="weui-cells weui-cells_form">
-            <view class="weui-cell" style='padding:5% 10%'>
-              <view class="weui-cell__hd">
-                <label class="weui-label">手机号</label>
-              </view>
-              <view class="weui-cell__bd">
-                  <input class="weui-input" type="number" pattern="[0-9]*" placeholder="请输入手机号" maxlength='11' name='phone' value='{{phone}}'   bindinput="getInputPhone" placeholder-class="notice" />
-                  <!-- bindinput="getInputPhone" -->
-                  <!-- bindblur="getInputPhone" -->
-                  <!-- bindfocus="getInputPhone"  -->
-              </view>
-              <view class="weui-cell__ft" style="padding-left:5px;">
-                <button class="weui-btn weui-btn_default weui-vcode-btn" open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber"  data-phone="{{phone}}" type='button' form-type="submit"  style='width:100%;'>{{phonename}}</button>
-              </view>
-            </view>
-            <view class="weui-cell weui-cell_vcode" style='padding:5% 10%'>
-              <view class="weui-cell__hd" >
-                <label class="weui-label">验证码</label>
-              </view>
-              <view class="weui-cell__bd">
-                  <input class="weui-input" type="number" pattern="[0-9]*" placeholder="请输入验证码"  maxlength='4' bindinput="getInputCode" name='code' placeholder-class="notice"/>
-                  <!-- bindblur="getInputCode"  -->
-                  <!-- bindfocus="getInputCode" -->
-              </view>
-              <view class="weui-cell__ft" style="padding-left:10px;">
-                <button class="weui-btn weui-btn_default weui-vcode-btn" bindtap="sentValidateCode" data-phone="{{phoneNo}}" type='button' form-type="submit"  style='width:100%;'>{{codename}}</button>
-              </view>
-            </view>
-          </view>
-      </view>
-    </view>
-    
-    <view style='margin:0 auto;'>
-      <button type="default" class="login_button" hover-class="other-button-hover" style='background-color:#29abe0;color:#fff;margin-right:2em;' bindtap='cancel'> 取消 </button>
-      <button bindtap='login' type="default" class="login_button" hover-class="other-button-hover" style='background-color:#29abe0;color:#fff' > 绑定 </button>
-    </view>
-    <!-- <view class="weui-form__tips-area">
-      <view class="weui-form__tips" style='color:#fff;'> 
-        <navigator url="../register/register">新用户注册</navigator>
-      </view>
-    </view> -->
-    <view class="weui-form__tips-area">
-      <view class="weui-form__tips" style='color:#fff;'>
-        点击提交即表示同意 <navigator url="../agree/agree">《用户协议》</navigator>
-      </view>
-    </view>
-    <view class="weui-form__extra-area">
-      <view class="weui-footer">
-        <view class="weui-footer__text" style='color:#fff;'>Copyright © 2013-2020 www.dpyunyin.com</view>
-      </view>
-    </view>
-  </view>
+<view >
+	<image class='background' src="/images/home_backgroud.png" mode="aspectFill"></image>
+	<view style="padding-top:350rpx">
+		<view class="bg">
+			<view style="margin-top:30rpx;display:flex;justify-content: center; align-content: center;font-size:35rpx;color:#000000">微信绑定手机号码</view>
+			<view style='height:80rpx;align-items:center;background-color:#ffffff;display:flex;flex-direction:row;border-radius: 45rpx;border:1rpx solid #DEDEDE;margin-top:30rpx;margin-left:30rpx;margin-right:30rpx'>
+				<view style="color:#6C6C6C;margin-left:20rpx">手机号</view>
+				<view style="background-color:#CACACA;height:50rpx;width:1rpx;margin-left:20rpx"></view>
+				<input style="padding-left:20rpx;color:#000000" type="number" pattern="[0-9]*" placeholder="请输入手机号" maxlength='11' name='phone' value='{{phone}}' bindinput="getInputPhone" />
+				<view style="padding-left:20rpx;">
+					<button open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber" data-phone="{{phone}}" type='button' form-type="submit" style='font-size:20rpx;color:#FFFFFF;background-color:#55A8DB;width:100%;'>{{phonename}}</button>
+				</view>
+			</view>
+			<view style='height:80rpx;align-items:center;background-color:#ffffff;display:flex;flex-direction:row;border-radius: 45rpx;border:1rpx solid #DEDEDE;margin-top:30rpx;margin-left:30rpx;margin-right:30rpx'>
+				<view style="color:#6C6C6C;margin-left:20rpx">验证码</view>
+				<view style="background-color:#CACACA;height:50rpx;width:1rpx;margin-left:20rpx"></view>
+				<input style="padding-left:20rpx;color:#000000" type="number" pattern="[0-9]*" placeholder="请输入验证码" maxlength='4' bindinput="getInputCode" name='code' />
+				<view style="padding-left:20rpx;">
+					<button class="weui-btn weui-btn_default weui-vcode-btn" bindtap="sentValidateCode" data-phone="{{phoneNo}}" type='button' form-type="submit" style='font-size:20rpx;color:#FFFFFF;background-color:#55A8DB;width:100%;'>{{codename}}</button>
+				</view>
+			</view>
+      <view style='margin:0 auto;margin-top:30rpx'>
+				<button type="default" class="login_button" hover-class="other-button-hover" style='background-color:#FFFFFF;color:#1B294C;margin-right:2em;border-radius: 25rpx;border:1rpx solid #1B294C;' bindtap='cancel'> 取消 </button>
+				<button bindtap='login' type="default" class="login_button" hover-class="other-button-hover" style='background-color:#1B294C;color:#fff;border-radius: 25rpx'> 绑定 </button>
+			</view>
+		</view>
+	</view>
+
+	<!-- <view class="bg">
+		<view style='padding:5% 10%'>
+				<view >手机号</view>
+			<view>
+				<input type="number" pattern="[0-9]*" placeholder="请输入手机号" maxlength='11' name='phone' value='{{phone}}' bindinput="getInputPhone" placeholder-class="notice" />
+
+			</view>
+			<view style="padding-left:5px;">
+				<button  open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber" data-phone="{{phone}}" type='button' form-type="submit" style='width:100%;'>{{phonename}}</button>
+			</view>
+		</view>
+		<view class="weui-cell weui-cell_vcode" style='padding:5% 10%'>
+			<view class="weui-cell__hd">
+				<label class="weui-label">验证码</label>
+			</view>
+			<view class="weui-cell__bd">
+				<input class="weui-input" type="number" pattern="[0-9]*" placeholder="请输入验证码" maxlength='4' bindinput="getInputCode" name='code' placeholder-class="notice" />
+
+			</view>
+			<view class="weui-cell__ft" style="padding-left:10px;">
+				<button class="weui-btn weui-btn_default weui-vcode-btn" bindtap="sentValidateCode" data-phone="{{phoneNo}}" type='button' form-type="submit" style='width:100%;'>{{codename}}</button>
+			</view>
+		</view> -->
+	<!-- </view> -->
+
+
+	<!-- <view class="weui-form">
+		<view class="weui-form__control-area">
+			<view class="weui-cells__group weui-cells__group_form">
+				<view class="weui-cells weui-cells_form">
+					<view class="weui-cell" style='padding:5% 10%'>
+						<view class="weui-cell__hd">
+							<label class="weui-label">手机号</label>
+						</view>
+						<view class="weui-cell__bd">
+							<input class="weui-input" type="number" pattern="[0-9]*" placeholder="请输入手机号" maxlength='11' name='phone' value='{{phone}}' bindinput="getInputPhone" placeholder-class="notice" />
+						
+						</view>
+						<view class="weui-cell__ft" style="padding-left:5px;">
+							<button class="weui-btn weui-btn_default weui-vcode-btn" open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber" data-phone="{{phone}}" type='button' form-type="submit" style='width:100%;'>{{phonename}}</button>
+						</view>
+					</view>
+					<view class="weui-cell weui-cell_vcode" style='padding:5% 10%'>
+						<view class="weui-cell__hd">
+							<label class="weui-label">验证码</label>
+						</view>
+						<view class="weui-cell__bd">
+							<input class="weui-input" type="number" pattern="[0-9]*" placeholder="请输入验证码" maxlength='4' bindinput="getInputCode" name='code' placeholder-class="notice" />
+							
+						</view>
+						<view class="weui-cell__ft" style="padding-left:10px;">
+							<button class="weui-btn weui-btn_default weui-vcode-btn" bindtap="sentValidateCode" data-phone="{{phoneNo}}" type='button' form-type="submit" style='width:100%;'>{{codename}}</button>
+						</view>
+					</view>
+				</view>
+			</view>
+			<view style='margin:0 auto;'>
+				<button type="default" class="login_button" hover-class="other-button-hover" style='background-color:#29abe0;color:#fff;margin-right:2em;' bindtap='cancel'> 取消 </button>
+				<button bindtap='login' type="default" class="login_button" hover-class="other-button-hover" style='background-color:#29abe0;color:#fff'> 绑定 </button>
+			</view>
+		</view>
+
+
+
+		<view class="weui-form__tips-area">
+			<view class="weui-form__tips" style='color:#fff;'>
+				点击提交即表示同意 <navigator url="../agree/agree">《用户协议》</navigator>
+			</view>
+		</view>
+		<view class="weui-form__extra-area">
+			<view class="weui-footer">
+				<view class="weui-footer__text" style='color:#fff;'>Copyright © 2013-2020 www.dpyunyin.com</view>
+			</view>
+		</view>
+	</view> -->
 </view>

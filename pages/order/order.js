@@ -63,8 +63,8 @@ Page({
         console.log(dataModel);
         if (dataModel.code == 0) {
           for(var i=0;i<dataModel.data.list.length;i++){
-            var first_no=dataModel.data.list[i].order_no.substring(0,9);
-            var last_no=dataModel.data.list[i].order_no.substring(9);
+            var first_no=dataModel.data.list[i].order_no.substring(0,11);
+            var last_no=dataModel.data.list[i].order_no.substring(11);
             dataModel.data.list[i].first_no=first_no.trim();
             dataModel.data.list[i].last_no=last_no.trim();
           }

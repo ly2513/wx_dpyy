@@ -16,11 +16,14 @@ Page({
     var action = options.action;
     var document_id = options.document_id;
     var source_name = options.source_name;
-    var order_id=options.order_id;
+    var order_id = options.order_id;
+    var url = options.url;
+    var file_name=options.file_name;
+    console.log("file_name:"+file_name)
     console.log(action);
     console.log(document_id);
     console.log(order_id)
-    if (!document_id && !action&&!order_id) {
+    if (!document_id && !action && !order_id) {
       wx.navigateBack({
         delta: 1,
       })
@@ -32,7 +35,10 @@ Page({
       wx.request({
         url: app.globalData.requestUrl + '/Api/Library/addOrder?token=' + wx.getStorageSync("token"),
         method: 'POST',
-        header: { 'content-type': 'application/json', 'content-type': 'application/x-www-form-urlencoded' },
+        header: {
+          'content-type': 'application/json',
+          'content-type': 'application/x-www-form-urlencoded'
+        },
         dataType: 'json',
         data: {
           document_id: document_id,
@@ -64,7 +70,8 @@ Page({
                     // })
                   }
                 })
-              }, fail: function (res) {
+              },
+              fail: function (res) {
 
               }
             })
@@ -74,7 +81,8 @@ Page({
               title: res.data.msg,
             })
           }
-        }, fail: function (res) {
+        },
+        fail: function (res) {
           console.log(res.data.msg);
           wx.showModal({
             title: '支付失败',
@@ -88,19 +96,125 @@ Page({
           })
         }
       })
+    } else if (action == 'print') {
+      this.setData({
+        action: 5
+      });
+      console.log(document_id)
+      var typeUrl = app.globalData.requestUrl + '/Api/Library/getDocumenType?document_id=' + document_id + '&token=' + wx.getStorageSync("token");
+      wx.request({
+        url: typeUrl,
+        method: 'GET',
+        header: {
+          'content-type': 'application/json',
+          'content-type': 'application/x-www-form-urlencoded'
+        },
+        dataType: 'json',
+        success: function (res) {
+          console.log(res.data)
+          if (res.data.code == 0) {
+            source_name = res.data.data;
+            console.log(source_name)
+            var timestamp = Date.parse(new Date());
+            timestamp = timestamp / 1000;
+            var url = app.globalData.requestUrl + '/Api/Library/downDocument?2=' + document_id + "&3=" + timestamp + '&token=' + wx.getStorageSync("token");
+            console.log(url);
+            // var rootPath = wx.env.USER_DATA_PATH;
+            // var cachePath = rootPath + "/dpyy";
+            // if (!self.ifFile(cachePath)) {
+            //   console.log("创建路径");
+            //   self.mkdir(cachePath);
+            // }
+            wx.downloadFile({
+              url: url,
+              success(res) {
+                var tempFilePath = res.tempFilePath;
+                // wx.openDocument({
+                //   filePath: res.filePath,
+                //   success(res) {
+                //     wx.navigateBack({
+                //       complete: (res) => { },
+                //     })
+                //   }
+                // })
+                var url = app.globalData.requestUrl + '/Api/File/upload?';
+                wx.uploadFile({
+                  filePath: tempFilePath,
+                  name: 'file',
+                  url: url,
+                  formData: {
+                    "name": source_name
+                  },
+                  header: {
+                    'Content-Type': 'multipart/form-data',
+                    'token': wx.getStorageSync("token"),
+                  },
+                  success(res) {
+                    console.log(res.data)
+                    var data = JSON.parse(res.data)
+                    console.log(data.data.name)
+                    data.data.file_num = 1
+                    if (data.code != 0) {
+                      wx.showToast({
+                        title: data.msg,
+                      })
+                      return
+                    }
+                    data.data.print_color = 1
+                    if (data.data.extension == 'pdf' || data.data.extension == 'doc' || data.data.extension == 'docx' || data.data.extension == 'xls' || data.data.extension == 'xlsx' || data.data.extension == 'ppt' || data.data.extension == 'pptx') {
+                      data.data.print_page = 1
+                      data.data.paper_type = 1
+                      data.data.paper_size = 0
+                    } else {
+                      data.data.print_page = 3
+                      data.data.paper_size = 1
+                      data.data.paper_type = 0
+                    }
+                    that.data.fileArray = [data].concat(that.data.fileArray)
+                    that.setData({
+                      fileNum: that.data.fileNum + 1,
+                      fileArray: that.data.fileArray
+                    })
+                    console.log(that.data.fileArray[0].name)
+                  },
+                  fail(e) {
+                    wx.showToast({
+                      title: e.errMsg,
+                    })
+                    console.log(e)
+                  }
+                })
+              },
+              fail(res) {
+                wx.showToast({
+                  title: '文件下载错误',
+                })
+              }
+            })
+          } else {
+            wx.navigateBack({
+              complete: (res) => {},
+            })
+          }
+        }
+      })
     } else if (action == 'share') {
       this.setData({
         action: 2
       });
-    } else if(action=='print_pay'){
+    } else if (action == 'print_pay') {
       this.setData({
         action: 4
       });
       console.log(order_id)
       wx.request({
-        url: app.globalData.requestUrl + '/Api/Order/payOrder/' + order_id,//后台语言的处理 
+        url: app.globalData.requestUrl + '/Api/Order/payOrder/' + order_id, //后台语言的处理 
         method: 'POST',
-        header: { 'content-type': 'application/json', 'content-type': 'application/x-www-form-urlencoded', 'token': wx.getStorageSync("token")},
+        header: {
+          'content-type': 'application/json',
+          'content-type': 'application/x-www-form-urlencoded',
+          'token': wx.getStorageSync("token")
+        },
         dataType: 'json',
         success: function (res) {
           if (res.data.code == 0) {
@@ -126,21 +240,21 @@ Page({
                     if (resbtn.confirm) {
                       wx.requestSubscribeMessage({
                         tmplIds: ['fUBqODd2mYiBNkasdBseV1InmntcrHvKNOdUCJwqNrM'],
-                        success(res){
-                          console.log(res.errMsg+res.TEMPLATE_ID);
+                        success(res) {
+                          console.log(res.errMsg + res.TEMPLATE_ID);
                           wx.navigateBack({
                             complete: (res) => {},
                           })
                         },
-                        fail(res){
-                          console.log(res.errCode+res.errMsg);
+                        fail(res) {
+                          console.log(res.errCode + res.errMsg);
                           wx.navigateBack({
                             complete: (res) => {},
                           })
                         }
                       })
                       // aa.getData();
-  
+
                     }
                   }
                 })
@@ -155,7 +269,7 @@ Page({
                   showCancel: false,
                   success: function (resbtn) {
                     if (resbtn.confirm) {
-                      
+
                     }
                   }
                 })
@@ -171,11 +285,12 @@ Page({
               showCancel: true,
               showSuccess: false,
               success: function (resbtn) {
-  
+
               }
             })
           }
-        }, fail: function (res) {
+        },
+        fail: function (res) {
           console.log(res.data.msg);
           wx.navigateBack({
             complete: (res) => {},
@@ -186,26 +301,29 @@ Page({
             showCancel: true,
             success: function (resbtn) {
               if (resbtn.confirm) {
-  
+
               }
             }
           })
         }
       });
 
-    }else {
-      var self=this;
+    } else {
+      var self = this;
       this.action = 3;
       var typeUrl = app.globalData.requestUrl + '/Api/Library/getDocumenType?document_id=' + document_id + '&token=' + wx.getStorageSync("token");
       wx.request({
         url: typeUrl,
         method: 'GET',
-        header: { 'content-type': 'application/json', 'content-type': 'application/x-www-form-urlencoded' },
+        header: {
+          'content-type': 'application/json',
+          'content-type': 'application/x-www-form-urlencoded'
+        },
         dataType: 'json',
         success: function (res) {
           console.log(res.data)
           if (res.data.code == 0) {
-            source_name=res.data.data;
+            source_name = res.data.data;
             var timestamp = Date.parse(new Date());
             timestamp = timestamp / 1000;
             var url = app.globalData.requestUrl + '/Api/Library/downDocument?2=' + document_id + "&3=" + timestamp + '&token=' + wx.getStorageSync("token");
@@ -225,11 +343,12 @@ Page({
                   filePath: res.filePath,
                   success(res) {
                     wx.navigateBack({
-                      complete: (res) => { },
+                      complete: (res) => {},
                     })
                   }
                 })
-              }, fail(res) {
+              },
+              fail(res) {
                 wx.showToast({
                   title: '文件下载错误',
                 })
@@ -237,7 +356,7 @@ Page({
             })
           } else {
             wx.navigateBack({
-              complete: (res) => { },
+              complete: (res) => {},
             })
           }
         }

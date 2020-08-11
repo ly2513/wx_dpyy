@@ -85,7 +85,7 @@ Page({
       })
     }else{
       wx.navigateTo({
-        url: '../placeOrder/placeOrder',
+        url: '../newPlaceOrder/newPlaceOrder',
         success: function (res) {
           console.log('跳转成功');
         },

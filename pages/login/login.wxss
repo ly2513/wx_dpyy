@@ -188,6 +188,7 @@ float: left;
 	margin-right:8px;
 }
 
+
 .weui-label {
 	width:105px;
 	word-wrap:break-word;
@@ -259,4 +260,22 @@ input {
     transform: scaleY(0.5);
     left: 16px;
     z-index: 2;
+}
+.background {
+  width: 100%;
+  height: 100%;
+  position:fixed; 
+  background-size:100% 100%;
+  z-index: -10;
+}
+.bg{
+  /* padding-top: 50%; */
+  border-radius: 25rpx;
+  background-color: white;
+  margin-left: 20rpx;
+  margin-right: 20rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
 }

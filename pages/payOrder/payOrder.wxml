@@ -1,0 +1,29 @@
+<!--pages/newPlaceOrder.wxml-->
+<form bindsubmit="formSubmit">
+	<image class="background" src="/images/new_order_bg.png"></image>
+	<view class="content_bg">
+		<view class="form">
+			<swiper class="img" indicator-dots="true" indicator-active-color="#ffffff" autoplay="true">
+				<swiper-item wx:for="{{imgs}}" wx:for-index="idx" wx:for-item="itemName">
+					<image mode="scaleToFill" class="inner_img" style="width:100%" src="{{itemName.img_path}}"></image>
+				</swiper-item>
+				<!-- <swiper-item>
+					<image mode="scaleToFill" class="inner_img" src="{{imgUrl_2}}"></image>
+				</swiper-item>
+				<swiper-item>
+					<image mode="scaleToFill" class="inner_img" src="{{imgUrl_3}}"></image>
+				</swiper-item> -->
+			</swiper>
+			<view class="finish_content">
+				<image style="width:100rpx;height:100rpx;margin-top:30rpx" src="/images/v2.0/finish.png"></image>
+        <text style="color:#28B042;margin-top:30rpx;font-size:25rpx" >订单提交成功，请耐心等待</text>
+        <text style="color:#FE3846;margin-top:50rpx;font-size:23rpx">订单金额：{{price}}元</text>
+        <button bindtap="pay" style="font-size:30rpx;background-color:#0473FF;color:#FFFFFF;border-radius: 20rpx;margin-top:20rpx">  去支付  </button>
+        <text style="color:#DE9E0F;margin-top:50rpx;font-size:18rpx">可返回订单列表查看详情</text>
+        <text style="color:#DE9E0F;font-size:18rpx;margin-bottom:50rpx">请留意打印完成短信通知</text>
+			</view>
+
+		</view>
+    <text style="margin-top:100rpx">达派创投旗下直营品牌</text>
+	</view>
+</form>

@@ -1,0 +1,193 @@
+<!--pages/newPlaceOrder.wxml-->
+<form bindsubmit="formSubmit">
+	<image class="background" src="/images/new_order_bg.png"></image>
+	<view class="content_bg">
+		<view class="form">
+			<swiper class="img" indicator-dots="true" indicator-active-color="#ffffff" autoplay="true">
+			
+				<swiper-item wx:for="{{imgs}}" wx:for-index="idx" wx:for-item="itemName">
+					<image mode="scaleToFill" class="inner_img" style="width:100%" src="{{itemName.img_path}}"></image>
+				</swiper-item>
+				<!-- <swiper-item>
+					<image mode="scaleToFill" class="inner_img" src="{{imgUrl_2}}"></image>
+				</swiper-item>
+				<swiper-item>
+					<image mode="scaleToFill" class="inner_img" src="{{imgUrl_3}}"></image>
+				</swiper-item> -->
+			</swiper>
+			<picker range="{{schoolList}}" range-key="school_name" name="school_id" bindchange="onSchoolChange" value="{{schoolValue}}">
+				<view class="item">
+					<text class="text_1">所在校区</text>
+					<text class="text_2">{{schoolName==""?"请选择所在校区":schoolName}}</text>
+					<image class="arrows_img" src="/images/v2.0/jiantou.png"></image>
+				</view>
+			</picker>
+			<view class="line"></view>
+
+			<view style="display: flex;flex-direction: column;">
+				<picker range="{{storeList}}" name="store_id" range-key="store_name" value="{{storeValue}}" bindchange="onStoreChange">
+					<view class="item">
+						<text class="text_1">打印门店</text>
+						<text class="text_2">{{storeName}}</text>
+						<image class="arrows_img" src="/images/v2.0/jiantou.png"></image>
+					</view>
+				</picker>
+
+				<view wx:if="{{storeValue!=0}}" style="display: flex;flex-direction: row;justify-content:space-between;margin-left: 150rpx;">
+					<button class="btn_3" bindtap="show_time">营业时间</button>
+					<button class="btn_3" bindtap="show_location">查看位置</button>
+					<button class="btn_3" bindtap="show_price">价格表</button>
+				</view>
+			</view>
+
+
+
+
+
+
+			<view style="display: flex; flex-direction: column; padding-left: 20rpx;padding-right: 20rpx;" wx:if="{{fileNum>0}}">
+				<view class="line"></view>
+				<text >文件列表</text>
+				<view wx:key="*this" wx:for="{{fileArray}}" wx:for-index="idx" wx:for-item="itemName" class="array_item">
+					<view class="item_left">
+						<image wx:if="{{itemName.data.extension=='jpg'||itemName.data.extension=='jpeg'||itemName.data.extension=='JPG'||itemName.data.extension=='png'}}" src="/images/v2.0/jpg_ico.png" style="width:60rpx;height:70rpx;align-items:center"></image>
+						<image wx:if="{{itemName.data.extension=='doc'||itemName.data.extension=='docx'}}" src="/images/v2.0/word_ico.png" style="width:60rpx;height:70rpx;align-items:center"></image>
+						<image wx:if="{{itemName.data.extension=='xls'||itemName.data.extension=='xlsx'}}" src="/images/v2.0/xlsx_ico.png" style="width:60rpx;height:70rpx;align-items:center"></image>
+						<image wx:if="{{itemName.data.extension=='pdf'}}" src="/images/v2.0/pdf_ico.png" style="width:60rpx;height:70rpx;align-items:center"></image>
+						<view style="display: flex;flex-direction: row;margin-top: 10rpx;background-color:#55A8DB;border-radius:5px;width:70rpx;height:30rpx;align-items:center;justify-content: center;">
+							<image src="/images/v2.0/see_ico.png" style="width:10rpx;height:10rpx"></image>
+							<text style="font-size:15rpx;color:#ffffff;margin-left: 5rpx;" >预览</text>
+						</view>
+					</view>
+					<view class="item_right">
+						<text name='source_name' style="padding-left:25rpx; overflow: hidden;text-overflow: ellipsis;white-space: nowrap;">{{itemName.data.name}}</text>
+						<view style="display: flex; flex-direction: row;">
+							<radio-group class="radiogroup" bindchange='printColorChange' data-index="{{idx}}">
+								<radio color="#0473FF" class="radio" value="1" checked="true">黑白</radio>
+								<radio color="#0473FF" class="radio" value="2">彩色</radio>
+							</radio-group>
+							<radio-group data-index="{{idx}}" bindchange='printPageChange' class="radiogroup" wx:if="{{itemName.data.extension=='pdf'||itemName.data.extension=='doc'||itemName.data.extension=='docx'||itemName.data.extension=='xls'||itemName.data.extension=='xlsx'||itemName.data.extension=='ppt'||itemName.data.extension=='pptx'}}">
+								<radio color="#0473FF" class="radio" value="1" checked="true">单面</radio>
+								<radio color="#0473FF" class="radio" value="2">双面</radio>
+							</radio-group>
+							<radio-group data-index="{{idx}}" bindchange='printPageChange' wx:if="{{itemName.data.extension=='jpg'||itemName.data.extension=='jpeg'||itemName.data.extension=='JPG'||itemName.data.extension=='png'}}" class='radiogroup'>
+								<radio color="#0473FF" class="radio" value="3" checked="true">照片纸</radio>
+								<radio color="#0473FF" class="radio" value="4">普通纸</radio>
+							</radio-group>
+							<radio-group data-index="{{idx}}" bindchange='paperTypeChange' class='radiogroup' wx:if="{{itemName.data.extension=='pdf'||itemName.data.extension=='doc'||itemName.data.extension=='docx'||itemName.data.extension=='xls'||itemName.data.extension=='xlsx'||itemName.data.extension=='ppt'||itemName.data.extension=='pptx'}}">
+								<radio color="#0473FF" class="radio" value="1" checked="true">A4</radio>
+								<radio color="#0473FF" class="radio" value="2">A3</radio>
+							</radio-group>
+							<radio-group data-index="{{idx}}" bindchange='paperSizeChange' class='radiogroup' wx:if="{{itemName.data.extension=='jpg'||itemName.data.extension=='jpeg'||itemName.data.extension=='JPG'||itemName.data.extension=='png'}}">
+								<radio color="#0473FF" class="radio" value="1" checked="true">A4|157g</radio>
+								<radio color="#0473FF" class="radio" value="2">6寸大小</radio>
+							</radio-group>
+							<input hidden="true" wx:if="{{itemName.data.extension=='pdf'||itemName.data.extension=='doc'||itemName.data.extension=='docx'||itemName.data.extension=='xls'||itemName.data.extension=='xlsx'||itemName.data.extension=='ppt'||itemName.data.extension=='pptx'}}" value="0"></input>
+							<input hidden="true" wx:if="{{itemName.data.extension=='jpg'||itemName.data.extension=='jpeg'||itemName.data.extension=='JPG'||itemName.data.extension=='png'}}" value="0"></input>
+						</view>
+						<view style="display: flex; flex-direction:row;padding-top:15rpx;padding-bottom:15rpx">
+							<text style="font-size:25rpx;color:#1B294C;padding-top:5rpx;padding-left:25rpx">打印数量</text>
+							<image wx:if="{{itemName.data.file_num==1}}" data-index="{{idx}}" bindtap="subnum" style="padding-left:20rpx;width:40rpx;height:40rpx" src="/images/v2.0/none_sub_num.png"></image>
+							<image wx:if="{{itemName.data.file_num>1}}" data-index="{{idx}}" bindtap="subnum" style="padding-left:20rpx;width:40rpx;height:40rpx" src="/images/v2.0/sub_num.png"></image>
+							<text  name='file_num' style="padding-left:18rpx" value="{{itemName.data.file_num}}" >{{itemName.data.file_num}}</text>
+							<image data-index="{{idx}}" bindtap="addnum" style="padding-left:18rpx;width:40rpx;height:40rpx" src="/images/v2.0/add_num.png"></image>
+							<image bindtap="deleteFile" data-index="{{idx}}" style="padding-left:70rpx;width:40rpx;height:45rpx" src="/images/v2.0/delete_num.png"></image>
+							<text bindtap="deleteFile" data-index="{{idx}}" style="color:#FE3846;padding-left:20rpx">删除</text>
+						</view>
+					</view>
+				</view>
+			</view>
+			<view class="line"></view>
+			<view class="remarkitem">
+				<text class="textremark">备注信息</text>
+				<textarea name='remark' class="textarea" placeholder='如需缩印请注明:缩印比例: 1/4或1/6或1/8，谢谢；特殊要求请留下您的联系方式。'></textarea>
+			</view>
+		</view>
+		<view class="btns">
+			<button class="btn_1" bindtap="choseFile">上传文件</button>
+			<button class="btn_2" form-type="submit">确认下单</button>
+		</view>
+
+		<view style="width=100%;margin-bottom: 50rpx;">
+			<view style="width=100%; display:flex;flex-direction:row;justify-content:flex-start;align-items:center;">
+				<image style="width:20rpx;height:20rpx" src="/images/v2.0/tanhao.png"></image>
+				<text style="font-size:20rpx; color:#DE9E0F; padding-left:10rpx" >  为了排版与打印一致，建议上传PDF格式文件</text>
+			</view>
+			<view style="display: flex;justify-content:flex-start;align-items:center;">
+				<image style="width:20rpx;height:20rpx" src="/images/v2.0/tanhao.png"></image>
+				<text style="font-size:20rpx;color:#DE9E0F; padding-left:10rpx" >  一个订单可支持5个不超过20MB的文件</text>
+			</view>
+		</view>
+	</view>
+
+
+
+	<view class="modal-mask" bindtap="hideLocation" wx:if="{{showLocation}}">
+	</view>
+	<view class="modal-dialog" wx:if="{{showLocation}}">
+		<view style="margin-top:30rpx; display:flex; flex-direction: row;height:7%; width:100%;">
+			<view style="width:33%; height:100rpx; padding-left:30rpx;">
+				<text bindtap="hideLocation" style="color:#999999;" >取消</text>
+			</view>
+			<view style=" width:33%; height:100rpx;display:flex;justify-content:center;align-items:cneter">
+				<text style="font-size:35rpx">门店坐标</text>
+			</view>
+			<view style="color:#FE7807; width:33%; height:100rpx;display:flex;justify-content:flex-end;padding-right:30rpx">
+				<text bindtap="hideLocation">关闭</text>
+			</view>
+		</view>
+
+		<view style="height: 1.5rpx;color: #E6E6E6;background-color: #E6E6E6;width:100%"></view>
+		<view style="padding-left:30rpx;margin-top:20rpx;display:flex; flex-direction: row;height:7%; width:100%;">
+			<text style="overflow: hidden;text-overflow: ellipsis;white-space: nowrap;">当前定位：</text>
+			<text style="overflow: hidden;text-overflow: ellipsis;white-space: nowrap;">{{storeName}}</text>
+		</view>
+		<map style="height:86%;width:100%" longitude="{{longitude}}" latitude="{{latitude}}" markers="{{markers}}"></map>
+	</view>
+
+
+
+
+
+	<view class="modal-mask" bindtap="hidePrice" wx:if="{{showPriceList}}"></view>
+	<scroll-view scroll-y="true" class="modal-dialog" wx:if="{{showPriceList}}">
+		<view style="margin-top:30rpx; display:flex; flex-direction: row;height:7%; width:100%;">
+			<view style="width:15%; height:100rpx; padding-left:30rpx;">
+				<text bindtap="hidePrice" style="color:#999999;" ></text>
+			</view>
+			<view style=" width:70%; height:100rpx;display:flex;justify-content:center;align-items:cneter">
+				<text style="font-size:35rpx;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;">{{storeName}}门店价格</text>
+			</view>
+			<view style="color:#FE7807; width:15%; height:100rpx;display:flex;justify-content:flex-end;padding-right:30rpx">
+				<text bindtap="hidePrice">关闭</text>
+			</view>
+		</view>
+
+		<view style="height: 1.5rpx;color: #E6E6E6;background-color: #E6E6E6;width:100%"></view>
+		<view style="display:flex;flex-direction:row;padding-top:20rpx">
+			<text style="display:flex;justify-content:center;width:25%;color:#999999;font-size:25rpx;border:1px solid red">规格</text>
+			<text style="display:flex;justify-content:center;width:25%;color:#999999;font-size:25rpx">单/双面</text>
+			<text style="display:flex;justify-content:center;width:25%;color:#999999;font-size:25rpx">黑白/彩色</text>
+			<text style="display:flex;justify-content:center;width:25%;color:#999999;font-size:25rpx">单价（元/页）</text>
+		</view>
+		<view wx:for="{{price_list}}" wx:for-index="idx" wx:for-item="itemName">
+			<view wx:if="{{idx%2==0}}" style="height:100rpx;display:flex;flex-direction:row;justify-content:space-around;background-color:#ffffff">
+				<text style="display:flex;align-items:center;justify-content:center;width:25%;color:#333333;font-size:25rpx;">{{itemName.paper_type}}</text>
+				<text style="align-items:center;display:flex;justify-content:center;width:25%;color:#333333;font-size:25rpx">{{itemName.print_page}}</text>
+				<text style="align-items:center;display:flex;justify-content:center;width:25%;color:#333333;font-size:25rpx">{{itemName.print_type}}</text>
+				<text style="align-items:center;display:flex;justify-content:center;width:25%;color:##FE3846;font-size:25rpx">{{itemName.price_fen}}</text>
+			</view>
+			<view wx:else style="height:100rpx;display:flex;flex-direction:row;justify-content:space-around;background-color:#00000">
+				<text style="align-items:center;display:flex;justify-content:center;width:25%;color:#333333;font-size:25rpx;">{{itemName.paper_type}}</text>
+				<text style="align-items:center;display:flex;justify-content:center;width:25%;:#333333;font-size:25rpx">{{itemName.print_page}}</text>
+				<text style="align-items:center;display:flex;justify-content:center;width:25%;color:#333333;font-size:25rpx">{{itemName.print_type}}</text>
+				<text style="align-items:center;display:flex;justify-content:center;width:25%;color:##FE3846;font-size:25rpx">{{itemName.price_fen}}</text>
+			</view>
+		</view>
+		<view style="height:100rpx;margin-bottom:50rpx;height:100rpx align-items:center;display:flex;justify-content:center;flex-direction:row;">
+			<image style="margin-top:5rpx;height:20rpx;width:20rpx" src="/images/v2.0/tanhao.png"></image>
+			<text style="height:auto;color:#DE9E0F;font-size:20rpx"> 各门店价格各有不同，请悉知！</text>
+		</view>
+
+	</scroll-view>
+</form>

@@ -26,13 +26,12 @@ Page({
     });
   },
   agreeGetUser: function (e) { //获取用户信息新接口
-    // wx.setStorageSync('userInfo', e.detail.userInfo);
+    wx.setStorageSync('userInfo', e.detail.userInfo);
     let that = this;
-
-    wx.setStorage({
-      data: e.detail.userInfo,
-      key: 'userInfo',
-      success: function () {
+    // wx.setStorage({
+    //   data: e.detail.userInfo,
+    //   key: 'userInfo',
+      // success: function () {
         wx.showModal({
           title: '系统提示',
           content: '为确保用户的文印数据安全和服务，请您设置手机号码，以此作平台唯一的安全身份标识。',
@@ -53,14 +52,14 @@ Page({
             }
           }
         })
-      },
-      fail: function () {
-        wx.showModal({
-          title: '温馨提示',
-          content: '用户信息存储失败',
-        })
-      }
-    })
+      // },
+    //   fail: function () {
+    //     wx.showModal({
+    //       title: '温馨提示',
+    //       content: '用户信息存储失败',
+    //     })
+    //   }
+    // })
 
   },
   noticeUserMsg: function (e) {

@@ -16,6 +16,8 @@ Page({
     order_id: 0,
     phone_no: '',
     store_name: '',
+    firstNo: "",
+    lastNo: ""
   },
   // 生命周期函数--监听页面加载
   onLoad: function (options) {
@@ -28,6 +30,8 @@ Page({
   },
   getData: function (id, orderNo, status, store_name, phone_no) {
     console.log(orderNo);
+    var first_no = orderNo.substring(0, 11);
+    var last_no = orderNo.substring(11);
     var that = this;
     that.setData({
       orderNo: orderNo,
@@ -35,18 +39,37 @@ Page({
       order_id: id,
       store_name: store_name,
       phone_no: phone_no,
+      firstNo: first_no,
+      lastNo: last_no
     })
     // 查看详情
     wx.request({
 
       url: app.globalData.requestUrl + '/Api/Order/getOrderInfo/' + id,
       method: 'POST',
-      header: { 'content-type': 'application/json', 'content-type': 'application/x-www-form-urlencoded', 'token': wx.getStorageSync("token")},
+      header: {
+        'content-type': 'application/json',
+        'content-type': 'application/x-www-form-urlencoded',
+        'token': wx.getStorageSync("token")
+      },
       dataType: 'json',
       success: function (res) {
         console.log(id);
         if (res.data.code == 0) {
           console.log(res.data.data);
+          for (var i = 0; i < res.data.data.list.length; i++) {
+            var suffix = "";
+            var file_path = res.data.data.list[i].file_path;
+            console.log(file_path);
+            // var index=file_path.lastIndexOf('.');
+            // suffix=
+            var arr = file_path.split('.');
+            if (arr.length > 0) {
+              suffix = arr[arr.length - 1]
+            }
+            console.log('后缀：'+suffix)
+            res.data.data.list[i].suffix=suffix;
+          }
           that.setData({
             fileList: res.data.data.list,
             delivery_method: res.data.data.delivery_method,
@@ -62,7 +85,8 @@ Page({
             showSuccess: false
           })
         }
-      }, fail: function (res) {
+      },
+      fail: function (res) {
         console.log(res.data.msg);
         wx.showModal({
           title: '提示',
@@ -91,7 +115,7 @@ Page({
       dirPath: cachePath,
       recursive: true,
       success: function (res) {
-        
+
       },
       fail: function (err) {
         // wx.showToast({
@@ -106,7 +130,7 @@ Page({
     var timestamp = Date.parse(new Date());
     timestamp = timestamp / 1000;
     console.log("当前时间戳为：" + timestamp);
-    var url = app.globalData.requestUrl + '/Api/Order/getFile?' + "1=" + encodeURI(file_path) + "&2=" + encodeURI(source_name)+"&3="+encodeURI(timestamp);
+    var url = app.globalData.requestUrl + '/Api/Order/getFile?' + "1=" + encodeURI(file_path) + "&2=" + encodeURI(source_name) + "&3=" + encodeURI(timestamp);
     console.log(url);
     // wx.getFileSystemManager().mkdirSync( "/dpyy",true)
     var rootPath = wx.env.USER_DATA_PATH;
@@ -133,7 +157,7 @@ Page({
       },
       complete() {
         wx.hideLoading({
-          complete: (res) => { },
+          complete: (res) => {},
         })
       }
     })
@@ -179,30 +203,30 @@ Page({
         // }
         var modeType = ""
         var isFinger = false;
-        var isFacial=false;
+        var isFacial = false;
         for (var i = 0; i < res.supportMode.length; i++) {
-          if(res.supportMode[i]=='facial'){
-            isFacial=true;
+          if (res.supportMode[i] == 'facial') {
+            isFacial = true;
           }
           if (res.supportMode[i] == 'fingerPrint') {
             isFinger = true;
             // modeType = "fingerPrint";
           }
         }
-        if(isFinger){
-          modeType='fingerPrint'
-        }else{
-          if(isFacial){
-            modeType='facial'
-          }else{
+        if (isFinger) {
+          modeType = 'fingerPrint'
+        } else {
+          if (isFacial) {
+            modeType = 'facial'
+          } else {
             wx.showToast({
               title: '您的设备不支持生物认证，无法判断您的身份，请拨打门店电话或到门店找回您的文件',
-              icon:'none'
+              icon: 'none'
             })
             return
           }
         }
-        
+
         // if (!isFinger) {
         //   for (var i = 0; i < res.supportMode.length; i++) {
         //     if (res.supportMode[i] == 'facial') {
@@ -210,35 +234,35 @@ Page({
         //     }
         //   }
         // }
-        console.log("支持的识别方式："+modeType);
+        console.log("支持的识别方式：" + modeType);
         wx.checkIsSoterEnrolledInDevice({
           checkAuthMode: modeType,
-          success(res){
-            if(!res.isEnrolled){
-              if(modeType=='fingerPrint'){
-                modeType='facial'
-              }else{
-                if(modeType=='facial'){
-                  modeType=='fingerPrint'
-                }else{
+          success(res) {
+            if (!res.isEnrolled) {
+              if (modeType == 'fingerPrint') {
+                modeType = 'facial'
+              } else {
+                if (modeType == 'facial') {
+                  modeType == 'fingerPrint'
+                } else {
                   wx.showToast({
                     title: '您的设备没有输入指纹或面部识别，无法判断您的身份，请输入指纹或面部识别或拨打门店电话或到门店找回您的文件',
-                    icon:'none'
+                    icon: 'none'
                   })
                   return;
                 }
                 wx.checkIsSoterEnrolledInDevice({
-                  checkAuthMode:modeType ,
-                  success(res){
-                    if(!res.isEnrolled){
+                  checkAuthMode: modeType,
+                  success(res) {
+                    if (!res.isEnrolled) {
                       wx.showToast({
                         title: '您的设备没有输入指纹或面部识别，无法判断您的身份，请输入指纹或面部识别或拨打门店电话或到门店找回您的文件',
-                        icon:'none'
+                        icon: 'none'
                       })
                       return
                     }
                   },
-                  fail(res){
+                  fail(res) {
                     wx.showToast({
                       title: res.errMsg,
                     })
@@ -247,7 +271,7 @@ Page({
               }
             }
           },
-          fail(res){
+          fail(res) {
             wx.showToast({
               title: res.errMsg,
             })
@@ -267,7 +291,7 @@ Page({
                   var timestamp = Date.parse(new Date());
                   timestamp = timestamp / 1000;
                   console.log("当前时间戳为：" + timestamp);
-                  var url = app.globalData.requestUrl + '/Api/Order/getFile?' + "1=" + encodeURI(file_path) + "&2=" + encodeURI(source_name)+"&3="+encodeURI(timestamp);
+                  var url = app.globalData.requestUrl + '/Api/Order/getFile?' + "1=" + encodeURI(file_path) + "&2=" + encodeURI(source_name) + "&3=" + encodeURI(timestamp);
                   wx.setClipboardData({
                     data: url,
                     success(res) {
@@ -288,7 +312,7 @@ Page({
           },
           fail(res) {
             wx.showToast({
-              title: res.errCode+":"+res.errMsg,
+              title: res.errCode + ":" + res.errMsg,
             })
           }
         })
@@ -316,7 +340,7 @@ Page({
   callPhone: function (e) {
 
     console.log(e.currentTarget.dataset.phone_no);
-    wx.makePhoneCall({// 拨打号码
+    wx.makePhoneCall({ // 拨打号码
       phoneNumber: e.currentTarget.dataset.phone_no //电话号码
     })
   },
@@ -333,15 +357,19 @@ Page({
 
   // }
 
-  payOrder: function (e) {// 订单支付
+  payOrder: function (e) { // 订单支付
     // 订单ID
     var id = e.currentTarget.dataset.favorite
     var aa = this;
     // 发起支付
     wx.request({
-      url: app.globalData.requestUrl + '/Api/Order/payOrder/' + id,//后台语言的处理 
+      url: app.globalData.requestUrl + '/Api/Order/payOrder/' + id, //后台语言的处理 
       method: 'POST',
-      header: { 'content-type': 'application/json', 'content-type': 'application/x-www-form-urlencoded', 'token': wx.getStorageSync("token")},
+      header: {
+        'content-type': 'application/json',
+        'content-type': 'application/x-www-form-urlencoded',
+        'token': wx.getStorageSync("token")
+      },
       dataType: 'json',
       success: function (res) {
         if (res.data.code == 0) {
@@ -370,11 +398,11 @@ Page({
                     })
                     wx.requestSubscribeMessage({
                       tmplIds: ['fUBqODd2mYiBNkasdBseV1InmntcrHvKNOdUCJwqNrM'],
-                      success(res){
-                        console.log(res.errMsg+res.TEMPLATE_ID);
+                      success(res) {
+                        console.log(res.errMsg + res.TEMPLATE_ID);
                       },
-                      fail(res){
-                        console.log(res.errCode+res.errMsg);
+                      fail(res) {
+                        console.log(res.errCode + res.errMsg);
                       }
                     })
                     // aa.getData();
@@ -390,7 +418,7 @@ Page({
                 showCancel: false,
                 success: function (resbtn) {
                   if (resbtn.confirm) {
-                    
+
                   }
                 }
               })
@@ -407,7 +435,8 @@ Page({
             }
           })
         }
-      }, fail: function (res) {
+      },
+      fail: function (res) {
         console.log(res.data.msg);
         wx.showModal({
           title: '支付失败',
@@ -428,9 +457,13 @@ Page({
     // 订单ID
     var id = e.currentTarget.dataset.order_id;
     wx.request({
-      url: app.globalData.requestUrl + '/Api/Order/cancelOrder/' + id,//后台语言的处理 
+      url: app.globalData.requestUrl + '/Api/Order/cancelOrder/' + id, //后台语言的处理 
       method: 'POST',
-      header: { 'content-type': 'application/json', 'content-type': 'application/x-www-form-urlencoded', 'token':wx.getStorageSync("token")},
+      header: {
+        'content-type': 'application/json',
+        'content-type': 'application/x-www-form-urlencoded',
+        'token': wx.getStorageSync("token")
+      },
       dataType: 'json',
       success: function (res) {
         if (res.data.code == 0) {
@@ -450,7 +483,8 @@ Page({
         } else {
           console.log(res.data.msg);
         }
-      }, fail: function (res) {
+      },
+      fail: function (res) {
         console.log('网络异常！');
       }
     });
