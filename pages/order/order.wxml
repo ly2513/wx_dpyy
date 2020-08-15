@@ -13,13 +13,13 @@
 				<view style="display:flex;flex-direction: row;">
 					<view style="width:80%">
 						<view>
-							<span>订单编号:</span>
-							<span>{{item.first_no}}</span>
-							<span style="font-weight:bold;color:red;font-size:17px">{{item.last_no}}</span>
+							<span style="font-size:0.9em">订单编号：</span>
+							<span style="font-size:0.9em">{{item.first_no}}</span>
+							<span style="font-weight:bold;color:red;">{{item.last_no}}</span>
 						</view>
 						<view style='padding-top:20rpx;'>
-							<span>下单时间：</span>
-							<span>{{item.create_time}}</span>
+							<span style="font-size:0.9em"> 下单时间：</span>
+							<span style="font-size:0.9em">{{item.create_time}}</span>
 						</view>
 					</view>
 
@@ -55,17 +55,17 @@
 
 
 				<view style='padding-top:20rpx;' class="th">
-					<span class='store_name' style='width:60%' bindtap="showtoast" data-content="{{item.store_name}}">{{"下单门店："+item.store_name}}</span>
+					<span class='store_name' style='width:55%;font-size:0.9em' bindtap="showtoast" data-content="{{item.store_name}}">{{"下单门店："+item.store_name}}</span>
 					<!-- <span style='padding-left:20rpx'>金额:</span>  -->
-					<block style='width:40%;' wx:if="{{item.is_first==1}}">
-						<text>支付金额：</text>
-						<text style="color:#FE3846">{{item.discount_price}}</text>
-						<text>元</text>
-					</block>
-					<block style='width:40%;' wx:else>
-						<text>支付金额：</text>
+					<block style='width:45%;' wx:if="{{item.is_first==1}}">
+						<text style="font-size:0.9em">支付金额：</text>
 						<text style="color:#FE3846">{{item.price}}</text>
-						<text>元</text>
+						<text style="font-size:0.9em">元</text>
+					</block>
+					<block style='width:45%;' wx:else>
+						<text style="font-size:0.9em">支付金额：</text>
+						<text style="color:#FE3846">{{item.price}}</text>
+						<text style="font-size:0.9em">元</text>
 					</block>
 
 				</view>
@@ -77,7 +77,9 @@
 						<view style="width:30%"></view>
 						<view style='display:flex;flex-direction: row;padding-top:20rpx;width:70%;' wx:if="{{item.status==1}}">
 							<button style="font-size:20rpx;border-radius: 25rpx; background-color:#FE3846;color:#ffffff" bindtap='cancelOrder' data-order_id="{{item.id}}">取消订单</button>
-							<button style='font-size:20rpx;border-radius: 25rpx;background-color:#1B294C;color:#ffffff;' bindtap='getOrderDetail' data-order_id="{{item.id}}" data-order_no="{{item.order_no}}" data-status="{{item.status}}" data-store_name="{{item.store_name}}" data-phone_no="{{item.phone_no}}">查看详情</button>
+							<button style='font-size:20rpx;border-radius: 25rpx;background-color:#1B294C;color:#ffffff;' bindtap='getOrderDetail' data-order_id="{{item.id}}" data-order_no="{{item.order_no}}" 
+							data-status="{{item.status}}" data-create_time="{{item.create_time}}" data-store_name="{{item.store_name}}" 
+							data-phone_no="{{item.phone_no}}"  >查看详情</button>
 							<button style='font-size:20rpx;border-radius: 25rpx;background-color:#0473FF;color:#ffffff' bindtap='payOrder' data-favorite="{{item.id}}">去支付</button>
 						</view>
 					</view>
@@ -86,8 +88,8 @@
 				<block wx:else>
 					<view style="display:flex;flex-direction: row">
           <view style="width:70%"></view>
-						<view style='padding-top:20rpx;height:50px;width:30%;'>
-							<button style='font-size:20rpx;border-radius: 25rpx;background-color:#1B294C;color:#ffffff;' bindtap='getOrderDetail' data-order_id="{{item.id}}" data-order_no="{{item.order_no}}" data-status="{{item.status}}" data-store_name="{{item.store_name}}" data-phone_no="{{item.phone_no}}">查看详情</button>
+						<view style='padding-top:20rpx;width:30%;'>
+							<button style='font-size:20rpx;border-radius: 25rpx;background-color:#1B294C;color:#ffffff;' bindtap='getOrderDetail' data-create_time="{{item.create_time}}" data-order_id="{{item.id}}" data-order_no="{{item.order_no}}" data-status="{{item.status}}" data-store_name="{{item.store_name}}" data-phone_no="{{item.phone_no}}">查看详情</button>
 							<!-- <button class="button" style='background-color:#ff9d06;color:#fff;width:100%' bindtap='getOrderDetail' data-order_id="{{item.id}}" data-order_no="{{item.order_no}}" data-status="{{item.status}}" data-store_name="{{item.store_name}}" data-phone_no="{{item.phone_no}}">查看详情 </button> -->
 						</view>
 					</view>

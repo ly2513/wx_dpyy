@@ -11,9 +11,10 @@ Page({
     imgUrl_3:"",
     id:"",
     price_fen:"",
+    original_price:0,
     price:0,
+    sub_price:0,
     imgs:[]
-    
   },
 
   /**
@@ -22,23 +23,29 @@ Page({
   onLoad: function (options) {
     var id=options.id;
     var price_fen=options.price_fen;
+    var original_price=options.original_price;
     console.log(id)
     console.log(price_fen)
+   
     this.getAdver()
-    if(id==undefined||price_fen==undefined){
+    if(id==undefined||price_fen==undefined||original_price==undefined){
       wx.showToast({
         title: '参数错误，请重新再试',
         icon:"none"
       })
       return
     }
+    var sub_price=original_price-price_fen;
+    console.log(sub_price)
     this.setData({
       imgUrl_1:app.globalData.requestUrl + '/Static/images/v1.1/banner_1.jpeg',
       imgUrl_2:app.globalData.requestUrl + '/Static/images/v1.1/banner_2.jpeg',
       imgUrl_3:app.globalData.requestUrl + '/Static/images/v1.1/banner_3.jpeg',
       id:id,
       price_fen:price_fen,
-      price:price_fen/100.00
+      price:price_fen/100.00,
+      original_price:original_price,
+      sub_price:sub_price
     })
   },
   

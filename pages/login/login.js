@@ -160,12 +160,14 @@ Page({
       return false;
     }
     // 发送验证码
+    console.log(app.globalData.requestUrl + '/Api/Login/sentSmsCode')
     wx.request({ 
       url: app.globalData.requestUrl + '/Api/Login/sentSmsCode',
       method: "POST",
       data: {phone: phone},
       success: function (res) {
         var dataModel = res.data;
+        console.log(dataModel)
         if (dataModel.code == 0) { // 
           that.countDown(60); // 60s倒计时
         }else{ // 

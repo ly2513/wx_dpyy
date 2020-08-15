@@ -116,6 +116,9 @@ Page({
 
   },
   seachOrder: function(e){// 执行查询操作
+    this.setData({
+      currentPage:1
+    })
     this.getData();
   },
   formName: function (e) {// 设置查询文件的名称
@@ -272,11 +275,12 @@ Page({
     var status=e.currentTarget.dataset.status;
     var store_name=e.currentTarget.dataset.store_name;
     var phone_no=e.currentTarget.dataset.phone_no;
+    var create_time=e.currentTarget.dataset.create_time
+    console.log(create_time)
     // 登录成功后跳转到首页
     wx.navigateTo({
-      url: '../orderDetail/orderDetail?order_id=' + id + '&orderNo=' + orderNo+'&status='+status+'&store_name='+store_name+'&phone_no='+phone_no,
+      url: '../orderDetail/orderDetail?order_id=' + id + '&orderNo=' + orderNo+'&status='+status+'&store_name='+store_name+'&phone_no='+phone_no+'&create_time='+create_time,
       success: function (res) {
-        
       },
       fail: function (e) {
         console.log('跳转失败');
@@ -342,7 +346,7 @@ Page({
       })
     }else{
       wx.navigateTo({
-        url: '../placeOrder/placeOrder',
+        url: '../newPlaceOrder/newPlaceOrder',
         success: function (res) {
           console.log('跳转成功');
         },

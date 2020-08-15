@@ -239,7 +239,7 @@ input {
     font-size: 12px;
     padding: 0 12px;
     margin-left: 0;
-    height: auto;
+    height: 80rpx;
     width: auto;
     line-height: 2em;
     color: #06AE56;

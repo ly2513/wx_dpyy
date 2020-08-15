@@ -33,6 +33,9 @@
   width: 100%;
   border-top-right-radius: 25px;
   border-top-left-radius: 25px;
+  padding-bottom: 250px;
+  /* border:1px solid red; */
+  height: 100%;
 }
 
 .item {
@@ -95,6 +98,16 @@
   width: 90%;
   height: 70%;
   padding-left: 20rpx;
+  color: gray;
+  /* border:1px solid red; */
+}
+.textarea1 {
+  width: 90%;
+  height: 70%;
+  padding-left: 20rpx;
+  color: gray;
+  /* border:1px solid red; */
+  display: none;
 }
 
 .remarkitem {
@@ -208,10 +221,24 @@
   height: 80%;
   position: fixed;
   top: 20%;
-  z-index: 9500;
+  z-index: 9999;
   background: white;
   border-top-left-radius: 25px;
   border-top-right-radius: 25px;
+  display: flex;
+  flex-direction: column;
+}
+
+.input-modal-dialog{
+  width: 80%;
+  height: 30%;
+  position: fixed;
+  top: 20%;
+  right: 10%;
+  /* left: 5%; */
+  z-index: 9999;
+  background: white;
+  border-radius: 25px;
   display: flex;
   flex-direction: column;
 }

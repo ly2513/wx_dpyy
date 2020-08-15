@@ -3,8 +3,7 @@
 	<image class="background" src="/images/new_order_bg.png"></image>
 	<view class="content_bg">
 		<view class="form">
-			<swiper class="img" indicator-dots="true" indicator-active-color="#ffffff" autoplay="true">
-			
+			<swiper circular='true' class="img" indicator-dots="true" indicator-active-color="#ffffff" autoplay="true">
 				<swiper-item wx:for="{{imgs}}" wx:for-index="idx" wx:for-item="itemName">
 					<image mode="scaleToFill" class="inner_img" style="width:100%" src="{{itemName.img_path}}"></image>
 				</swiper-item>
@@ -49,7 +48,7 @@
 				<view class="line"></view>
 				<text >文件列表</text>
 				<view wx:key="*this" wx:for="{{fileArray}}" wx:for-index="idx" wx:for-item="itemName" class="array_item">
-					<view class="item_left">
+					<view bindtap="preview" data-index="{{idx}}" class="item_left">
 						<image wx:if="{{itemName.data.extension=='jpg'||itemName.data.extension=='jpeg'||itemName.data.extension=='JPG'||itemName.data.extension=='png'}}" src="/images/v2.0/jpg_ico.png" style="width:60rpx;height:70rpx;align-items:center"></image>
 						<image wx:if="{{itemName.data.extension=='doc'||itemName.data.extension=='docx'}}" src="/images/v2.0/word_ico.png" style="width:60rpx;height:70rpx;align-items:center"></image>
 						<image wx:if="{{itemName.data.extension=='xls'||itemName.data.extension=='xlsx'}}" src="/images/v2.0/xlsx_ico.png" style="width:60rpx;height:70rpx;align-items:center"></image>
@@ -100,7 +99,8 @@
 			<view class="line"></view>
 			<view class="remarkitem">
 				<text class="textremark">备注信息</text>
-				<textarea name='remark' class="textarea" placeholder='如需缩印请注明:缩印比例: 1/4或1/6或1/8，谢谢；特殊要求请留下您的联系方式。'></textarea>
+				<text wx:if="{{!showPriceList&&!showLocation}}" bindtap="showinput"  name='remark' class="textarea">{{remark==""?"如需缩印请注明:缩印比例: 1/4或1/6或1/8，谢谢；特殊要求请留下您的联系方式。":remark}}</text>
+				<text wx:if="{{showPriceList||showLocation}}"  bindtap="showinput" name='remark' class="textarea1">{{remark==""?"如需缩印请注明:缩印比例: 1/4或1/6或1/8，谢谢；特殊要求请留下您的联系方式。":remark}}</text>
 			</view>
 		</view>
 		<view class="btns">
@@ -120,6 +120,29 @@
 		</view>
 	</view>
 
+	<view class="modal-mask" bindtap="hideinput" wx:if="{{showInput}}">
+	</view>
+	<view class="input-modal-dialog" wx:if="{{showInput}}">
+		<view style="margin-top:30rpx; display:flex; flex-direction: row;height:7%; width:100%;">
+			<view style="width:20%; height:100rpx; padding-left:30rpx;">
+				<text bindtap="hideLocation" style="color:#999999;" hidden="true" >取消</text>
+			</view>
+			<view style=" width:60%; height:100rpx;display:flex;justify-content:center;align-items:cneter">
+				<text style="font-size:35rpx">请输入备注信息</text>
+			</view>
+			<view hidden="true" style="color:#FE7807; width:20%; height:100rpx;display:flex;justify-content:flex-end;padding-right:30rpx">
+				<text hidden="true" bindtap="hideLocation">关闭</text>
+			</view>
+		</view>
+
+		<view style="height: 1.5rpx;color: #E6E6E6;background-color: #E6E6E6;width:100%;margin-top:20rpx;display:flex;flex-direction: column"></view>
+		<textarea value="{{remark}}" bindinput="inputchange" style="height:40%;width:80%;left:10%" placeholder="如需缩印请注明:缩印比例: 1/4或1/6或1/8，谢谢；特殊要求请留下您的联系方式。'>如需缩印请注明:缩印比例: 1/4或1/6或1/8，谢谢；特殊要求请留下您的联系方式。" ></textarea>
+		<view style="margin-top:10%;height:15%;width:80%;margin-left:5%;display:flex;flex-direction: row">
+			<button bindtap="hideinput" style="background-color:#ffffff;left:10%;height:100%;width:35%;display:flex; justify-content:center; align-items:center">取消</button>
+			<button style="width:10%;" hidden="true">取消</button>
+			<button bindtap="setRemark" style="background-color:#ffffff;width:35%;display:flex; justify-content:center; align-items:center">确认</button>
+		</view>
+	</view>
 
 
 	<view class="modal-mask" bindtap="hideLocation" wx:if="{{showLocation}}">
@@ -165,7 +188,7 @@
 
 		<view style="height: 1.5rpx;color: #E6E6E6;background-color: #E6E6E6;width:100%"></view>
 		<view style="display:flex;flex-direction:row;padding-top:20rpx">
-			<text style="display:flex;justify-content:center;width:25%;color:#999999;font-size:25rpx;border:1px solid red">规格</text>
+			<text style="display:flex;justify-content:center;width:25%;color:#999999;font-size:25rpx">规格</text>
 			<text style="display:flex;justify-content:center;width:25%;color:#999999;font-size:25rpx">单/双面</text>
 			<text style="display:flex;justify-content:center;width:25%;color:#999999;font-size:25rpx">黑白/彩色</text>
 			<text style="display:flex;justify-content:center;width:25%;color:#999999;font-size:25rpx">单价（元/页）</text>

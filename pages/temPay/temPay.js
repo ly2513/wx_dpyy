@@ -97,6 +97,10 @@ Page({
         }
       })
     } else if (action == 'print') {
+      // wx.showLoading({
+      //   title: '文件处理中',
+      //   mask:true
+      // })
       this.setData({
         action: 5
       });

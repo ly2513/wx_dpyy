@@ -1,4 +1,5 @@
 {
   "usingComponents": {
+    "multiline": "/pages/textarea/index"
   }
 }

@@ -11,24 +11,27 @@ Page({
     delivery_method: 1,
     delivery_status: '',
     time: '',
-    total_price: 0.00,
+    total_price: 0,
     status: 0,
     order_id: 0,
     phone_no: '',
     store_name: '',
     firstNo: "",
-    lastNo: ""
+    lastNo: "",
+    create_time:'',
+    sub_price:0,
+    original_price:0
   },
   // 生命周期函数--监听页面加载
   onLoad: function (options) {
-    this.getData(options.order_id, options.orderNo, options.status, options.store_name, options.phone_no);
+    this.getData(options.order_id, options.orderNo, options.status, options.store_name, options.phone_no,options.create_time);
 
   },
   // 用户点击右上角分享
   onShareAppMessage: function () {
 
   },
-  getData: function (id, orderNo, status, store_name, phone_no) {
+  getData: function (id, orderNo, status, store_name, phone_no,create_time) {
     console.log(orderNo);
     var first_no = orderNo.substring(0, 11);
     var last_no = orderNo.substring(11);
@@ -40,7 +43,8 @@ Page({
       store_name: store_name,
       phone_no: phone_no,
       firstNo: first_no,
-      lastNo: last_no
+      lastNo: last_no,
+      create_time:create_time
     })
     // 查看详情
     wx.request({
@@ -70,12 +74,15 @@ Page({
             console.log('后缀：'+suffix)
             res.data.data.list[i].suffix=suffix;
           }
+          var sub_price=res.data.data.original_price-res.data.data.total_price
           that.setData({
             fileList: res.data.data.list,
             delivery_method: res.data.data.delivery_method,
             delivery_status: res.data.data.delivery_status,
             time: res.data.data.time,
             total_price: res.data.data.total_price,
+            original_price:res.data.data.original_price,
+            sub_price:sub_price
           })
         } else {
           wx.showModal({

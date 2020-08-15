@@ -27,12 +27,14 @@ Page({
     imgUrl_3: "",
     showLocation: false,
     showPriceList: false,
+    showInput: false,
     longitude: "",
     latitude: "",
     price_list: [],
     document_id: "",
     file_name: "",
-    imgs:[]
+    imgs: [],
+    remark: ''
   },
 
   /**
@@ -62,6 +64,10 @@ Page({
   hasFile: function () {
     var that = this;
     var document_id = that.data.document_id;
+    wx.showLoading({
+      title: '文件处理中......',
+      mask: true
+    })
     var typeUrl = app.globalData.requestUrl + '/Api/Library/getDocumenType?document_id=' + document_id + '&token=' + wx.getStorageSync("token");
     wx.request({
       url: typeUrl,
@@ -142,8 +148,14 @@ Page({
                     fileArray: that.data.fileArray
                   })
                   console.log(that.data.fileArray[0].name)
+                  wx.hideLoading({
+                    success: (res) => {},
+                  })
                 },
                 fail(e) {
+                  wx.hideLoading({
+                    success: (res) => {},
+                  })
                   wx.showToast({
                     title: e.errMsg,
                   })
@@ -153,8 +165,12 @@ Page({
 
             },
             fail(res) {
+              wx.hideLoading({
+                success: (res) => {},
+              })
               wx.showToast({
                 title: '文件下载错误',
+
               })
             }
           })
@@ -163,6 +179,11 @@ Page({
             complete: (res) => {},
           })
         }
+      },
+      fail(res) {
+        wx.hideLoading({
+          success: (res) => {},
+        })
       }
     })
   },
@@ -223,6 +244,7 @@ Page({
     data.paper_type = paper_type
     data.paper_size = paper_size
     data.union_id = wx.getStorageSync("token")
+    data.remark = this.data.remark
     console.log(data)
     var url = app.globalData.requestUrl + '/Api/Order/addOrder';
     wx.request({
@@ -234,7 +256,7 @@ Page({
         'token': wx.getStorageSync("token")
       },
       success(res) {
-        console.log("请求下单成功")
+        // console.log("请求下单成功")    
         console.log(res.data)
         if (res.data.code != 0) {
           wx.showToast({
@@ -245,7 +267,7 @@ Page({
         }
 
         wx.redirectTo({
-          url: '../payOrder/payOrder?id=' + res.data.data.id + "&price_fen=" + res.data.data.price_fen,
+          url: '../payOrder/payOrder?id=' + res.data.data.id + "&price_fen=" + res.data.data.price_fen+"&original_price="+res.data.data.original_price,
           success: function (res) {
             console.log('跳转成功');
 
@@ -262,7 +284,16 @@ Page({
     })
 
   },
+
   choseFile() {
+    console.log(this.data.fileNum)
+    if (this.data.fileNum > 4) {
+      wx.showToast({
+        title: '上传文件个数不能大于5',
+        icon: 'none'
+      })
+      return
+    }
     var that = this;
     wx.showActionSheet({
       itemList: ['手机本地文件', '微信文件'],
@@ -312,7 +343,21 @@ Page({
               const tempFilePaths = res.tempFiles
               console.log(tempFilePaths[0].name)
               console.log(tempFilePaths[0].path)
+              console.log(tempFilePaths[0].size)
+              var size = tempFilePaths[0].size/1024/1024
+              console.log(size)
+              if (size> 20) {
+                wx.showToast({
+                  title: '所选文件不能大于20M',
+                  icon: 'none'
+                })
+                return
+              }
               var url = app.globalData.requestUrl + '/Api/File/upload?';
+              wx.showLoading({
+                title: '文件上传中......',
+                mask: true
+              })
               wx.uploadFile({
                 filePath: tempFilePaths[0].path,
                 name: 'file',
@@ -351,8 +396,14 @@ Page({
                     fileArray: that.data.fileArray
                   })
                   console.log(that.data.fileArray[0].name)
+                  wx.hideLoading({
+                    success: (res) => {},
+                  })
                 },
                 fail(e) {
+                  wx.hideLoading({
+                    success: (res) => {},
+                  })
                   wx.showToast({
                     title: e.errMsg,
                   })
@@ -373,9 +424,10 @@ Page({
     console.log(e.detail)
     this.data.storeName = this.data.storeList[e.detail.value].store_name;
     this.data.storeValue = this.data.storeList[e.detail.value].id;
+    
     this.setData({
       storeName: this.data.storeName,
-      storeValue: this.data.id
+      storeValue: this.data.storeValue
     })
     var url = app.globalData.requestUrl + '/Api/Order/setStore?store_id=' + this.data.storeValue + '&open_id=' + app.globalData.unionId;
     console.log(url)
@@ -425,7 +477,7 @@ Page({
         if (res.data.code == 0) {
           var data = res.data.data;
           var firstData = {};
-          firstData.id = 1;
+          firstData.id = 0;
           firstData.store_name = "请选择打印门店"
           firstData.longitude = "0.0"
           firstData.latitude = "0.0"
@@ -440,6 +492,7 @@ Page({
             marker.latitude = res.data.data[1].latitude;
             marker.longitude = res.data.data[1].longitude;
             markers[0] = marker;
+            console.log(res.data.data[1].id)
             that.setData({
               storeValue: res.data.data[1].id,
               storeName: res.data.data[1].store_name,
@@ -447,6 +500,7 @@ Page({
               longitude: res.data.data[1].longitude,
               markers: markers
             })
+            console.log(that.data.storeValue)
             var url = app.globalData.requestUrl + '/Api/Order/setStore?store_id=' + res.data.data[1].id + '&open_id=' + app.globalData.unionId;
             console.log(url)
             wx.request({
@@ -492,8 +546,9 @@ Page({
     return (r * 2 * Math.asin(Math.sqrt(Math.pow(Math.sin(a / 2), 2) + Math.cos(rad1) * Math.cos(rad2) * Math.pow(Math.sin(b / 2), 2)))).toFixed(0)
 
   },
+  // showinput(){},
   getAdver() {
-    var that=this
+    var that = this
     var url = app.globalData.requestUrl + '/Api/Order/getAdvertisingList'
     wx.request({
       url: url,
@@ -504,14 +559,33 @@ Page({
       success(res) {
         console.log(res.data)
         console.log(res.data.data[0])
-        var images=res.data.data
-        for(var i=0;i<images.length;i++){
-          console.log(images[i].img_path)
-          images[i].img_path=app.globalData.requestUrl+images[i].img_path
+
+        if (res.data.code == 0) {
+          var images = res.data.data
+          for (var i = 0; i < images.length; i++) {
+            console.log(images[i].img_path)
+            images[i].img_path = app.globalData.requestUrl + images[i].img_path
+            console.log(images[i].img_path)
+          }
+          that.setData({
+            imgs: images
+          })
+        } else if (res.data.code == 999) {
+          wx.showModal({
+            title: '系统提示',
+            content: res.data.msg,
+            showCancel: true,
+            success: function (resbtn) {
+              if (resbtn.confirm) {
+                // 跳转登录页
+                wx.navigateTo({
+                  url: '../access/access'
+                })
+              }
+            }
+          })
         }
-        that.setData({
-          imgs:images
-        })
+
       }
     })
   },
@@ -527,8 +601,69 @@ Page({
         // console.log(ur l)
         console.log(latitude)
         console.log(longitude)
+        console.log()
         wx.request({
           url: app.globalData.requestUrl + '/Api/File/getSchool?latitude=' + latitude + "&longitude=" + longitude,
+          header: {
+            'Content-Type': 'application/json',
+            'token': wx.getStorageSync("token")
+          },
+          success: function (res) {
+            console.log(res.data)
+            if (res.data.code == 0) {
+              var data = res.data.data;
+              var firstData = {}
+              firstData.id = 0
+              firstData.school_name = "请选择所在校区"
+              data.unshift(firstData)
+              that.data.schoolList = res.data.data;
+              wx.getStorage({
+                key: 'school_id',
+                success(res) {
+                  console.log(res.data)
+                  var schoolName = ""
+                  for (var i = 0; i < data.length; i++) {
+                    if (data[i].id == res.data) {
+                      schoolName = data[i].school_name;
+                    }
+                  }
+                  that.setData({
+                    schoolValue: res.data,
+                    schoolName: schoolName
+                  })
+                  that.getStore(res.data)
+
+                },
+                fail(res) {
+                  console.log(res)
+                }
+              })
+              that.setData({
+                schoolList: that.data.schoolList
+              })
+
+            } else {
+              wx.showToast({
+                title: res.data.msg,
+              })
+            }
+          },
+          fail: function (res) {
+            // console.log(res.data.msg)
+            wx.showToast({
+              title: res.data,
+            })
+          }
+        })
+      },
+      fail(res) {
+        console.log(res)
+        wx.showToast({
+          title: '定位失败',
+          icon: 'none'
+        })
+        wx.request({
+          url: app.globalData.requestUrl + '/Api/File/getSchool?latitude=' + 0 + "&longitude=" + 0,
           header: {
             'Content-Type': 'application/json',
             'token': wx.getStorageSync("token")
@@ -584,6 +719,102 @@ Page({
     })
 
   },
+  ifFile: function (cachePath) {
+    wx.getFileSystemManager().access({
+      path: cachePath,
+      success(res) {
+        console.log("路径存在");
+        return true;
+      },
+      fail(res) {
+        console.log("路径不存在")
+        return false;
+      }
+    })
+  },
+  mkdir: function (cachePath) {
+    let fm = wx.getFileSystemManager();
+    fm.mkdir({
+      dirPath: cachePath,
+      recursive: true,
+      success: function (res) {
+
+      },
+      fail: function (err) {
+        // wx.showToast({
+        //   // title: 'title',
+        //   // icon: "none"
+        // })
+      }
+    });
+  },
+  preview(e) {
+    var id = e.currentTarget.dataset.index;
+    console.log("预览" + id)
+    console.log(this.data.fileArray[id].data.path)
+    var self = this;
+    var source_name = this.data.fileArray[id].data.path
+    var sss = this.data.fileArray[id].data.path.split('/')
+    source_name = sss[sss.length - 1]
+    console.log(source_name)
+    var ddd = source_name.split('.')
+    var lastName = ddd[ddd.length - 1]
+    if (lastName == 'jpg' || lastName == 'jpeg' || lastName == 'JPG' || lastName == 'png') {
+      var urls = [app.globalData.requestUrl + this.data.fileArray[id].data.path + "?token=" + wx.getStorageSync("token")]
+      wx.previewImage({
+        urls: urls // 需要预览的图片http链接列表
+      })
+    } else {
+      var url = app.globalData.requestUrl + this.data.fileArray[id].data.path + "?token=" + wx.getStorageSync("token");
+      console.log(url);
+      var rootPath = wx.env.USER_DATA_PATH;
+      var cachePath = rootPath + "/dpyy";
+      if (!self.ifFile(cachePath)) {
+        console.log("创建路径");
+        self.mkdir(cachePath);
+      }
+      wx.showLoading({
+        title: '下载中......',
+        mask: true
+      })
+      wx.downloadFile({
+        url: url,
+        filePath: cachePath + "/" + source_name,
+        success(res) {
+          wx.hideLoading({
+            success: (res) => {},
+          })
+          console.log("下载成功")
+          var tempFilePath = res.tempFilePath;
+          wx.openDocument({
+            filePath: res.filePath,
+            success(res) {
+              console.log("成功")
+            },
+            fail(res) {
+              console.log(res)
+              wx.hideLoading({
+                success: (res) => {},
+              })
+              wx.showToast({
+                title: '文件下载错误',
+              })
+            }
+          })
+        },
+        fail(res) {
+          console.log(res)
+          wx.hideLoading({
+            success: (res) => {},
+          })
+          wx.showToast({
+            title: '文件下载错误',
+          })
+        }
+      })
+    }
+
+  },
   printColorChange(e) {
     console.log('radio发生change事件，携带value值为：', e.detail.value)
     console.log('radio发生change事件，携带dataset值为：', e.currentTarget.dataset.index)
@@ -620,7 +851,8 @@ Page({
     console.log("index:" + index)
     this.data.fileArray[index].data.file_num = this.data.fileArray[index].data.file_num - 1;
     this.setData({
-      fileArray: this.data.fileArray
+      fileArray: this.data.fileArray,
+      // fileNum:this.data.fileNum-1
     })
     console.log("file_num:" + this.data.fileArray[index].data.file_num)
   },
@@ -639,7 +871,8 @@ Page({
     console.log("删除前" + this.data.fileArray.length)
     this.data.fileArray.splice(index, 1)
     this.setData({
-      fileArray: this.data.fileArray
+      fileArray: this.data.fileArray,
+      fileNum:this.data.fileNum-1
     })
     console.log("删除后" + this.data.fileArray.length)
   },
@@ -713,6 +946,36 @@ Page({
     this.setData({
       showPriceList: false
     })
+  },
+  showinput() {
+    this.setData({
+      showInput: true
+    })
+  },
+  hideinput() {
+    this.setData({
+      showInput: false,
+      // remark: ""
+    })
+  },
+  setRemark() {
+    console.log("setRemark" + this.data.remark)
+    if (this.data.remark == '') {
+      wx.showToast({
+        title: '请输入备注信息',
+        icon: 'none'
+      })
+      return
+    }
+    this.setData({
+      showInput: false,
+      remark: this.data.remark
+    })
+  },
+  inputchange(e) {
+    console.log(e.detail.value)
+    this.data.remark = e.detail.value
   }
+
 
 })
