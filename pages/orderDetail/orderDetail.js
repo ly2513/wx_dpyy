@@ -58,7 +58,7 @@ Page({
       },
       dataType: 'json',
       success: function (res) {
-        console.log(id);
+        console.log(res.data);
         if (res.data.code == 0) {
           console.log(res.data.data);
           for (var i = 0; i < res.data.data.list.length; i++) {

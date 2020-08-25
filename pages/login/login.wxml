@@ -21,7 +21,7 @@
 			</view>
       <view style='margin:0 auto;margin-top:30rpx'>
 				<button type="default" class="login_button" hover-class="other-button-hover" style='background-color:#FFFFFF;color:#1B294C;margin-right:2em;border-radius: 25rpx;border:1rpx solid #1B294C;' bindtap='cancel'> 取消 </button>
-				<button bindtap='login' type="default" class="login_button" hover-class="other-button-hover" style='background-color:#1B294C;color:#fff;border-radius: 25rpx'> 绑定 </button>
+				<button bindtap='login' type="default" class="login_button" hover-class="other-button-hover" style='background-color:#1B294C;color:#fff;border-radius: 25rpx'> 登录 </button>
 			</view>
 		</view>
 	</view>
