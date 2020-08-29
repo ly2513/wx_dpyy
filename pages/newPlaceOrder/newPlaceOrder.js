@@ -232,6 +232,7 @@ Page({
       print_page.push(fileObj.data.print_page)
       paper_type.push(fileObj.data.paper_type)
       paper_size.push(fileObj.data.paper_size)
+      console.log(fileObj.data.print_page)
     }
     data.page_num = page_num;
     data.doc_id = doc_id;
@@ -267,7 +268,7 @@ Page({
         }
 
         wx.redirectTo({
-          url: '../payOrder/payOrder?id=' + res.data.data.id + "&price_fen=" + res.data.data.price_fen+"&original_price="+res.data.data.original_price,
+          url: '../payOrder/payOrder?id=' + res.data.data.id + "&price_fen=" + res.data.data.price_fen + "&original_price=" + res.data.data.original_price+"&campaign_name="+res.data.data.campaign_name,
           success: function (res) {
             console.log('跳转成功');
 
@@ -344,9 +345,9 @@ Page({
               console.log(tempFilePaths[0].name)
               console.log(tempFilePaths[0].path)
               console.log(tempFilePaths[0].size)
-              var size = tempFilePaths[0].size/1024/1024
+              var size = tempFilePaths[0].size / 1024 / 1024
               console.log(size)
-              if (size> 20) {
+              if (size > 20) {
                 wx.showToast({
                   title: '所选文件不能大于20M',
                   icon: 'none'
@@ -372,14 +373,18 @@ Page({
                 success(res) {
                   console.log(res.data)
                   var data = JSON.parse(res.data)
-                  console.log(data.data.name)
-                  data.data.file_num = 1
+                  // console.log(data.msg)
+                  console.log(data.code)
                   if (data.code != 0) {
+                    wx.hideLoading({
+                      success: (res) => {},
+                    })
                     wx.showToast({
                       title: data.msg,
                     })
                     return
                   }
+                  data.data.file_num = 1
                   data.data.print_color = 1
                   if (data.data.extension == 'pdf' || data.data.extension == 'doc' || data.data.extension == 'docx' || data.data.extension == 'xls' || data.data.extension == 'xlsx' || data.data.extension == 'ppt' || data.data.extension == 'pptx') {
                     data.data.print_page = 1
@@ -390,11 +395,13 @@ Page({
                     data.data.paper_size = 1
                     data.data.paper_type = 0
                   }
+                  console.log(that.data.fileArray)
                   that.data.fileArray = [data].concat(that.data.fileArray)
                   that.setData({
                     fileNum: that.data.fileNum + 1,
                     fileArray: that.data.fileArray
                   })
+
                   console.log(that.data.fileArray[0].name)
                   wx.hideLoading({
                     success: (res) => {},
@@ -424,7 +431,7 @@ Page({
     console.log(e.detail)
     this.data.storeName = this.data.storeList[e.detail.value].store_name;
     this.data.storeValue = this.data.storeList[e.detail.value].id;
-    
+
     this.setData({
       storeName: this.data.storeName,
       storeValue: this.data.storeValue
@@ -550,6 +557,8 @@ Page({
   getAdver() {
     var that = this
     var url = app.globalData.requestUrl + '/Api/Order/getAdvertisingList'
+    
+    console.log(wx.getStorageSync("token"))
     wx.request({
       url: url,
       header: {
@@ -557,10 +566,9 @@ Page({
         'token': wx.getStorageSync("token")
       },
       success(res) {
-        console.log(res.data)
-        console.log(res.data.data[0])
-
         if (res.data.code == 0) {
+          console.log(res.data)
+          console.log(res.data.data[0])
           var images = res.data.data
           for (var i = 0; i < images.length; i++) {
             console.log(images[i].img_path)
@@ -584,8 +592,15 @@ Page({
               }
             }
           })
+        }else{
+            wx.showToast({
+              title: res.data.msg,
+              icon:'none'
+            })
         }
 
+      },fail(res){
+        console.log(res)
       }
     })
   },
@@ -831,10 +846,12 @@ Page({
     this.data.fileArray[index].data.print_page = print_page;
   },
   paperTypeChange(e) {
-    console.log('radio发生change事件，携带value值为：', e.detail.value)
-    var paper_typer = e.detail.value;
+    console.log('radio发生change事件，携带value值为：'+e.detail.value)
+    var paper_type = e.detail.value;
     var index = e.currentTarget.dataset.index;
-    this.data.fileArray[index].data.paper_typer = paper_typer;
+    console.log('index='+index)
+    this.data.fileArray[index].data.paper_type = paper_type;
+    console.log('paper_typer='+this.data.fileArray[index].data.paper_type)
   },
   paperSizeChange(e) {
     console.log('radio发生change事件，携带value值为：', e.detail.value)
@@ -872,7 +889,7 @@ Page({
     this.data.fileArray.splice(index, 1)
     this.setData({
       fileArray: this.data.fileArray,
-      fileNum:this.data.fileNum-1
+      fileNum: this.data.fileNum - 1
     })
     console.log("删除后" + this.data.fileArray.length)
   },

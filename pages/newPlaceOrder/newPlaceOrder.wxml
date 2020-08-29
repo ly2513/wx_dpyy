@@ -62,24 +62,24 @@
 						<text name='source_name' style="padding-left:25rpx; overflow: hidden;text-overflow: ellipsis;white-space: nowrap;">{{itemName.data.name}}</text>
 						<view style="display: flex; flex-direction: row;">
 							<radio-group class="radiogroup" bindchange='printColorChange' data-index="{{idx}}">
-								<radio color="#0473FF" class="radio" value="1" checked="true">黑白</radio>
-								<radio color="#0473FF" class="radio" value="2">彩色</radio>
+								<radio color="#0473FF" class="radio" value="1" checked="{{itemName.data.print_color==1}}">黑白</radio>
+								<radio color="#0473FF" class="radio" value="2" checked="{{itemName.data.print_color==2}}">彩色</radio>
 							</radio-group>
 							<radio-group data-index="{{idx}}" bindchange='printPageChange' class="radiogroup" wx:if="{{itemName.data.extension=='pdf'||itemName.data.extension=='doc'||itemName.data.extension=='docx'||itemName.data.extension=='xls'||itemName.data.extension=='xlsx'||itemName.data.extension=='ppt'||itemName.data.extension=='pptx'}}">
-								<radio color="#0473FF" class="radio" value="1" checked="true">单面</radio>
-								<radio color="#0473FF" class="radio" value="2">双面</radio>
+								<radio color="#0473FF" class="radio" value="1" checked="{{itemName.data.print_page==1}}">单面</radio>
+								<radio color="#0473FF" class="radio" value="2" checked="{{itemName.data.print_page==2}}">双面</radio>
 							</radio-group>
 							<radio-group data-index="{{idx}}" bindchange='printPageChange' wx:if="{{itemName.data.extension=='jpg'||itemName.data.extension=='jpeg'||itemName.data.extension=='JPG'||itemName.data.extension=='png'}}" class='radiogroup'>
-								<radio color="#0473FF" class="radio" value="3" checked="true">照片纸</radio>
-								<radio color="#0473FF" class="radio" value="4">普通纸</radio>
+								<radio color="#0473FF" class="radio" value="3" checked="{{itemName.data.print_page==3}}">照片纸</radio>
+								<radio color="#0473FF" class="radio" value="4" checked="{{itemName.data.print_page==4}}">普通纸</radio>
 							</radio-group>
 							<radio-group data-index="{{idx}}" bindchange='paperTypeChange' class='radiogroup' wx:if="{{itemName.data.extension=='pdf'||itemName.data.extension=='doc'||itemName.data.extension=='docx'||itemName.data.extension=='xls'||itemName.data.extension=='xlsx'||itemName.data.extension=='ppt'||itemName.data.extension=='pptx'}}">
-								<radio color="#0473FF" class="radio" value="1" checked="true">A4</radio>
-								<radio color="#0473FF" class="radio" value="2">A3</radio>
+								<radio color="#0473FF" class="radio" value="1" checked="{{itemName.data.paper_type==1}}">A4</radio>
+								<radio color="#0473FF" class="radio" value="2" checked="{{itemName.data.paper_type==2}}">A3</radio>
 							</radio-group>
 							<radio-group data-index="{{idx}}" bindchange='paperSizeChange' class='radiogroup' wx:if="{{itemName.data.extension=='jpg'||itemName.data.extension=='jpeg'||itemName.data.extension=='JPG'||itemName.data.extension=='png'}}">
-								<radio color="#0473FF" class="radio" value="1" checked="true">A4|157g</radio>
-								<radio color="#0473FF" class="radio" value="2">6寸大小</radio>
+								<radio color="#0473FF" class="radio" value="1" checked="{{itemName.data.paper_size==1}}">A4|157g</radio>
+								<radio color="#0473FF" class="radio" value="2" checked="{{itemName.data.paper_size==2}}">6寸大小</radio>
 							</radio-group>
 							<input hidden="true" wx:if="{{itemName.data.extension=='pdf'||itemName.data.extension=='doc'||itemName.data.extension=='docx'||itemName.data.extension=='xls'||itemName.data.extension=='xlsx'||itemName.data.extension=='ppt'||itemName.data.extension=='pptx'}}" value="0"></input>
 							<input hidden="true" wx:if="{{itemName.data.extension=='jpg'||itemName.data.extension=='jpeg'||itemName.data.extension=='JPG'||itemName.data.extension=='png'}}" value="0"></input>
@@ -128,7 +128,7 @@
 				<text bindtap="hideLocation" style="color:#999999;" hidden="true" >取消</text>
 			</view>
 			<view style=" width:60%; height:100rpx;display:flex;justify-content:center;align-items:cneter">
-				<text style="font-size:35rpx">请输入备注信息</text>
+				<text style="font-size:35rpx">请在下方输入备注信息</text>
 			</view>
 			<view hidden="true" style="color:#FE7807; width:20%; height:100rpx;display:flex;justify-content:flex-end;padding-right:30rpx">
 				<text hidden="true" bindtap="hideLocation">关闭</text>
@@ -136,7 +136,7 @@
 		</view>
 
 		<view style="height: 1.5rpx;color: #E6E6E6;background-color: #E6E6E6;width:100%;margin-top:20rpx;display:flex;flex-direction: column"></view>
-		<textarea value="{{remark}}" bindinput="inputchange" style="height:40%;width:80%;left:10%" placeholder="如需缩印请注明:缩印比例: 1/4或1/6或1/8，谢谢；特殊要求请留下您的联系方式。'>如需缩印请注明:缩印比例: 1/4或1/6或1/8，谢谢；特殊要求请留下您的联系方式。" ></textarea>
+		<textarea value="{{remark}}" auto-focus="true" bindinput="inputchange" style="height:40%;width:80%;left:10%" placeholder="如需缩印请注明:缩印比例: 1/4或1/6或1/8，谢谢；特殊要求请留下您的联系方式。'>如需缩印请注明:缩印比例: 1/4或1/6或1/8，谢谢；特殊要求请留下您的联系方式。" ></textarea>
 		<view style="margin-top:10%;height:15%;width:80%;margin-left:5%;display:flex;flex-direction: row">
 			<button bindtap="hideinput" style="background-color:#ffffff;left:10%;height:100%;width:35%;display:flex; justify-content:center; align-items:center">取消</button>
 			<button style="width:10%;" hidden="true">取消</button>

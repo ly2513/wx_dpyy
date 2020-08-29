@@ -14,7 +14,8 @@ Page({
     original_price:0,
     price:0,
     sub_price:0,
-    imgs:[]
+    imgs:[],
+    campaign_name:''
   },
 
   /**
@@ -24,11 +25,12 @@ Page({
     var id=options.id;
     var price_fen=options.price_fen;
     var original_price=options.original_price;
+    var campaign_name=options.campaign_name;
     console.log(id)
     console.log(price_fen)
-   
+    // console.log(price_fen)
     this.getAdver()
-    if(id==undefined||price_fen==undefined||original_price==undefined){
+    if(id==undefined||price_fen==undefined||original_price==undefined||campaign_name==undefined){
       wx.showToast({
         title: '参数错误，请重新再试',
         icon:"none"
@@ -45,7 +47,8 @@ Page({
       price_fen:price_fen,
       price:price_fen/100.00,
       original_price:original_price,
-      sub_price:sub_price
+      sub_price:sub_price,
+      campaign_name:campaign_name
     })
   },
   
