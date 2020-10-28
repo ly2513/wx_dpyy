@@ -19,7 +19,7 @@ Page({
   onLoad: function () {
   },
   login: function(){
-    var myreg = /^(14[0-9]|13[0-9]|15[0-9]|17[0-9]|18[0-9]|19[0-9])\d{8}$$/;
+    var myreg = /^(12[0-9]|16[0-9]|14[0-9]|13[0-9]|15[0-9]|17[0-9]|18[0-9]|19[0-9])\d{8}$$/;
     var that = this;
     if (that.data.phone == ''){
       wx.showToast({
