@@ -96,6 +96,36 @@ Page({
       })
     }
   },
+  smart_photo:function(e){
+    var token = wx.getStorageSync("token");
+    if(!token){
+      wx.showModal({
+        title: '系统提示',
+        content: "请登录后在操作!",
+        showCancel: true,
+        success: function (resbtn) {
+          if (resbtn.confirm) {
+            // 跳转登录页
+            wx.navigateTo({
+              url: '../access/access'
+            })
+          }
+          return false;
+        }
+      })
+    }else{
+      wx.navigateTo({
+        url: '../chosePhotoSize/chosePhotoSize',
+        success: function (res) {
+          console.log('跳转成功');
+        },
+        fail: function (e) {
+          console.log(e);
+          console.log('跳转失败');
+        }
+      })
+    }
+  },
   myOrder: function (e) { // 订单查询
     var token = wx.getStorageSync("token");
     if(!token){

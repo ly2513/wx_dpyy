@@ -1,0 +1,39 @@
+<!--pages/newPlaceOrder.wxml-->
+<form bindsubmit="formSubmit">
+   <image class="background" src="/images/new_order_bg.png"></image>
+   <view class="content_bg">
+      <view class="form">
+         <!-- <text>ddddddddddddddddddddd</text> -->
+         <view class="first_line">
+            <text style="width:75%;padding-left: 40rpx;">热门尺寸</text>
+            <!-- <text style="width:25%;color:#DE9E0FFF;font-size: 14px;">拍摄教程></text> -->
+         </view>
+         <view class="column_photo">
+            <view class="row_photo" >
+               <image style="height:120rpx" src="/images/v2.0/img_1.png" bindtap="start_photo_1"></image>
+               <image style="padding-left:20rpx;height:120rpx" src="/images/v2.0/img_2.png" bindtap="start_photo_2"></image>
+            </view>
+            <view class="row_photo">
+               <image style="height:120rpx" src="/images/v2.0/img_3.png" bindtap="start_photo_3"></image>
+               <image style="padding-left:20rpx;height:120rpx" src="/images/v2.0/img_4.png" bindtap="start_photo_4"></image>
+            </view>
+            <view class="row_photo">
+               <image style="height:120rpx" src="/images/v2.0/img_5.png" bindtap="start_photo_5"></image>
+               <image style="padding-left:20rpx;height:120rpx" src="/images/v2.0/img_6.png" bindtap="start_photo_6"></image>
+            </view>
+            <view class="row_photo">
+               <image style="height:120rpx" src="/images/v2.0/img_7.png" bindtap="start_photo_7"></image>
+               <image style="padding-left:20rpx;height:120rpx" src="/images/v2.0/img_8.png" bindtap="start_photo_8"></image>
+            </view>
+            <!-- <view class="row_photo">
+               <image style="height:100rpx" src="/images/v2.0/img_9.png"></image>
+               <image style="padding-left:20rpx;height:100rpx" src="/images/v2.0/img_1.png"></image>
+            </view> -->
+         </view>
+
+         <button bindtap="start_photo">证件照</button>
+
+      </view>
+   </view>
+
+</form>

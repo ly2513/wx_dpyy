@@ -34,7 +34,10 @@ Page({
     document_id: "",
     file_name: "",
     imgs: [],
-    remark: ''
+    remark: '',
+    src: '',
+    paper_type: 0,
+    paper_type_str: ""
   },
 
   /**
@@ -44,9 +47,49 @@ Page({
     var action = options.action;
     var document_id = options.document_id;
     var file_name = options.file_name;
+    var src = options.src;
+    var paper_type = options.photo_type;
+    console.log(options)
     console.log("file_name:" + file_name)
     console.log(action);
     console.log(document_id);
+    console.log(src)
+    console.log(paper_type)
+    var paper_type_str = ''
+    switch (paper_type) {
+      case '0':
+        paper_type_str = '';
+        break;
+      case '3':
+        paper_type_str = '一寸照片';
+        break;
+      case '4':
+        paper_type_str = '二寸照片';
+        break;
+      case '5':
+        paper_type_str = '大一寸照片';
+        break;
+      case '6':
+        paper_type_str = '简历照片';
+        break;
+      case '7':
+        paper_type_str = '教师资格证';
+        break;
+      case '8':
+        paper_type_str = '四六级';
+        break;
+      case '9':
+        paper_type_str = '驾驶证';
+        break;
+      case '10':
+        paper_type_str = '小一寸';
+        break;
+      case '11':
+        paper_type_str = '小二寸';
+        break;
+
+    }
+    console.log(paper_type_str)
     this.getSchool()
     this.getAdver()
     this.setData({
@@ -54,13 +97,91 @@ Page({
       imgUrl_2: app.globalData.requestUrl + '/Static/images/v1.1/banner_2.jpeg',
       imgUrl_3: app.globalData.requestUrl + '/Static/images/v1.1/banner_3.jpeg',
       file_name: file_name,
-      document_id: document_id
+      document_id: document_id,
+      src: src,
+      paper_type: paper_type,
+      paper_type_str:paper_type_str
     })
     if (undefined != action) {
-      this.hasFile()
+      if (action == 'print') {
+        this.hasFile()
+      } else {
+        this.photo_img()
+      }
     }
   },
+  photo_img: function () {
+    var that = this;
+    var src = that.data.src
+    wx.showLoading({
+      title: '图片加载中......',
+      mask: true
+    })
+    var url = "https://pdf-dev.dpyunyin.com/getFinalPhoto?pic=" +src
+    console.log(url)
+    var filePath = wx.env.USER_DATA_PATH + '/' + "智能证件照.jpg"
+    wx.downloadFile({
+      url: url,
+      filePath:filePath,
+      success(res) {
+        if (res.statusCode === 200) {
+          var file_path = res.filePath
+          console.log(file_path)
+          var url = app.globalData.requestUrl + '/Api/File/upload?';
+          wx.uploadFile({
+            filePath: file_path,
+            name: 'file',
+            url: url,
+            header: {
+              'Content-Type': 'multipart/form-data',
+              'token': wx.getStorageSync("token"),
+            },
+            success(res) {
+              if (res.statusCode == 200) {
+                console.log(res.data)
+                var data = JSON.parse(res.data)
+                console.log(data)
+                if (data.code != 0) {
+                  wx.showToast({
+                    title: data.msg,
+                    icon: "none"
+                  })
+                  return
+                }
+                data.data.file_num = 1
+                data.data.print_color = 3
+                data.data.print_page = 5
+                data.data.paper_size = 0
+                data.data.paper_type = that.data.paper_type
+                data.data.img_url="https://pdf-dev.dpyunyin.com/getFinalPhoto?pic=" +src
+                that.data.fileArray = [data].concat(that.data.fileArray)
+                that.setData({
+                  fileNum: that.data.fileNum + 1,
+                  fileArray: that.data.fileArray
+                })
+                wx.hideLoading({
+                  success: (res) => {},
+                })
 
+              } else {
+                wx.showToast({
+                  title: '服务器异常',
+                })
+
+              }
+            }
+          })
+        } else {
+          wx.hideLoading({
+            success: (res) => {},
+          })
+          wx.showToast({
+            title: '服务器异常',
+          })
+        }
+      }
+    })
+  },
   hasFile: function () {
     var that = this;
     var document_id = that.data.document_id;
@@ -105,8 +226,7 @@ Page({
                 }
               })
               console.log(res.filePath)
-              var url = app.globalData.requestUrl + '/Api/File/upload?';
-              console.log(that.file_name)
+              var url = app.globalData.requestUrl + '/Api/File/upload?'
               wx.uploadFile({
                 filePath: filePath,
                 name: 'file',
@@ -268,7 +388,7 @@ Page({
         }
 
         wx.redirectTo({
-          url: '../payOrder/payOrder?id=' + res.data.data.id + "&price_fen=" + res.data.data.price_fen + "&original_price=" + res.data.data.original_price+"&campaign_name="+res.data.data.campaign_name,
+          url: '../payOrder/payOrder?id=' + res.data.data.id + "&price_fen=" + res.data.data.price_fen + "&original_price=" + res.data.data.original_price + "&campaign_name=" + res.data.data.campaign_name,
           success: function (res) {
             console.log('跳转成功');
 
@@ -557,7 +677,7 @@ Page({
   getAdver() {
     var that = this
     var url = app.globalData.requestUrl + '/Api/Order/getAdvertisingList'
-    
+
     console.log(wx.getStorageSync("token"))
     wx.request({
       url: url,
@@ -566,6 +686,7 @@ Page({
         'token': wx.getStorageSync("token")
       },
       success(res) {
+        console.log(res.data)
         if (res.data.code == 0) {
           console.log(res.data)
           console.log(res.data.data[0])
@@ -592,14 +713,15 @@ Page({
               }
             }
           })
-        }else{
-            wx.showToast({
-              title: res.data.msg,
-              icon:'none'
-            })
+        } else {
+          wx.showToast({
+            title: res.data.msg,
+            icon: 'none'
+          })
         }
 
-      },fail(res){
+      },
+      fail(res) {
         console.log(res)
       }
     })
@@ -846,12 +968,12 @@ Page({
     this.data.fileArray[index].data.print_page = print_page;
   },
   paperTypeChange(e) {
-    console.log('radio发生change事件，携带value值为：'+e.detail.value)
+    console.log('radio发生change事件，携带value值为：' + e.detail.value)
     var paper_type = e.detail.value;
     var index = e.currentTarget.dataset.index;
-    console.log('index='+index)
+    console.log('index=' + index)
     this.data.fileArray[index].data.paper_type = paper_type;
-    console.log('paper_typer='+this.data.fileArray[index].data.paper_type)
+    console.log('paper_typer=' + this.data.fileArray[index].data.paper_type)
   },
   paperSizeChange(e) {
     console.log('radio发生change事件，携带value值为：', e.detail.value)
