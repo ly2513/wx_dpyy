@@ -10,8 +10,8 @@ Page({
     color: 1,
     photo_type: 1,
     temppaths: "",
-    src:""
-
+    src:"",
+    wh:1.4
   },
 
   /**
@@ -21,17 +21,43 @@ Page({
     console.log(options)
     var src = options.src
     var temsrc=src
-    src = "https://pdf-dev.dpyunyin.com/getFinalPhoto?pic=" + src
+    src = app.globalData.pdfUrl+"/getFinalPhoto?pic=" + src
     console.log(src)
     var photo_type = options.photo_type
     console.log(photo_type)
+    var wh=1.4
+    switch(photo_type){
+      case 3:
+      case 4:
+        wh=1.4
+        break
+      case 5:
+        wh=1.45
+        break;
+      case 6:
+        wh=1.4
+        break
+      case 7:
+        wh=1.4
+        break
+      case 8:
+        wh=1.35
+        break
+      case 9:
+        wh=1.45
+        break
+      case 10:
+        wh=1.45
+        break
+    }
     var temppaths = options.temppaths
     console.log(temppaths)
     this.setData({
       img_src: src,
       photo_type: photo_type,
       temppaths: temppaths,
-      src:temsrc
+      src:temsrc,
+      wh:wh
     })
   },
   color_1(e) {
@@ -151,13 +177,13 @@ Page({
           console.log(file_path)
           var url=""
           if(that.data.color==2){
-            url="https://pdf-dev.dpyunyin.com/getPhoto?pic=" + file_path + "&wh=1.5&b=53&g=63&r=225"
+            url=app.globalData.pdfUrl+"/getPhoto?pic=" + file_path + "&wh="+that.data.wh+"&b=53&g=63&r=225"
           }else if(that.data.color==3){
-            url="https://pdf-dev.dpyunyin.com/getPhoto?pic=" + file_path + "&wh=1.5&b=231&g=137&r=68"
+            url=app.globalData.pdfUrl+"/getPhoto?pic=" + file_path + "&wh="+that.data.wh+"&b=231&g=137&r=68"
           }else if(that.data.color==4){
-            url="https://pdf-dev.dpyunyin.com/getPhoto?pic=" + file_path + "&wh=1.5&b=245&g=189&r=104"
+            url=app.globalData.pdfUrl+"/getPhoto?pic=" + file_path + "&wh="+that.data.wh+"&b=245&g=189&r=104"
           }else if(that.data.color==1){
-            url="https://pdf-dev.dpyunyin.com/getPhoto?pic=" + file_path + "&wh=1.5&b=255&g=255&r=255"
+            url=app.globalData.pdfUrl+"/getPhoto?pic=" + file_path + "&wh="+that.data.wh+"&b=255&g=255&r=255"
           }
           console.log(url)
           wx.request({
@@ -167,7 +193,7 @@ Page({
               console.log(data.data.file_path)
               var src = data.data.file_path
               var temsrc=src
-              src = "https://pdf-dev.dpyunyin.com/getFinalPhoto?pic=" + src
+              src = app.globalData.pdfUrl+"/getFinalPhoto?pic=" + src
               console.log(src)
               
               that.setData({

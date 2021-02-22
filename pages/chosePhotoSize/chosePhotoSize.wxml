@@ -31,7 +31,7 @@
             </view> -->
          </view>
 
-         <button bindtap="start_photo">证件照</button>
+         <!-- <button bindtap="start_photo">证件照</button> -->
 
       </view>
    </view>

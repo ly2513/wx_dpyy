@@ -7,7 +7,8 @@ Page({
    */
   data: {
     photo_type:1,
-    paper_type_str:''
+    paper_type_str:'',
+    wh:1.4
   },
 
   /**
@@ -50,9 +51,35 @@ Page({
         break;
 
     }
+    var wh=1.4
+    switch(photo_type){
+      case 3:
+      case 4:
+        wh=1.4
+        break
+      case 5:
+        wh=1.45
+        break;
+      case 6:
+        wh=1.4
+        break
+      case 7:
+        wh=1.4
+        break
+      case 8:
+        wh=1.35
+        break
+      case 9:
+        wh=1.45
+        break
+      case 10:
+        wh=1.45
+        break
+    }
     this.setData({
       photo_type:photo_type,
-      paper_type_str:paper_type_str
+      paper_type_str:paper_type_str,
+      wh:wh
     })
   },
 
@@ -95,14 +122,21 @@ Page({
             if (jsdata.code==0){
               var file_path=jsdata.data.path
               console.log(file_path)
-              var url="https://pdf-dev.dpyunyin.com/getPhoto?pic="+file_path+"&wh=1.5&b=255&g=255&r=255"
+              var url=app.globalData.pdfUrl+"/getPhoto?pic="+file_path+"&wh="+that.data.wh+"&b=255&g=255&r=255"
               console.log(url)
               wx.request({
                 url: url,
                 success(res){
                   const data = res.data
                   console.log(data.data.file_path)
-                  // file_path="pdf-dev.dpyunyin.com/getFinalPhoto?pic="+file_path
+                  console.log(data)
+                  if (data.code!=0){
+                    wx.showToast({
+                      icon:'none',
+                      title: data.msg,
+                    })
+                    return
+                  }
                   wx.navigateTo({
                     url: '../modifyPhoto/modifyPhoto?src='+data.data.file_path+"&photo_type="+that.data.photo_type+"&temppaths="+tempFilePaths[0],
                   })
@@ -139,12 +173,84 @@ Page({
     })
   },
   takePhtoto:function(e){
+    var that=this
     wx.chooseImage({
       count: 1,
       sourceType:['camera'],
       success(res){
         const tempFilePaths = res.tempFilePaths
         console.log(tempFilePaths[0])
+        wx.showLoading({
+          title: '图片处理中......',
+        })
+        var url=app.globalData.requestUrl + '/Api/File/uploadIdPhoto';
+        console.log(url)
+        wx.uploadFile({
+          filePath: tempFilePaths[0],
+          name: 'file',
+          url: url,
+          header: {
+            'Content-Type': 'application/json',
+            'token': wx.getStorageSync("token")
+          },
+          success (res){
+            const data = res.data
+            
+            if (res.statusCode!=200){
+              wx.showToast({
+                title: '服务器异常',
+              })
+              wx.hideLoading({
+                success: (res) => {},
+              })
+              return
+            }
+            console.log(data)
+            var jsdata=JSON.parse(data)
+            console.log(jsdata.code)
+            if (jsdata.code==0){
+              var file_path=jsdata.data.path
+              console.log(file_path)
+              var url=app.globalData.pdfUrl+"/getPhoto?pic="+file_path+"&wh=1.5&b=255&g=255&r=255"
+              console.log(url)
+              wx.request({
+                url: url,
+                success(res){
+                  const data = res.data
+                  console.log(data.data.file_path)
+                  wx.navigateTo({
+                    url: '../modifyPhoto/modifyPhoto?src='+data.data.file_path+"&photo_type="+that.data.photo_type+"&temppaths="+tempFilePaths[0],
+                  })
+                },
+                fail(res){
+                  console.log(res)
+                  wx.hideLoading({
+                    success: (res) => {},
+                  })
+                }
+              })
+              // wx.navigateTo({
+              //   url: '../modifyPhoto/modifyPhoto?src='+file_path+"&photo_type="+that.data.photo_type,
+              // })
+            }else{
+              wx.showToast({
+                title: jsdata.msg,
+              })
+              wx.hideLoading({
+                success: (res) => {},
+              })
+            }
+          },fail(){
+            wx.hideLoading({
+              success: (res) => {},
+            })
+            wx.showToast({
+              title: '服务器异常',
+            })
+
+          }
+        })
+
       }
     })
   }

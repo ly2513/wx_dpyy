@@ -37,7 +37,8 @@ Page({
     remark: '',
     src: '',
     paper_type: 0,
-    paper_type_str: ""
+    paper_type_str: "",
+    wh:1.4
   },
 
   /**
@@ -87,12 +88,37 @@ Page({
       case '11':
         paper_type_str = '小二寸';
         break;
-
+    }
+    var wh=1.4
+    switch(paper_type){
+      case 3:
+      case 4:
+        wh=1.4
+        break
+      case 5:
+        wh=1.45
+        break;
+      case 6:
+        wh=1.4
+        break
+      case 7:
+        wh=1.4
+        break
+      case 8:
+        wh=1.35
+        break
+      case 9:
+        wh=1.45
+        break
+      case 10:
+        wh=1.45
+        break
     }
     console.log(paper_type_str)
     this.getSchool()
     this.getAdver()
     this.setData({
+      wh:wh,
       imgUrl_1: app.globalData.requestUrl + '/Static/images/v1.1/banner_1.jpeg',
       imgUrl_2: app.globalData.requestUrl + '/Static/images/v1.1/banner_2.jpeg',
       imgUrl_3: app.globalData.requestUrl + '/Static/images/v1.1/banner_3.jpeg',
@@ -117,7 +143,7 @@ Page({
       title: '图片加载中......',
       mask: true
     })
-    var url = "https://pdf-dev.dpyunyin.com/getFinalPhoto?pic=" +src
+    var url = app.globalData.pdfUrl+"/getFinalPhoto?pic=" +src
     console.log(url)
     var filePath = wx.env.USER_DATA_PATH + '/' + "智能证件照.jpg"
     wx.downloadFile({
@@ -153,7 +179,7 @@ Page({
                 data.data.print_page = 5
                 data.data.paper_size = 0
                 data.data.paper_type = that.data.paper_type
-                data.data.img_url="https://pdf-dev.dpyunyin.com/getFinalPhoto?pic=" +src
+                data.data.img_url=app.globalData.pdfUrl+"/getFinalPhoto?pic=" +src
                 that.data.fileArray = [data].concat(that.data.fileArray)
                 that.setData({
                   fileNum: that.data.fileNum + 1,
@@ -1050,6 +1076,7 @@ Page({
       return
     }
     var url = app.globalData.requestUrl + '/Api/Cost/getCost?store_id=' + this.data.storeValue
+    console.log(url)
     wx.request({
       url: url,
       header: {
@@ -1058,7 +1085,7 @@ Page({
       },
       success(res) {
         console.log("获取门店价格成功")
-        console.log(res.data)
+        console.log(res)
         if (res.data.code != 0) {
           wx.showToast({
             title: res.data.msg,
