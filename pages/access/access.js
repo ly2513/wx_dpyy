@@ -5,12 +5,12 @@ app.globalData.userInfo = {};
 var dev = true;
 // https://www.lovecangda.com
 // 后端地址
-app.globalData.requestUrl = (dev === false) ? 'http://dp-dev.dpyunyin.com' : 'https://dp-stg.dpyunyin.com';
-// app.globalData.requestUrl = (dev === false) ? 'http://127.0.0.1:1026' : 'https://www.dpyunyin.com';
+app.globalData.requestUrl = (dev === true) ? 'http://dp-dev.dpyunyin.com' : 'https://dp-stg.dpyunyin.com';
+app.globalData.pdfUrl = (dev === true) ? 'https://pdf-dev.dpyunyin.com' : 'https://pdf-stg.dpyunyin.com';
 
 app.globalData.phone = '';
 app.globalData.token = '';
-Page({
+Page({ 
   data: {
     userInfo: {},
     canIUse: wx.canIUse('button.open-type.getUserInfo')

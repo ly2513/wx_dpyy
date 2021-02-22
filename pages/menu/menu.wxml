@@ -3,13 +3,16 @@
 	<image class='background' src="/images/home_backgroud.png" mode="aspectFill"></image>
 
 	<view class="cent_layout">
-			<view class="layout_horizontal">
+		<view class="layout_horizontal">
+			<view class="layout_vertical">
 				<image class="print_order" src="/images/print_btn.png" bindtap="placeOrder"></image>
-				<view class="layout_vertical">
-					<image class="other_btn" src="/images/order_search_btn.png" bindtap="myOrder"></image>
-					<image class="other_btn" src="/images/share_library_btn.png" bindtap="complaintProposal"></image>
-				</view>
+				<image class="share_bt" src="/images/share_library_btn.png" bindtap="complaintProposal"></image>
 			</view>
+			<view class="layout_vertical">
+				<image class="other_btn" src="/images/order_search_btn.png" bindtap="myOrder"></image>
+        <image class="smart_bt" src="/images/smart_photo.png" bindtap="smart_photo"></image>
+			</view>
+		</view>
 	</view>
 
 
@@ -45,7 +48,7 @@
   <view class="text"  >
     <text >达派创投旗下直营品牌</text>
   </view> -->
-  <view class="text"  >
-    <text >达派创投旗下直营品牌</text>
-  </view>
+	<view class="text">
+		<text >达派创投旗下直营品牌</text>
+	</view>
 </view>

@@ -65,8 +65,10 @@ Page({
             var suffix = "";
             var file_path = res.data.data.list[i].file_path;
             console.log(file_path);
-            // var index=file_path.lastIndexOf('.');
-            // suffix=
+            if (res.data.data.list[i].print_color>=3){
+              res.data.data.list[i].file_path=app.globalData.requestUrl+res.data.data.list[i].file_path;
+              console.log(res.data.data.list[i].file_path)
+            }
             var arr = file_path.split('.');
             if (arr.length > 0) {
               suffix = arr[arr.length - 1]
