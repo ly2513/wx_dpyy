@@ -143,7 +143,7 @@ Page({
       title: '图片加载中......',
       mask: true
     })
-    var url = app.globalData.pdfUrl+"/getFinalPhoto?pic=" +src
+    var url = app.globalData.requestUrl +src
     console.log(url)
     var filePath = wx.env.USER_DATA_PATH + '/' + "智能证件照.jpg"
     wx.downloadFile({
@@ -179,7 +179,7 @@ Page({
                 data.data.print_page = 5
                 data.data.paper_size = 0
                 data.data.paper_type = that.data.paper_type
-                data.data.img_url=app.globalData.pdfUrl+"/getFinalPhoto?pic=" +src
+                data.data.img_url=app.globalData.requestUrl+src
                 that.data.fileArray = [data].concat(that.data.fileArray)
                 that.setData({
                   fileNum: that.data.fileNum + 1,

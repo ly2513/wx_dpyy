@@ -122,10 +122,14 @@ Page({
             if (jsdata.code==0){
               var file_path=jsdata.data.path
               console.log(file_path)
-              var url=app.globalData.pdfUrl+"/getPhoto?pic="+file_path+"&wh="+that.data.wh+"&b=255&g=255&r=255"
+              var url=app.globalData.requestUrl+"/Api/File/getPhoto?pic="+file_path+"&wh="+that.data.wh+"&b=255&g=255&r=255&url="+app.globalData.pdfUrl
               console.log(url)
               wx.request({
                 url: url,
+                header: {
+                  'Content-Type': 'application/json',
+                  'token': wx.getStorageSync("token")
+                },
                 success(res){
                   const data = res.data
                   console.log(data.data.file_path)
@@ -159,12 +163,13 @@ Page({
                 success: (res) => {},
               })
             }
-          },fail(){
-            wx.hideLoading({
-              success: (res) => {},
-            })
+          },fail(e){
+            console.log(e)
             wx.showToast({
               title: '服务器异常',
+            })
+            wx.hideLoading({
+              success: (res) => {},
             })
 
           }
@@ -211,10 +216,14 @@ Page({
             if (jsdata.code==0){
               var file_path=jsdata.data.path
               console.log(file_path)
-              var url=app.globalData.pdfUrl+"/getPhoto?pic="+file_path+"&wh=1.5&b=255&g=255&r=255"
+              var url=app.globalData.requestUrl+"/Api/File/getPhoto?pic="+file_path+"&wh=1.5&b=255&g=255&r=255&url="+app.globalData.pdfUrl
               console.log(url)
               wx.request({
                 url: url,
+                header: {
+                  'Content-Type': 'application/json',
+                  'token': wx.getStorageSync("token")
+                },
                 success(res){
                   const data = res.data
                   console.log(data.data.file_path)

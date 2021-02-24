@@ -2,11 +2,11 @@
 //获取应用实例
 const app = getApp();
 app.globalData.userInfo = {};
-var dev = false;
+var dev = true;
 // https://www.lovecangda.com
 // 后端地址
 app.globalData.requestUrl = (dev === true) ? 'http://dp-dev.dpyunyin.com' : 'https://dp-stg.dpyunyin.com';
-app.globalData.pdfUrl = (dev === true) ? 'https://pdf-dev.dpyunyin.com' : 'https://pdf-stg.dpyunyin.com';
+app.globalData.pdfUrl = (dev === true) ? 'pdf-dev.dpyunyin.com' : 'pdf-stg.dpyunyin.com';
 
 app.globalData.phone = '';
 app.globalData.token = '';
