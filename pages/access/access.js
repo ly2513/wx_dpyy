@@ -6,7 +6,7 @@ var dev = false;
 // https://www.lovecangda.com
 // 后端地址
 app.globalData.requestUrl = (dev === true) ? 'http://dp-dev.dpyunyin.com' : 'https://www.dpyunyin.com';
-app.globalData.pdfUrl = (dev === true) ? 'https://pdf-dev.dpyunyin.com' : 'https://pdf.dpyunyin.com';
+app.globalData.pdfUrl = (dev === true) ? 'pdf-dev.dpyunyin.com' : 'pdf.dpyunyin.com';
 
 app.globalData.phone = '';
 app.globalData.token = '';
