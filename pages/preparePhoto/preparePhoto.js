@@ -108,6 +108,21 @@ Page({
             const data = res.data
             
             if (res.statusCode!=200){
+              if(res.data.code == 999){
+                wx.showModal({
+                  title: '系统提示',
+                  content: res.data.msg,
+                  showCancel: true,
+                  success: function (resbtn) {
+                    if (resbtn.confirm) {
+                      // 跳转登录页
+                      wx.navigateTo({
+                        url: '../access/access'
+                      })
+                    }
+                  }
+                })
+              }
               wx.showToast({
                 title: '服务器异常',
               })
@@ -122,10 +137,14 @@ Page({
             if (jsdata.code==0){
               var file_path=jsdata.data.path
               console.log(file_path)
-              var url=app.globalData.pdfUrl+"/getPhoto?pic="+file_path+"&wh="+that.data.wh+"&b=255&g=255&r=255"
+              var url=app.globalData.requestUrl+"/Api/File/getPhoto?pic="+file_path+"&wh="+that.data.wh+"&b=255&g=255&r=255&url="+app.globalData.pdfUrl
               console.log(url)
               wx.request({
                 url: url,
+                header: {
+                  'Content-Type': 'application/json',
+                  'token': wx.getStorageSync("token")
+                },
                 success(res){
                   const data = res.data
                   console.log(data.data.file_path)
@@ -152,19 +171,39 @@ Page({
               //   url: '../modifyPhoto/modifyPhoto?src='+file_path+"&photo_type="+that.data.photo_type,
               // })
             }else{
-              wx.showToast({
-                title: jsdata.msg,
-              })
               wx.hideLoading({
                 success: (res) => {},
               })
+              console.log(jsdata.code)
+              if(jsdata.code == '999'){
+                console.log('666')
+                wx.showModal({
+                  title: '系统提示',
+                  content: jsdata.msg,
+                  showCancel: true,
+                  success: function (resbtn) {
+                    if (resbtn.confirm) {
+                      // 跳转登录页
+                      wx.navigateTo({
+                        url: '../access/access'
+                      })
+                    }
+                  }
+                })
+                return 
+              }
+              wx.showToast({
+                title: jsdata.msg,
+              })
+              
             }
-          },fail(){
-            wx.hideLoading({
-              success: (res) => {},
-            })
+          },fail(e){
+            console.log(e)
             wx.showToast({
               title: '服务器异常',
+            })
+            wx.hideLoading({
+              success: (res) => {},
             })
 
           }
@@ -197,6 +236,21 @@ Page({
             const data = res.data
             
             if (res.statusCode!=200){
+              if(res.data.code == 999){
+                wx.showModal({
+                  title: '系统提示',
+                  content: res.data.msg,
+                  showCancel: true,
+                  success: function (resbtn) {
+                    if (resbtn.confirm) {
+                      // 跳转登录页
+                      wx.navigateTo({
+                        url: '../access/access'
+                      })
+                    }
+                  }
+                })
+              }
               wx.showToast({
                 title: '服务器异常',
               })
@@ -211,10 +265,14 @@ Page({
             if (jsdata.code==0){
               var file_path=jsdata.data.path
               console.log(file_path)
-              var url=app.globalData.pdfUrl+"/getPhoto?pic="+file_path+"&wh=1.5&b=255&g=255&r=255"
+              var url=app.globalData.requestUrl+"/Api/File/getPhoto?pic="+file_path+"&wh=1.5&b=255&g=255&r=255&url="+app.globalData.pdfUrl
               console.log(url)
               wx.request({
                 url: url,
+                header: {
+                  'Content-Type': 'application/json',
+                  'token': wx.getStorageSync("token")
+                },
                 success(res){
                   const data = res.data
                   console.log(data.data.file_path)
@@ -233,12 +291,31 @@ Page({
               //   url: '../modifyPhoto/modifyPhoto?src='+file_path+"&photo_type="+that.data.photo_type,
               // })
             }else{
-              wx.showToast({
-                title: jsdata.msg,
-              })
               wx.hideLoading({
                 success: (res) => {},
               })
+              if(jsdata.code == '999'){
+                console.log('666')
+                wx.showModal({
+                  title: '系统提示',
+                  content: jsdata.msg,
+                  showCancel: true,
+                  success: function (resbtn) {
+                    if (resbtn.confirm) {
+                      // 跳转登录页
+                      wx.navigateTo({
+                        url: '../access/access'
+                      })
+                    }
+                  }
+                })
+                return 
+              }
+             
+              wx.showToast({
+                title: jsdata.msg,
+              })
+              
             }
           },fail(){
             wx.hideLoading({

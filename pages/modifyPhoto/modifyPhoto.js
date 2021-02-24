@@ -16,12 +16,13 @@ Page({
 
   /**
    * 生命周期函数--监听页面加载
+   * http://dp-dev.dpyunyin.com/Api/File/getFinalPhoto?pic=PhotoFile/face_20210224/b85ef72c-768e-11eb-af9b-52540079445a.jpg
    */
   onLoad: function (options) {
     console.log(options)
     var src = options.src
     var temsrc=src
-    src = app.globalData.pdfUrl+"/getFinalPhoto?pic=" + src
+    src = app.globalData.requestUrl + src
     console.log(src)
     var photo_type = options.photo_type
     console.log(photo_type)
@@ -177,23 +178,28 @@ Page({
           console.log(file_path)
           var url=""
           if(that.data.color==2){
-            url=app.globalData.pdfUrl+"/getPhoto?pic=" + file_path + "&wh="+that.data.wh+"&b=53&g=63&r=225"
+            url=app.globalData.requestUrl+"/Api/File/getPhoto?pic=" + file_path + "&wh="+that.data.wh+"&b=53&g=63&r=225&url="+app.globalData.pdfUrl
           }else if(that.data.color==3){
-            url=app.globalData.pdfUrl+"/getPhoto?pic=" + file_path + "&wh="+that.data.wh+"&b=231&g=137&r=68"
+            url=app.globalData.requestUrl+"/Api/File/getPhoto?pic=" + file_path + "&wh="+that.data.wh+"&b=231&g=137&r=68&url="+app.globalData.pdfUrl
           }else if(that.data.color==4){
-            url=app.globalData.pdfUrl+"/getPhoto?pic=" + file_path + "&wh="+that.data.wh+"&b=245&g=189&r=104"
+            url=app.globalData.requestUrl+"/Api/File/getPhoto?pic=" + file_path + "&wh="+that.data.wh+"&b=245&g=189&r=104&url="+app.globalData.pdfUrl
           }else if(that.data.color==1){
-            url=app.globalData.pdfUrl+"/getPhoto?pic=" + file_path + "&wh="+that.data.wh+"&b=255&g=255&r=255"
+            url=app.globalData.requestUrl+"/Api/File/getPhoto?pic=" + file_path + "&wh="+that.data.wh+"&b=255&g=255&r=255&url="+app.globalData.pdfUrl
           }
           console.log(url)
           wx.request({
             url: url,
+            header: {
+              'Content-Type': 'application/json',
+              'token': wx.getStorageSync("token")
+            },
             success(res) {
               const data = res.data
+              console.log(data)
               console.log(data.data.file_path)
               var src = data.data.file_path
               var temsrc=src
-              src = app.globalData.pdfUrl+"/getFinalPhoto?pic=" + src
+              src = app.globalData.requestUrl + src
               console.log(src)
               
               that.setData({
