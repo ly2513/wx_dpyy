@@ -108,6 +108,21 @@ Page({
             const data = res.data
             
             if (res.statusCode!=200){
+              if(res.data.code == 999){
+                wx.showModal({
+                  title: '系统提示',
+                  content: res.data.msg,
+                  showCancel: true,
+                  success: function (resbtn) {
+                    if (resbtn.confirm) {
+                      // 跳转登录页
+                      wx.navigateTo({
+                        url: '../access/access'
+                      })
+                    }
+                  }
+                })
+              }
               wx.showToast({
                 title: '服务器异常',
               })
@@ -156,12 +171,31 @@ Page({
               //   url: '../modifyPhoto/modifyPhoto?src='+file_path+"&photo_type="+that.data.photo_type,
               // })
             }else{
-              wx.showToast({
-                title: jsdata.msg,
-              })
               wx.hideLoading({
                 success: (res) => {},
               })
+              console.log(jsdata.code)
+              if(jsdata.code == '999'){
+                console.log('666')
+                wx.showModal({
+                  title: '系统提示',
+                  content: jsdata.msg,
+                  showCancel: true,
+                  success: function (resbtn) {
+                    if (resbtn.confirm) {
+                      // 跳转登录页
+                      wx.navigateTo({
+                        url: '../access/access'
+                      })
+                    }
+                  }
+                })
+                return 
+              }
+              wx.showToast({
+                title: jsdata.msg,
+              })
+              
             }
           },fail(e){
             console.log(e)
@@ -202,6 +236,21 @@ Page({
             const data = res.data
             
             if (res.statusCode!=200){
+              if(res.data.code == 999){
+                wx.showModal({
+                  title: '系统提示',
+                  content: res.data.msg,
+                  showCancel: true,
+                  success: function (resbtn) {
+                    if (resbtn.confirm) {
+                      // 跳转登录页
+                      wx.navigateTo({
+                        url: '../access/access'
+                      })
+                    }
+                  }
+                })
+              }
               wx.showToast({
                 title: '服务器异常',
               })
@@ -242,12 +291,31 @@ Page({
               //   url: '../modifyPhoto/modifyPhoto?src='+file_path+"&photo_type="+that.data.photo_type,
               // })
             }else{
-              wx.showToast({
-                title: jsdata.msg,
-              })
               wx.hideLoading({
                 success: (res) => {},
               })
+              if(jsdata.code == '999'){
+                console.log('666')
+                wx.showModal({
+                  title: '系统提示',
+                  content: jsdata.msg,
+                  showCancel: true,
+                  success: function (resbtn) {
+                    if (resbtn.confirm) {
+                      // 跳转登录页
+                      wx.navigateTo({
+                        url: '../access/access'
+                      })
+                    }
+                  }
+                })
+                return 
+              }
+             
+              wx.showToast({
+                title: jsdata.msg,
+              })
+              
             }
           },fail(){
             wx.hideLoading({
