@@ -17,13 +17,15 @@
 			<view style="padding-top:20rpx" wx:for="{{fileList}}" wx:key="index" wx:for-index="idx" wx:for-item="item">
 				<view style="margin-left:20rpx;margin-right:30rpx;background-color:#F2F2F2;border-radius:5px;display:flex;flex-direction: column;">
 					<view style="display:flex;flex-direction: row;">
-						<view style="width:20%">
+						<view wx:if="{{item.print_color<3}}" style="width:20%">
 							<image wx:if="{{item.suffix=='jpg'||item.suffix=='jpeg'||item.suffix=='JPG'||item.suffix=='png'}}" src="/images/v2.0/jpg_ico.png" style="padding-top:30rpx;padding-left:20rpx;width:80rpx;height:100rpx"></image>
 							<image wx:if="{{item.suffix=='doc'||item.suffix=='docx'}}" src="/images/v2.0/word_ico.png" style="padding-top:30rpx;padding-left:20rpx;width:80rpx;height:100rpx"></image>
 							<image wx:if="{{item.suffix=='xls'||item.suffix=='xlsx'}}" src="/images/v2.0/xlsx_ico.png" style="padding-top:30rpx;padding-left:20rpx;width:80rpx;height:100rpx"></image>
 							<image wx:if="{{item.suffix=='pdf'}}" src="/images/v2.0/pdf_ico.png" style="padding-top:30rpx;padding-left:20rpx;width:80rpx;height:100rpx"></image>
 						</view>
-
+						<view wx:else style="width:20%">
+							<image  style="padding-top:30rpx;padding-left:20rpx;width:80rpx;height:100rpx" src="{{item.file_path}}"></image>
+						</view>
 
 						<view style="width:80%;display:flex;flex-direction:column;justify-content:flex-start;align-items:flex-start ">
 							<span style="width:100%;overflow: hidden;text-overflow: ellipsis;white-space:nowrap;padding-top:30rpx;">{{item.source_name}}</span>

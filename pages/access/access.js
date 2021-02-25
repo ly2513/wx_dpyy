@@ -2,15 +2,15 @@
 //获取应用实例
 const app = getApp();
 app.globalData.userInfo = {};
-var dev = true;
+var dev = false;
 // https://www.lovecangda.com
 // 后端地址
-app.globalData.requestUrl = (dev === false) ? 'http://dp-dev.dpyunyin.com' : 'https://dp-stg.dpyunyin.com';
-// app.globalData.requestUrl = (dev === false) ? 'http://127.0.0.1:1025' : 'https://www.dpyunyin.com';
+app.globalData.requestUrl = (dev === true) ? 'http://dp-dev.dpyunyin.com' : 'https://www.dpyunyin.com';
+app.globalData.pdfUrl = (dev === true) ? 'pdf-dev.dpyunyin.com' : 'pdf.dpyunyin.com';
 
 app.globalData.phone = '';
 app.globalData.token = '';
-Page({
+Page({ 
   data: {
     userInfo: {},
     canIUse: wx.canIUse('button.open-type.getUserInfo')

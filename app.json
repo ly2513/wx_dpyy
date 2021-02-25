@@ -17,11 +17,14 @@
     "pages/temPay/temPay",
     "pages/newPlaceOrder/newPlaceOrder",
     "pages/choseFile/choseFile",
-    "pages/payOrder/payOrder"
+    "pages/payOrder/payOrder",
+    "pages/chosePhotoSize/chosePhotoSize",
+    "pages/preparePhoto/preparePhoto",
+    "pages/modifyPhoto/modifyPhoto"
   ],
   "permission": {
     "scope.userLocation": {
-      "desc": "你的位置信息将用于小程序像您推荐最近的学校" 
+      "desc": "你的位置信息将用于小程序像您推荐最近的学校"
     }
   },
   "window": {
@@ -50,6 +53,5 @@
       }
     ]
   },
-  
   "sitemapLocation": "sitemap.json"
 }
