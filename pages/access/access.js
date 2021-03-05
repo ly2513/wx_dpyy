@@ -5,8 +5,8 @@ app.globalData.userInfo = {};
 var dev = false;
 // https://www.lovecangda.com
 // 后端地址
-app.globalData.requestUrl = (dev === true) ? 'http://dp-dev.dpyunyin.com' : 'https://dp-stg.dpyunyin.com';
-app.globalData.pdfUrl = (dev === true) ? 'pdf-dev.dpyunyin.com' : 'pdf-stg.dpyunyin.com';
+app.globalData.requestUrl = (dev === true) ? 'http://dp-dev.dpyunyin.com' : 'https://www.dpyunyin.com';
+app.globalData.pdfUrl = (dev === true) ? 'pdf-dev.dpyunyin.com' : 'pdf.dpyunyin.com';
 
 app.globalData.phone = '';
 app.globalData.token = '';
