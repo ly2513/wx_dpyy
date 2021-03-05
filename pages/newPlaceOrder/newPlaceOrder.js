@@ -1041,6 +1041,23 @@ Page({
     })
     console.log("删除后" + this.data.fileArray.length)
   },
+  toAdv(e){
+    var index = e.currentTarget.dataset.index;
+    console.log(index)
+    var imgs=this.data.imgs;
+    console.log(imgs[index].type)
+    console.log(imgs[index].url)
+    
+    // wx.previewImage({
+    //   urls: ['http://cd-stg.lovecangda.com/Upload/PrintFile/20210305/2021030518277841.jpg'],
+    // })
+    if(imgs[index].type==2){
+      wx.navigateTo({
+        url: '../thirdPartyPage/thirdPartyPage?url='+imgs[index].url,
+      })
+    }
+   
+  },
   show_time() {
     var storeList = this.data.storeList;
     var store = {}

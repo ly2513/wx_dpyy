@@ -5,7 +5,7 @@
 		<view class="form">
 			<swiper circular='true' class="img" indicator-dots="true" indicator-active-color="#ffffff" autoplay="true">
 				<swiper-item wx:for="{{imgs}}" wx:for-index="idx" wx:for-item="itemName">
-					<image mode="scaleToFill" class="inner_img" style="width:100%" src="{{itemName.img_path}}"></image>
+					<image mode="scaleToFill" class="inner_img" style="width:100%" src="{{itemName.img_path}}" bindtap="toAdv" data-index="{{idx}}"></image>
 				</swiper-item>
 				<!-- <swiper-item>
 					<image mode="scaleToFill" class="inner_img" src="{{imgUrl_2}}"></image>

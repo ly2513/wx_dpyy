@@ -20,7 +20,8 @@
     "pages/payOrder/payOrder",
     "pages/chosePhotoSize/chosePhotoSize",
     "pages/preparePhoto/preparePhoto",
-    "pages/modifyPhoto/modifyPhoto"
+    "pages/modifyPhoto/modifyPhoto",
+    "pages/thirdPartyPage/thirdPartyPage"
   ],
   "permission": {
     "scope.userLocation": {
