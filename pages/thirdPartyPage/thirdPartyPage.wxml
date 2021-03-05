@@ -1,0 +1,3 @@
+<!-- <web-view src="https://www.baidu.com"></web-view>  -->
+<!-- <text>8888888</text> -->
+<web-view src="{{requestUrl}}"></web-view>
