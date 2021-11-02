@@ -24,23 +24,23 @@
   <view class='line'></view> -->
 
 	<!-- <view style='padding-top:20rpx;' wx:if="{{phone == ''}}" data-phone="{{phone}}">
-    <view style='float:left;color:#fff;padding-right:20rpx;font-size:12px;padding:5px 10px 5px 0px;'>打印完成是否需要短信通知(需要请选OK)</view>  
+    <view style='float:left;color:#fff;padding-right:20rpx;font-size:12px;padding:5px 10px 5px 0px;'>打印完成是否需要短信通知(需要请选OK)</view>
     <view style='float:left'>
-    <button  plain='true' style='border:1px solid #29abe0;font-size:12px;background-color:#fff;'  open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber"> <strong>ok</strong>  </button></view>    
+    <button  plain='true' style='border:1px solid #29abe0;font-size:12px;background-color:#fff;'  open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber"> <strong>ok</strong>  </button></view>
   </view> -->
 	<!-- <view style='margin-top:0rpx;margin-bottom:17px'>
-    <button class='add_order'  plain='true' style='border:1px solid #29abe0;font-size:8px ' bindtap="placeOrder"> 
+    <button class='add_order'  plain='true' style='border:1px solid #29abe0;font-size:8px ' bindtap="placeOrder">
       <image src='/images/v1.1/add_order_button.png' style='width:540rpx;height:240rpx;'></image>
 
     </button>
   </view>
   <view style='padding-bottom:6%;width:100%;'>
-      <button class=' asearch_order'  plain='true' style='border:1px solid #29abe0;font-size:8px' bindtap="myOrder" > 
+      <button class=' asearch_order'  plain='true' style='border:1px solid #29abe0;font-size:8px' bindtap="myOrder" >
         <image src='/images/v1.1/search_order_button.png' style='width:540rpx;height:120rpx;'></image>
       </button>
   </view>
   <view>
-      <button class=' asearch_order' plain='true' style='border:1px solid #29abe0;font-size:8px'     bindtap="complaintProposal"> 
+      <button class=' asearch_order' plain='true' style='border:1px solid #29abe0;font-size:8px'     bindtap="complaintProposal">
         <image src='/images/v1.1/share_libaray_btn.png' style='width:540rpx;height:120rpx;'></image>
       </button>
   </view>
