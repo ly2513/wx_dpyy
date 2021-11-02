@@ -10,7 +10,7 @@ Page({
   //事件处理函数
   bindViewTap: function() {
     wx.navigateTo({
-      url: '../logs/logs'
+      url: '/pages/logs/logs'
     })
   },
   orderList: function (e) {
@@ -18,7 +18,7 @@ Page({
     // switchTab只能跳转到带有tab的页面，不能跳转到不带tab的页面
     // 跳转不带tab的页面还是用redirectTo或者navigateTo 
     wx.navigateTo({
-      url: '../success/success',
+      url: '/pages/success/success',
       success:function (res){
         console.log('跳转成功');
       },
@@ -40,7 +40,7 @@ Page({
          if (resbtn.confirm) {
            // 跳转登录页
            wx.navigateTo({
-             url: '../access/access'
+             url: '/pages/access/access'
            })
          }
          return false;
@@ -77,7 +77,7 @@ Page({
           if (resbtn.confirm) {
             // 跳转登录页
             wx.navigateTo({
-              url: '../access/access'
+              url: '/pages/access/access'
             })
           }
           return false;
@@ -85,7 +85,7 @@ Page({
       })
     }else{
       wx.navigateTo({
-        url: '../newPlaceOrder/newPlaceOrder',
+        url: '/pages/newPlaceOrder/newPlaceOrder',
         success: function (res) {
           console.log('跳转成功');
         },
@@ -107,7 +107,7 @@ Page({
           if (resbtn.confirm) {
             // 跳转登录页
             wx.navigateTo({
-              url: '../access/access'
+              url: '/pages/access/access'
             })
           }
           return false;
@@ -115,7 +115,7 @@ Page({
       })
     }else{
       wx.navigateTo({
-        url: '../chosePhotoSize/chosePhotoSize',
+        url: '/pages/chosePhotoSize/chosePhotoSize',
         success: function (res) {
           console.log('跳转成功');
         },
@@ -137,7 +137,7 @@ Page({
           if (resbtn.confirm) {
             // 跳转登录页
             wx.navigateTo({
-              url: '../access/access'
+              url: '/pages/access/access'
             })
           }
           return false;
@@ -145,7 +145,7 @@ Page({
       })
     }else{
       wx.switchTab({
-        url: '../order/order',
+        url: '/pages/order/order',
         success: function (res) {
           console.log('跳转成功');
         },
@@ -167,7 +167,7 @@ Page({
           if (resbtn.confirm) {
             // 跳转登录页
             wx.navigateTo({
-              url: '../access/access'
+              url: '/pages/access/access'
             })
           }
           return false;
@@ -175,7 +175,7 @@ Page({
       })
     }else{
       wx.navigateTo({
-        url: '../shareLibrary/shareLibrary',
+        url: '/pages/shareLibrary/shareLibrary',
         success: function (res) {
           console.log('跳转成功');
         },
@@ -276,7 +276,7 @@ Page({
           if (resbtn.confirm) {
             // 跳转登录页
             wx.navigateTo({
-              url: '../access/access'
+              url: '/pages/access/access'
             })
           }
           return false;
