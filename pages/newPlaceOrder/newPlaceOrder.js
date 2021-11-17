@@ -215,7 +215,7 @@ Page({
       title: '文件处理中......',
       mask: true
     })
-    var typeUrl = app.globalData.requestUrl + '/Api/Library/getDocumenType?document_id=' + document_id + '&token=' + wx.getStorageSync("token");
+    var typeUrl = app.globalData.requestUrl + '/Api/Library/getDocumentType?document_id=' + document_id + '&token=' + wx.getStorageSync("token");
     wx.request({
       url: typeUrl,
       method: 'GET',

@@ -105,7 +105,7 @@ Page({
         action: 5
       });
       console.log(document_id)
-      var typeUrl = app.globalData.requestUrl + '/Api/Library/getDocumenType?document_id=' + document_id + '&token=' + wx.getStorageSync("token");
+      var typeUrl = app.globalData.requestUrl + '/Api/Library/getDocumentType?document_id=' + document_id + '&token=' + wx.getStorageSync("token");
       wx.request({
         url: typeUrl,
         method: 'GET',
@@ -315,7 +315,7 @@ Page({
     } else {
       var self = this;
       this.action = 3;
-      var typeUrl = app.globalData.requestUrl + '/Api/Library/getDocumenType?document_id=' + document_id + '&token=' + wx.getStorageSync("token");
+      var typeUrl = app.globalData.requestUrl + '/Api/Library/getDocumentType?document_id=' + document_id + '&token=' + wx.getStorageSync("token");
       wx.request({
         url: typeUrl,
         method: 'GET',
