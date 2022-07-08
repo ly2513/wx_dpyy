@@ -33,11 +33,12 @@ Page({
       this.action = 1;
       console.log(app.globalData.unionId);
       wx.request({
-        url: app.globalData.requestUrl + '/Api/Library/addOrder?token=' + wx.getStorageSync("token"),
+        url: app.globalData.requestUrl + '/Api/Library/addOrder',
         method: 'POST',
         header: {
           'content-type': 'application/json',
-          'content-type': 'application/x-www-form-urlencoded'
+          'content-type': 'application/x-www-form-urlencoded',
+          'token': wx.getStorageSync("token"),
         },
         dataType: 'json',
         data: {
