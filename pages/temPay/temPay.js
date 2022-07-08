@@ -213,7 +213,7 @@ Page({
       });
       console.log(order_id)
       wx.request({
-        url: app.globalData.requestUrl + '/Api/Order/payOrder/' + order_id, //后台语言的处理 
+        url: app.globalData.requestUrl + '/Api/Order/payOrder/' + order_id + '?trade_type=' + app.globalData.tradeType, //后台语言的处理
         method: 'POST',
         header: {
           'content-type': 'application/json',
