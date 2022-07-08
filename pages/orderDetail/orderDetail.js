@@ -172,7 +172,6 @@ Page({
     })
   },
   getfile: function (e) {
-    // console.log(encodeURI("张宝刚")); 
     var self = this;
     var file_path = e.currentTarget.dataset.file_path;
     var source_name = e.currentTarget.dataset.source_name;
@@ -180,36 +179,8 @@ Page({
     console.log(source_name);
 
 
-    // var url = app.globalData.requestUrl + '/Api/Order/getFile?' + "file_path=" + file_path + "&source_name=" + source_name;
-    //         console.log(url);
-    //         // wx.getFileSystemManager().mkdirSync( "/dpyy",true)
-    //         var rootPath = wx.env.USER_DATA_PATH;
-    //         var cachePath = rootPath+"/cache";
-    //         if(!this.ifFile(cachePath)){
-    //           this.mkdir(cachePath);
-    //         }
-    //         wx.downloadFile({
-    //           url: url,
-    //           filePath: cachePath+"/"+source_name,
-    //           success(res) {
-    //             console.log(res.filePath);
-    //             wx.openDocument({
-    //               filePath: res.filePath,
-    //             })
-    //           },
-    //           fail(res) {
-    //             console.log(res.errMsg);
-    //           }
-    //         })
-
-
     wx.checkIsSupportSoterAuthentication({
       success(res) {
-        var str = "";
-        // for(var i=0;i<res.supportMode.length;i++){
-        //   console.log(res.supportMode[i]);
-        //   str=str+res.supportMode[i];
-        // }
         var modeType = ""
         var isFinger = false;
         var isFacial = false;
@@ -236,13 +207,6 @@ Page({
           }
         }
 
-        // if (!isFinger) {
-        //   for (var i = 0; i < res.supportMode.length; i++) {
-        //     if (res.supportMode[i] == 'facial') {
-        //       modeType = "facial"
-        //     }
-        //   }
-        // }
         console.log("支持的识别方式：" + modeType);
         wx.checkIsSoterEnrolledInDevice({
           checkAuthMode: modeType,
@@ -353,7 +317,6 @@ Page({
       phoneNumber: e.currentTarget.dataset.phone_no //电话号码
     })
   },
-
   showtoast: function (e) {
     console.log(e.currentTarget.dataset.content);
     wx.showToast({
@@ -361,18 +324,13 @@ Page({
       icon: 'none',
     })
   },
-  // // 分享
-  // onShareAppMessage: function () {
-
-  // }
-
   payOrder: function (e) { // 订单支付
     // 订单ID
     var id = e.currentTarget.dataset.favorite
     var aa = this;
     // 发起支付
     wx.request({
-      url: app.globalData.requestUrl + '/Api/Order/payOrder/' + id, //后台语言的处理 
+      url: app.globalData.requestUrl + '/Api/Order/payOrder/' + id + '?trade_type=' + app.globalData.tradeType, //后台语言的处理
       method: 'POST',
       header: {
         'content-type': 'application/json',

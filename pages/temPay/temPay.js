@@ -42,7 +42,8 @@ Page({
         dataType: 'json',
         data: {
           document_id: document_id,
-          token: wx.getStorageSync("token")
+          token: wx.getStorageSync("token"),
+          trade_type: app.globalData.tradeType
         },
         success(res) {
           console.log(res.data);

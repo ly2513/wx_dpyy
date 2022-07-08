@@ -132,7 +132,7 @@ Page({
     var aa = this;
     // 发起支付
     wx.request({
-      url: app.globalData.requestUrl + '/Api/Order/payOrder/' + id,//后台语言的处理 
+      url: app.globalData.requestUrl + '/Api/Order/payOrder/' + id + '?trade_type=' + app.globalData.tradeType,//后台语言的处理
       method: 'POST',
       header: { 'content-type': 'application/json', 'content-type': 'application/x-www-form-urlencoded', 'token': wx.getStorageSync("token")},
       dataType: 'json',

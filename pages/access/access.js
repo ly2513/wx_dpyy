@@ -5,8 +5,11 @@ app.globalData.userInfo = {};
 var dev = false;
 // https://www.lovecangda.com
 // 后端地址
-app.globalData.requestUrl = (dev === true) ? 'http://dp-stg.dpyunyin.com' : 'https://www.dpyunyin.com';
+app.globalData.requestUrl = (dev === true) ? 'https://dp-stg.dpyunyin.com' : 'https://www.dpyunyin.com';
 app.globalData.pdfUrl = (dev === true) ? 'pdf-stg.dpyunyin.com' : 'pdf.dpyunyin.com';
+
+// 支付方式，统一支付
+app.globalData.tradeType = 'JSAPI';
 
 app.globalData.phone = '';
 app.globalData.token = '';
