@@ -1,6 +1,9 @@
 <view >
-	<image class='background' src="/images/home_backgroud.png" mode="aspectFill"></image>
-	<view style="padding-top:350rpx">
+	<image class='background' src="/images/v2.0/background.png" mode="aspectFill"></image>
+	<view class="logo-box">
+		<image class="logo_img" src="/images/logo.png" mode="aspectFill"></image>
+	</view>
+	<view>
 		<view class="bg">
 			<view style="margin-top:30rpx;display:flex;justify-content: center; align-content: center;font-size:35rpx;color:#000000">微信绑定手机号码</view>
 			<view style='height:80rpx;align-items:center;background-color:#ffffff;display:flex;flex-direction:row;border-radius: 45rpx;border:1rpx solid #DEDEDE;margin-top:30rpx;margin-left:30rpx;margin-right:30rpx'>

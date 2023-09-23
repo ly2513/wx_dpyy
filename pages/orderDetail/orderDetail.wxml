@@ -3,121 +3,56 @@
 	<image class="background" src="/images/new_order_bg.png"></image>
 	<view class="content_bg">
 		<view class="form">
-			<view style="padding-left:40rpx;padding-top:30rpx">
-				订单编号：{{firstNo}}<strong style='color:#FE3846'>{{lastNo}}</strong>
+			<view class="order_no_box" >
+				订单编号：{{firstNo}}<span class="order_no_weight">{{lastNo}}</span>
 			</view>
-			<view style="width:100%;height:1rpx;background-color:#E6E6E6;margin-top:30rpx"></view>
-			<view style="padding-left:40rpx;padding-top:30rpx">
-				下单时间：{{create_time}}
-			</view>
-			<view style="width:100%;height:1rpx;background-color:#E6E6E6;margin-top:30rpx"></view>
-			<view style="padding-left:40rpx;padding-top:30rpx">
-				详情列表
-			</view>
+			<view class="broder_line"></view>
+			<view class="order_time">下单时间：{{create_time}}</view>
+			<view class="broder_line"></view>
+			<view class="file_list">详情列表</view>
 			<view style="padding-top:20rpx" wx:for="{{fileList}}" wx:key="index" wx:for-index="idx" wx:for-item="item">
-				<view style="margin-left:20rpx;margin-right:30rpx;background-color:#F2F2F2;border-radius:5px;display:flex;flex-direction: column;">
+				<view class="file_box">
 					<view style="display:flex;flex-direction: row;">
 						<view wx:if="{{item.print_color<3}}" style="width:20%">
-							<image wx:if="{{item.suffix=='jpg'||item.suffix=='jpeg'||item.suffix=='JPG'||item.suffix=='png'}}" src="/images/v2.0/jpg_ico.png" style="padding-top:30rpx;padding-left:20rpx;width:80rpx;height:100rpx"></image>
-							<image wx:if="{{item.suffix=='doc'||item.suffix=='docx'}}" src="/images/v2.0/word_ico.png" style="padding-top:30rpx;padding-left:20rpx;width:80rpx;height:100rpx"></image>
-							<image wx:if="{{item.suffix=='xls'||item.suffix=='xlsx'}}" src="/images/v2.0/xlsx_ico.png" style="padding-top:30rpx;padding-left:20rpx;width:80rpx;height:100rpx"></image>
-							<image wx:if="{{item.suffix=='pdf'}}" src="/images/v2.0/pdf_ico.png" style="padding-top:30rpx;padding-left:20rpx;width:80rpx;height:100rpx"></image>
+							<image wx:if="{{item.suffix=='jpg'||item.suffix=='jpeg'||item.suffix=='JPG'||item.suffix=='png'}}" src="/images/v2.0/jpg_ico.png"  class="jpg_img" ></image>
+							<image wx:if="{{item.suffix=='doc'||item.suffix=='docx'}}" src="/images/v2.0/word_ico.png" class="docx"></image>
+							<image wx:if="{{item.suffix=='xls'||item.suffix=='xlsx'}}" src="/images/v2.0/xlsx_ico.png" class="docx"></image>
+							<image wx:if="{{item.suffix=='pdf'}}" src="/images/v2.0/pdf_ico.png" class="docx"></image>
 						</view>
 						<view wx:else style="width:20%">
-							<image  style="padding-top:30rpx;padding-left:20rpx;width:80rpx;height:100rpx" src="{{item.file_path}}"></image>
+							<image  class="docx" src="{{item.file_path}}"></image>
 						</view>
 
-						<view style="width:80%;display:flex;flex-direction:column;justify-content:flex-start;align-items:flex-start ">
-							<span style="width:100%;overflow: hidden;text-overflow: ellipsis;white-space:nowrap;padding-top:30rpx;">{{item.source_name}}</span>
-							<text style="color:#0473FF;font-size:20rpx;padding-top:20rpx">{{item.request}}</text>
-
+						<view class="file_name_box">
+							<span class="file_name">{{item.source_name}}</span>
+							<text class="file_config">{{item.request}}</text>
 						</view>
 					</view>
-					<view style="margin-right:40rpx;margin-left:100rpx;width:80%;height:1rpx;background-color:#E6E6E6;margin-top:20rpx"></view>
-					<view style="width:100%;margin-bottom:20rpx;margin-top:20rpx;display:flex;flex-direction:row;justify-content:flex-end;align-items:flex-end">
-						<view style="width:20%"></view>
-						<view style="margin-right:20rpx;width:80%;display:flex;flex-direction:row;align-items:center;justify-content:flex-end">
-							<button wx:if="{{status==5}}" bindtap="getfile" data-file_path="{{item.file_path}}" data-source_name="{{item.source_name}}" style="margin-left:150rpx;width:150rpx; font-size:20rpx;background-color:#55A8DB;color:#ffffff">找回文件</button>
-							<view style="font-size:23rpx">金额：<strong style='color:#FE3846'>{{item.price}}元</strong></view>
+					<view class="file_line"></view>
+					<view class="price_box">
+						<!-- <view style="width:20%"></view> -->
+						<view class="price_box_1">
+							<button wx:if="{{status==5}}" bindtap="getfile" data-file_path="{{item.file_path}}" data-source_name="{{item.source_name}}" class="button">找回文件</button>
+							<view style="font-size:23rpx">金额：<strong class="discount_price_front">{{item.price}}元</strong></view>
 						</view>
-
 					</view>
 				</view>
 			</view>
-			<view wx:if="{{sub_price>0}}" style="margin-top:30rpx;margin-right:60rpx;width:100%;display:flex;flex-direction:row;justify-content:flex-end;align-items:center">
-				<view style="font-size:25rpx;margin-right:50rpx">订单优惠：<strong style='color:#FE3846'>{{sub_price/100.00}}元</strong></view>
+			<view wx:if="{{sub_price>0}}" class="discount_price_box">
+				<view class="discount_price">订单优惠：<text class="discount_price_front">{{sub_price/100.00}}元</text></view>
 			</view>
-			<view style="margin-top:30rpx;margin-right:60rpx;width:100%;display:flex;flex-direction:row;justify-content:flex-end;align-items:center">
-				<view style="font-size:25rpx;margin-right:50rpx">订单合计：<strong style='color:#FE3846'>{{total_price/100.00}}元</strong></view>
+			<view class="price_box">
+				<view class="price_fee">订单合计：<text class="discount_price_front">{{total_price/100.00}}元</text></view>
 			</view>
-			<view style="width:100%;height:1rpx;background-color:#E6E6E6;margin-top:30rpx"></view>
-			<text style="color:#DE9E0F;font-size:20rpx;margin-top:20rpx;margin-left:30rpx">服务门店：{{store_name}}</text>
-			<text style="color:#DE9E0F;font-size:20rpx;margin-top:15rpx;margin-left:30rpx;margin-bottom:30rpx"  bindtap='callPhone' data-phone_no="{{phone_no}}">咨询客服：{{phone_no}}</text>
+			<view class="store_info"></view>
+			<text class="store_name">服务门店：{{store_name}}</text>
+			<text class="store_info_phone" bindtap='callPhone' data-phone_no="{{phone_no}}">咨询客服：{{phone_no}}</text>
 		</view>
 	</view>
 	<block wx:if="{{status==1 && total_price !='0'}}">
-		<view class="pay_button" wx:if="{{status==1}}">
-			<button style="background-color:#FE3846;color:#ffffff;width:45%" bindtap='cancelOrder' data-order_id="{{order_id}}">取消订单</button>
-			<button style='background-color:#0473FF; color:#ffffff;width:45%' bindtap='payOrder' data-favorite="{{order_id}}">去支付</button>
+		<view class="button_box" wx:if="{{status==1}}">
+			<button class="canel_button" bindtap='cancelOrder' data-order_id="{{order_id}}">取消订单</button>
+			<button class='pay_button' bindtap='payOrder' data-order_id="{{order_id}}">去支付</button>
 		</view>
 	</block>
 </view>
-
-<!-- <view class='title'>
-		订单<strong style='color:#FFFF00;'>{{orderNo}}</strong>
-	</view>
-	<view class="blackline"></view>
-	<view class="table">
-		<view class="tr">
-			<view class="th">详情列表</view>
-			<view class="orblackline"></view>
-			<view class="th-1">金额</view>
-		</view>
-		<view class="blackline"></view>
-
-
-		<block wx:for="{{fileList}}" wx:key="index">
-			<view class="tr1">
-				<view class="th2">
-					<view class="tr">
-						<view class="td" style="width:15%; padding-left:4%">文件:</view>
-						<view class="td" style=" width:85%" bindtap="showtoast" data-content="{{item.source_name}}">{{item.source_name}}</view>
-					</view>
-					<view class="blackline"></view>
-					<view class="tr">
-						<view class="td" style="width:15%; padding-left:4%">要求:</view>
-						<view class="td" style=" width:85%" bindtap="showtoast" data-content="{{item.request}}">{{item.request}}</view>
-					</view>
-				</view>
-
-				<view class="orblackline"></view>
-
-				<view class="th-1">
-					<button wx:if="{{status==5}}" class="btn" style="width:60%; height:35%;font-size:9px;" bindtap="getfile" data-file_path="{{item.file_path}}" data-source_name="{{item.source_name}}">
-						调取文件
-					</button>
-					<view style="width:35%;font-size:12px">{{item.price}}</view>
-				</view>
-			</view>
-			<view class="blackline"></view>
-		</block>
-		
-		<view class="tr">
-			<view class="th">订单合计</view>
-			<view class="orblackline"></view>
-			<view class="th-1">{{total_price}}</view>
-		</view>
-
-
-	</view>
-	<block wx:if="{{status==1 && total_price !='0'}}">
-		<view class="pay_button" wx:if="{{status==1}}">
-			<button style='background-color:#007131; color:#ffffff;width:45%' bindtap='payOrder' data-favorite="{{order_id}}">支付</button>
-			<button style="background-color:#626262;color:#ffffff;width:45%" bindtap='cancelOrder' data-order_id="{{order_id}}">取消</button>
-		</view>
-	</block>
-
-	<view class="store_info">
-		<view class="store_info_phone" bindtap="showtoast" data-content="{{store_name}}">{{"服务门店："+store_name}}</view>
-		<view class="store_info_phone" bindtap='callPhone' data-phone_no="{{phone_no}}">{{"客服咨询："+phone_no}}</view>
-	</view> -->

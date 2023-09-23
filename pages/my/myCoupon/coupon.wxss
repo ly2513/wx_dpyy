@@ -1,0 +1,83 @@
+.background {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    z-index: -1;
+}
+.card{
+    display:flex;
+    align-items: center;
+    width: 95%;
+    margin: 5% auto;
+    padding: 10px 0px;
+    background: #fff;
+    border-radius: 5px;
+    -webkit-mask-image: radial-gradient(circle at 88px 4px, transparent 4px, red 4.5px), radial-gradient(closest-side circle at 50%, red 99%, transparent 100%);
+    -webkit-mask-size: 100%, 2px 4px;
+    -webkit-mask-repeat: repeat, repeat-y;
+    -webkit-mask-position: 0 -4px, 87px;
+    -webkit-mask-composite: source-out;
+    mask-composite: subtract;
+    background: linear-gradient(45deg, orange, red);
+  }
+  .card .card-left{
+    width: 88px;
+    text-align: center;
+    font-size: 18px;
+    color: #fff;
+    position: relative;
+  }
+  .card .card-right{
+    padding: 12px 12px;
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    position: relative;
+  }
+ .card .card-right .card-info{
+    margin: 0;
+    font-size: 20px;
+    line-height: 20px;
+    color:#fff;
+  }
+  .card .card-right .card-time{
+    font-size: 12px;
+    line-height: 16px;
+    font-weight: normal;
+    color: #fff;
+    margin-top: 4px;
+}
+.card .card-left .page {
+    position: absolute;
+    z-index: 1;
+    display: block;
+    padding: 0 10px;
+    height: 20px;
+    background: linear-gradient(137deg, #ff5b5b 0%, #db0113 100%);
+    border-radius: 0 20px 20px 0;
+    color: #fff;
+    text-align: center;
+    font-size: 12px;
+    overflow: hidden;
+    top:3px;
+    line-height: 19px;
+  }
+.card .card-right .ribbon {
+    width: 80px;
+    height: 20px;
+    background: #dd0d1f;
+    position: absolute;
+    right: -19px;
+    top: -6px;
+    transform: rotateZ(45deg);
+    text-align: center;
+    color: #fff;
+    font-size: 12px;
+} 
+.rmb{
+    font-size: 9px;
+}
+.cu{
+    font-size: 50px;
+}

@@ -1,37 +1,37 @@
-<!--pages/newPlaceOrder.wxml-->
+<!-- 支付费用明细信息 -->
 <form bindsubmit="formSubmit">
 	<image class="background" src="/images/new_order_bg.png"></image>
 	<view class="content_bg">
 		<view class="form">
+			<!-- 轮播图 -->
 			<swiper circular='true' class="img" indicator-dots="true" indicator-active-color="#ffffff" autoplay="true">
 				<swiper-item wx:for="{{imgs}}" wx:for-index="idx" wx:for-item="itemName">
-					<image mode="scaleToFill" class="inner_img" style="width:100%" src="{{itemName.img_path}}"></image>
+					<image mode="scaleToFill" class="inner_img" src="{{itemName.img_path}}"></image>
 				</swiper-item>
-				<!-- <swiper-item>
-					<image mode="scaleToFill" class="inner_img" src="{{imgUrl_2}}"></image>
-				</swiper-item>
-				<swiper-item>
-					<image mode="scaleToFill" class="inner_img" src="{{imgUrl_3}}"></image>
-				</swiper-item> -->
 			</swiper>
+
+			<!-- 订单费用明细 -->
 			<view class="finish_content">
-				<image style="width:100rpx;height:100rpx;margin-top:30rpx" src="/images/v2.0/finish.png"></image>
-        <text style="color:#28B042;margin-top:30rpx;font-size:25rpx" >订单提交成功，请耐心等待</text>
-				<text wx:if="{{sub_price>0}}" style="color:#30b3df;margin-top:20rpx;font-size:30rpx">本次订单享受{{campaign_name}}优惠</text>
-        <view wx:if="{{sub_price>0}}" style="margin-top:20rpx;display:flex;flex-direction:row;justify-content:flex-start;align-items:center;">
-					<text style="color:#30b3df;font-size:30rpx">本次优惠</text>
-					<text style="color:#ec1c24;font-size:33rpx">{{sub_price/100.00}}</text>
-					<text style="color:#30b3df;font-size:30rpx">元   仅需支付</text>
-					<text style="color:#ec1c24;font-size:33rpx">{{price}}</text>
-					<text style="color:#30b3df;font-size:30rpx">元</text>
+				<image class="finish_img" src="/images/v2.0/finish.png"></image>
+        		<text class="order_fee_detail" >订单费用明细</text>
+        		<view class="discount_fee1">
+					<view class="black">订单金额：<text class="red">{{original_price}}</text> 元</view>
+					<view class="black">总计优惠：<text class="red">{{sub_price}}</text> 元</view>
+					<view wx:if="{{coupon_price > 0}}" class="black">优惠券：<text class="red">-{{coupon_price}}</text> 元</view>
+					<view wx:if="{{campaign_price > 0}}" class="black">营销活动：<text class="red">-{{campaign_price}}</text>元</view>
+					<view wx:if="{{delivery_price > 0}}" class="black">配送费：<text class="red">{{delivery_price}}</text> 元</view>
+					<view class="blue"> 仅需支付 <text class="red">{{price}}</text> 元</view>
 				</view>
-				<text wx:if="{{sub_price>0}}" style="color:#FE3846;margin-top:50rpx;font-size:23rpx">订单金额：{{original_price/100.00}}元</text>
-				<text wx:if="{{sub_price<=0}}" style="color:#FE3846;margin-top:50rpx;font-size:23rpx">订单金额：{{price}}元</text>
-        <button bindtap="pay" style="font-size:30rpx;background-color:#0473FF;color:#FFFFFF;border-radius: 20rpx;margin-top:20rpx">  去支付  </button>
-        <text style="color:#DE9E0F;margin-top:50rpx;font-size:18rpx">可返回订单列表查看详情</text>
-        <text style="color:#DE9E0F;font-size:18rpx;margin-bottom:50rpx">请留意打印完成短信通知</text>
+				<view class="btn-box">
+					<button bindtap="pay" class="pay_button">  去支付  </button>
+					<button bindtap="pay" class="pay_button">  去支付  </button>
+				</view>
+				<view class="info_box">
+					<view class="info" >可返回订单列表查看详情</view>
+        			<view class="info" >请留意打印完成短信通知</view>
+				</view>
 			</view>
 		</view>
-    <text style="margin-top:100rpx">达派创投旗下直营品牌</text>
+    	<text style="margin-top:100rpx">达派创投旗下直营品牌</text>
 	</view>
 </form>

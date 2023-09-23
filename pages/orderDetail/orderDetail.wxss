@@ -1,208 +1,190 @@
 /* pages/orderDetail/orderDetail.wxss */
-.logo_img {
-  width: 15.8em;
-  height: 4.5em;
-  padding: 7.7% 0% 6.0% 0%;
-}
-
-.line {
-  width: 100%;
-  height: 10rpx;
-  background-color: #fff;
-}
-
-.blackline {
-  width: 100%;
-  height: 1px;
-  background-color: black;
-}
-
-.orblackline {
-  height: 100%;
-  width: 1px;
-  background-color: black;
-}
-
-.table {
-  width: 100%;
-  background-color: #fff;
-}
-
-.tr {
-  display: flex;
-  width: 100%;
-  /* justify-content: center; */
-  height: 2.5rem;
-  align-items: center;
-  overflow: hidden;
-}
-
-.tr1 {
-  display: flex;
-  width: 100%;
-  /* justify-content: center; */
-  height: 5rem;
-  align-items: center;
-
-}
-
-.th {
-  width: 70%;
-  justify-content: center;
-  color: black;
-  display: flex;
-  align-items: center;
-  /* border: 1px solid #2c2c2c; */
-  height: 100%;
-}
-
-.th3 {
-  width: 70%;
-  /* justify-content: center; */
-  color: black;
-  display: flex;
-  /* align-items: center; */
-  /* border: 1px solid #2c2c2c; */
-  height: 100%;
-}
-
-.th-1 {
-  width: 30%;
-  justify-content: center;
-  color: black;
-  display: flex;
-  align-items: center;
-  height: 100%;
-  text-align: center;
-  /* border: 1px solid #2c2c2c; */
-
-}
-
-.th2 {
-  width: 70%;
-  justify-content: center;
-  color: black;
-  display: flex;
-  align-items: center;
-  /* border: 1px solid #2c2c2c; */
-  height: 100%;
-  flex-direction: column;
-  overflow: hidden;
-}
-.btn{
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  background-color: #f4b51a;
-  color: black;
-}
-.td {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space:nowrap;
-  font-size: 14px;
-  word-break: break-all;
-}
-
-.td-1 {
-  width: 70%;
-  justify-content: center;
-  display: flex;
-  text-align: center;
-  /* border-right: 1px solid #ddd; */
-  height: 50%;
-  padding: 2%;
-  font-size: 12px;
-
-}
-
-.td-2 {
-  width: 20%;
-  justify-content: center;
-  text-align: center;
-  height: 50%;
-  padding: 2%;
-  
-}
-
-
-.bg-g {
-  background: #E6F3F9;
-}
-
-.bg-g2 {
-  background: #fff;
-}
-
-.title {
-  color: #fff;
-  padding: 4%;
-  width: 92%;
-  text-align: center;
-}
-
-.text {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-.pay_button{
-  display: flex;
-  width: 70%;
-  justify-content: space-around;
-  height: 2.5rem;
-  align-items: center;
-  margin-top: 10%;
-  margin-left: 15%;
-  margin-right: 15%;
-}
-.store_info{
-  margin-top: 10%;
-  display: flex;
-  /* justify-content: center; */
-  height: 5rem;
-  align-items: center;
-  flex-direction: column;
-  background-color: white;
-  width: 100%; 
-}
-.store_info_phone{
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space:nowrap;
-  font-size: 16px;
-  /* display: flex; */
-  /* justify-content: center; */
-  height: 50%;
-  /* align-items: center; */
-  background-color: white;
-  width: 90%;
-  margin-top: 2.5%;
-  
-}
 .background {
-  width: 100%;
-  height: 200rpx;
-  position: fixed;
-  /* background-size:100% 100%; */
-  z-index: -1;
+	width: 100%;
+	height: 200rpx;
+	position: fixed;
+	z-index: -1;
 }
 .content_bg {
-  padding-top: 40rpx;
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  height: 100%;
-  justify-content:center;
-  align-items:center,
+	padding-top: 40rpx;
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	height: 100%;
+	justify-content:center;
+	align-items:center,
+}
+.form {
+	width: 90%;
+	display: flex;
+	flex-direction: column;
+	border-radius: 25px;
+	background-color: white;
+	margin-left: 5%;
+}
+.order_no_box{
+	padding-left:40rpx;
+	padding-top:30rpx
+}
+.order_no_weight{
+	font-weight:700;
+	color:#FE3846
+}
+.broder_line{
+	width:100%;
+	height:1rpx;
+	background-color:#E6E6E6;
+	margin-top:30rpx
+}
+.order_time{
+	padding-left:40rpx;
+	padding-top:30rpx
+}
+.file_list{
+	padding-left:40rpx;
+	padding-top:30rpx
+}
+.file_box{
+	margin-left:20rpx;
+	margin-right:30rpx;
+	background-color:#F2F2F2;
+	border-radius:5px;
+	display:flex;
+	flex-direction: column;
+}
+.jpg_img{
+	padding-top:30rpx;
+	padding-left:20rpx;
+	width:80rpx;
+	height:100rpx
+}
+.docx{
+	padding-top:30rpx;
+	padding-left:20rpx;
+	width:80rpx;
+	height:100rpx
+}
+.file_name_box{
+	width:80%;
+	display:flex;
+	flex-direction:column;
+	justify-content:flex-start;
+	align-items:flex-start
+}
+.file_name{
+	width:100%;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space:nowrap;
+	padding-top:30rpx;
+}
+.file_config{
+	color:#0473FF;
+	font-size:20rpx;
+	padding-top:20rpx
+}
+.file_line{
+	margin-right:40rpx;
+	margin-left:100rpx;
+	width:80%;
+	height:1rpx;
+	background-color:#E6E6E6;
+	margin-top:20rpx
+}
+.price_box{
+	width:100%;
+	margin-bottom:20rpx;
+	margin-top:20rpx;
+	display:flex;
+	flex-direction:row;
+	justify-content:flex-end;
+	align-items:flex-end
+}
+.price_box_1{
+	margin-right:20rpx;
+	width:80%;
+	display:flex;
+	flex-direction:row;
+	align-items:center;
+	justify-content:flex-end
+}
+.button{
+	margin-left:150rpx;
+	width:150rpx; 
+	font-size:20rpx;
+	background-color:#55A8DB;
+	color:#ffffff
+}
+.discount_price_box{
+	margin-top:30rpx;
+	margin-right:60rpx;
+	width:100%;
+	display:flex;
+	flex-direction:row;
+	justify-content:flex-end;
+	align-items:center
+}
+.discount_price{
+	font-size:25rpx;
+	margin-right:50rpx
+}
+.discount_price_front{
+	color:#FE3846;
+	font-weight: 700;
 }
 
-.form {
-  width: 90%;
-  display: flex;
-  flex-direction: column;
-  border-radius: 25px;
-  background-color: white;
-  margin-left: 5%;
-  
+.price_box{
+	margin-top:30rpx;
+	margin-right:60rpx;
+	width:100%;
+	display:flex;
+	flex-direction:row;
+	justify-content:flex-end;
+	align-items:center
 }
+.price_fee{
+	font-size:25rpx;
+	margin-right:50rpx
+}
+.store_name{
+	color:#DE9E0F;
+	font-size:20rpx;
+	margin-top:20rpx;
+	margin-left:30rpx
+}
+.store_info{
+	width:100%;
+	height:1rpx;
+	background-color:#E6E6E6;
+	margin-top:30rpx
+}
+.store_info_phone{
+	color:#DE9E0F;
+	font-size:20rpx;
+	margin-top:15rpx;
+	margin-left:30rpx;
+	margin-bottom:30rpx
+}
+.button_box{
+	display: flex;
+	width: 70%;
+	justify-content: space-around;
+	height: 2.5rem;
+	align-items: center;
+	margin-top: 10%;
+	margin-left: 15%;
+	margin-right: 15%;
+}
+.pay_button{
+	background-color:#0473FF; 
+	color:#ffffff;
+	width:45%
+}
+.canel_button{
+	background-color:#FE3846;
+	color:#ffffff;
+	width:45%
+}
+
+
+

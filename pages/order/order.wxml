@@ -1,9 +1,7 @@
 <view>
 	<image class="background" src="/images/v2.0/background.png"></image>
-
 	<scroll-view class="" style="height: 1500rpx" scroll-y="true" bindscrolltoupper="refresh" bindscrolltolower="loadMore">
 		<!-- 主要订单内容 -->
-		<!-- <view class='content_view'> -->
 		<view class='order_view'>
 			<image bindtap="seachOrder" style="width:270rpx;height:120rpx" src="/images/v2.0/order_flush.png"></image>
 			<image bindtap="autoFile" style="width:270rpx;height:120rpx" src="/images/v2.0/up_print.png"></image>
@@ -23,40 +21,27 @@
 						</view>
 					</view>
 
-
-
 					<view style="width:20%">
 						<block wx:if="{{item.status==1}}">
 							<image style="width:110rpx;height:100rpx" src="/images/v2.0/ico_nopay.png"></image>
-							<!-- <button class='cancel' bindtap='cancelOrder' data-order_id="{{item.id}}" style='padding:0px;'>取消</button> -->
 						</block>
 						<block wx:if="{{item.status == 2}}">
-							<!-- <span class="green" style='float:right;color:#ffffff;background:#f3a014;padding:20rpx;border-radius:5px;'> {{item.status_str}}</span> -->
 							<image style="width:110rpx;height:100rpx" src="/images/v2.0/printing.png"></image>
 						</block>
 						<block wx:if="{{item.status == 3}}">
 							<image style="width:110rpx;height:100rpx" src="/images/v2.0/cancle.png"></image>
-							<!-- <span class="red" style='float:right;color:#ffffff;background:#D3D3D3;padding:20rpx;border-radius:5px;'> {{item.status_str}}</span> -->
 						</block>
 						<block wx:if="{{item.status == 4}}">
 							<image style="width:110rpx;height:100rpx" src="/images/v2.0/print_finish.png"></image>
-							<!-- <span class="red" style='float:right;color:#ffffff;background:#7ab42a;padding:20rpx;border-radius:5px;'> {{item.status_str}}</span> -->
 						</block>
 						<block wx:if="{{item.status == 5}}">
 							<image style="width:110rpx;height:100rpx" src="/images/v2.0/order_finish.png"></image>
-							<!-- <span class="green" style='float:right;color:#ffffff;background:#2c9ab3;padding:20rpx;border-radius:5px;'> {{item.status_str}}</span> -->
 						</block>
 					</view>
 				</view>
 
-
-
-
-
-
 				<view style='padding-top:20rpx;' class="th">
 					<span class='store_name' style='width:55%;font-size:0.9em' bindtap="showtoast" data-content="{{item.store_name}}">{{"下单门店："+item.store_name}}</span>
-					<!-- <span style='padding-left:20rpx'>金额:</span>  -->
 					<block style='width:45%;' wx:if="{{item.is_first==1}}">
 						<text style="font-size:0.9em">支付金额：</text>
 						<text style="color:#FE3846">{{item.price}}</text>
@@ -67,11 +52,9 @@
 						<text style="color:#FE3846">{{item.price}}</text>
 						<text style="font-size:0.9em">元</text>
 					</block>
-
 				</view>
 
 				<view style="margin-top:30rpx;height:1rpx;width:100%;background-color:#E6E6E6"></view>
-
 				<block wx:if="{{item.status==1 && item.price !='0.00'}}">
 					<view style="display:flex;flex-direction: row">
 						<view style="width:30%"></view>
@@ -80,47 +63,19 @@
 							<button style='font-size:20rpx;border-radius: 25rpx;background-color:#1B294C;color:#ffffff;' bindtap='getOrderDetail' data-order_id="{{item.id}}" data-order_no="{{item.order_no}}" 
 							data-status="{{item.status}}" data-create_time="{{item.create_time}}" data-store_name="{{item.store_name}}" 
 							data-phone_no="{{item.phone_no}}"  >查看详情</button>
-							<button style='font-size:20rpx;border-radius: 25rpx;background-color:#0473FF;color:#ffffff' bindtap='payOrder' data-favorite="{{item.id}}">去支付</button>
+							<button style='font-size:20rpx;border-radius: 25rpx;background-color:#0473FF;color:#ffffff' bindtap='payOrder' data-order_id="{{item.id}}">去支付</button>
 						</view>
 					</view>
 
 				</block>
 				<block wx:else>
 					<view style="display:flex;flex-direction: row">
-          <view style="width:70%"></view>
+          				<view style="width:70%"></view>
 						<view style='padding-top:20rpx;width:30%;'>
 							<button style='font-size:20rpx;border-radius: 25rpx;background-color:#1B294C;color:#ffffff;' bindtap='getOrderDetail' data-create_time="{{item.create_time}}" data-order_id="{{item.id}}" data-order_no="{{item.order_no}}" data-status="{{item.status}}" data-store_name="{{item.store_name}}" data-phone_no="{{item.phone_no}}">查看详情</button>
-							<!-- <button class="button" style='background-color:#ff9d06;color:#fff;width:100%' bindtap='getOrderDetail' data-order_id="{{item.id}}" data-order_no="{{item.order_no}}" data-status="{{item.status}}" data-store_name="{{item.store_name}}" data-phone_no="{{item.phone_no}}">查看详情 </button> -->
 						</view>
 					</view>
-
 				</block>
-				<!-- <block wx:if="{{item.is_first==1}}">
-					<block wx:if="{{item.status==1 && item.discount_price!='0.00'}}">
-						<view style='padding-top:20rpx;height:50px;width:100%;' wx:if="{{item.status==1}}">
-							<button class="button" style='background-color:#ff9d06;' bindtap='getOrderDetail' data-order_id="{{item.id}}" data-order_no="{{item.order_no}}" data-status="{{item.status}}" data-store_name="{{item.store_name}}" data-phone_no="{{item.phone_no}}">查看详情</button>
-							<button class="button" style='background-color:#29abe0;' bindtap='payOrder' data-favorite="{{item.id}}">支付</button>
-						</view>
-					</block>
-					<block wx:else>
-						<view style='padding-top:20rpx;'>
-							<button style='background-color:#ff9d06;color:#fff' bindtap='getOrderDetail' data-order_id="{{item.id}}" data-order_no="{{item.order_no}}" data-status="{{item.status}}" data-store_name="{{item.store_name}}" data-phone_no="{{item.phone_no}}">查看详情 </button>
-						</view>
-					</block>
-				</block>
-				<block wx:else>
-					<block wx:if="{{item.status==1 && item.price !='0.00'}}">
-						<view style='padding-top:20rpx;height:50px;width:100%;' wx:if="{{item.status==1}}">
-							<button class="button" style='background-color:#ff9d06;' bindtap='getOrderDetail' data-order_id="{{item.id}}" data-order_no="{{item.order_no}}" data-status="{{item.status}}" data-store_name="{{item.store_name}}" data-phone_no="{{item.phone_no}}">查看详情</button>
-							<button class="button" style='background-color:#29abe0;' bindtap='payOrder' data-favorite="{{item.id}}">支付</button>
-						</view>
-					</block>
-					<block wx:else>
-						<view style='padding-top:20rpx;height:50px;width:100%;'>
-							<button class="button" style='background-color:#ff9d06;color:#fff;width:100%' bindtap='getOrderDetail' data-order_id="{{item.id}}" data-order_no="{{item.order_no}}" data-status="{{item.status}}" data-store_name="{{item.store_name}}" data-phone_no="{{item.phone_no}}">查看详情 </button>
-						</view>
-					</block>
-				</block> -->
 			</view>
 			<view class="loading" hidden="{{!searchLoading}}">正在载入更多...</view>
 			<view class="loading complete" hidden="{{!searchLoadingComplete}}">已加载全

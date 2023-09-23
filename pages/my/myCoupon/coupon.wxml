@@ -1,0 +1,21 @@
+
+<view>
+	<image class="background" src="/images/v2.0/background.png"></image>
+	<scroll-view class="" style="height: 1500rpx" scroll-y="true" bindscrolltoupper="refresh" bindscrolltolower="loadMore">
+		<view class="card" wx:for="{{contentlist}}" wx:key="index">
+			<view class="card-left">
+				<span class="page"> {{item.discount_type_str}} </span>
+				<view>
+					<span class="rmb">¥</span>
+					<view class="cu"> {{item.discount_amount}} </view>
+				</view>	 
+			</view>
+			<view class="card-right">
+				<p class="card-info">达派云印打印券</p>
+				<span class="card-time">有效期： {{item.start_time}} 至 {{item.end_time}}</span>
+				<span class="card-time">规则 ></span>
+				<view class="ribbon">{{item.status_str}}</view>
+			</view>
+		</view>
+	</scroll-view>
+</view>

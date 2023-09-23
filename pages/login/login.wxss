@@ -7,7 +7,6 @@ page,.page {
   height:4.5em;
   padding:7.7% 0% 6.0% 0%;
 }
-
 .weui-form{
   /* padding:56px 0 0;
   padding:calc(56px + constant(safe-area-inset-top)) constant(safe-area-inset-right) constant(safe-area-inset-bottom) constant(safe-area-inset-left);
@@ -278,4 +277,13 @@ input {
   flex-direction: column;
   justify-content: center;
   align-content: center;
+}
+
+.logo-box{
+	text-align: center;
+}
+.logo_img{  
+	height:100px;
+  margin: 0 auto;
+  width: 100%;
 }

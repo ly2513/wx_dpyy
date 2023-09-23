@@ -7,12 +7,6 @@
 				<swiper-item wx:for="{{imgs}}" wx:for-index="idx" wx:for-item="itemName">
 					<image mode="scaleToFill" class="inner_img" style="width:100%" src="{{itemName.img_path}}" bindtap="toAdv" data-index="{{idx}}"></image>
 				</swiper-item>
-				<!-- <swiper-item>
-					<image mode="scaleToFill" class="inner_img" src="{{imgUrl_2}}"></image>
-				</swiper-item>
-				<swiper-item>
-					<image mode="scaleToFill" class="inner_img" src="{{imgUrl_3}}"></image>
-				</swiper-item> -->
 			</swiper>
 			<picker range="{{schoolList}}" range-key="school_name" name="school_id" bindchange="onSchoolChange"
 				value="{{schoolValue}}">
@@ -42,11 +36,6 @@
 				</view>
 			</view>
 
-
-
-
-
-
 			<view style="display: flex; flex-direction: column; padding-left: 20rpx;padding-right: 20rpx;"
 				wx:if="{{fileNum>0}}">
 				<view class="line"></view>
@@ -75,8 +64,7 @@
 					<view class="item_right">
 						<!-- <block> -->
 							<text wx:if="{{itemName.data.print_color<3}}" name='source_name'
-							style="padding-left:25rpx; overflow: hidden;text-overflow: ellipsis;white-space: nowrap;">{{itemName.data.name}}</text>						
-						<!-- </block> -->
+							style="padding-left:25rpx; overflow: hidden;text-overflow: ellipsis;white-space: nowrap;">{{itemName.data.name}}</text>					
 						
 						<text wx:else name='source_name'
 							style="padding-left:25rpx; overflow: hidden;text-overflow: ellipsis;white-space: nowrap;">达派云印-证件照</text>
@@ -147,8 +135,8 @@
 			<button class="btn_2" form-type="submit">确认下单</button>
 		</view>
 
-		<view style="width=100%;margin-bottom: 50rpx;">
-			<view style="width=100%; display:flex;flex-direction:row;justify-content:flex-start;align-items:center;">
+		<view style="width:100%;margin-bottom: 50rpx;">
+			<view style="width:100%; display:flex;flex-direction:row;justify-content:flex-start;align-items:center;">
 				<image style="width:20rpx;height:20rpx" src="/images/v2.0/tanhao.png"></image>
 				<text style="font-size:20rpx; color:#DE9E0F; padding-left:10rpx"> 为了排版与打印一致，建议上传PDF格式文件</text>
 			</view>
@@ -212,11 +200,7 @@
 		</view>
 		<map style="height:86%;width:100%" longitude="{{longitude}}" latitude="{{latitude}}" markers="{{markers}}"></map>
 	</view>
-
-
-
-
-
+	
 	<view class="modal-mask" bindtap="hidePrice" wx:if="{{showPriceList}}"></view>
 	<scroll-view scroll-y="true" class="modal-dialog" wx:if="{{showPriceList}}">
 		<view style="margin-top:30rpx; display:flex; flex-direction: row;height:7%; width:100%;">
@@ -249,22 +233,22 @@
 				<text
 					style="align-items:center;display:flex;justify-content:center;width:25%;color:#333333;font-size:25rpx">{{itemName.print_type}}</text>
 				<text
-					style="align-items:center;display:flex;justify-content:center;width:25%;color:##FE3846;font-size:25rpx">{{itemName.price_fen}}</text>
+					style="align-items:center;display:flex;justify-content:center;width:25%;color:#FE3846;font-size:25rpx">{{itemName.price_fen}}</text>
 			</view>
 			<view wx:else
-				style="height:100rpx;display:flex;flex-direction:row;justify-content:space-around;background-color:#00000">
+				style="height:100rpx;display:flex;flex-direction:row;justify-content:space-around;background-color:#ccc">
 				<text
 					style="align-items:center;display:flex;justify-content:center;width:25%;color:#333333;font-size:25rpx;">{{itemName.paper_type}}</text>
 				<text
-					style="align-items:center;display:flex;justify-content:center;width:25%;:#333333;font-size:25rpx">{{itemName.print_page}}</text>
+					style="align-items:center;display:flex;justify-content:center;width:25%;color:#333333;font-size:25rpx">{{itemName.print_page}}</text>
 				<text
 					style="align-items:center;display:flex;justify-content:center;width:25%;color:#333333;font-size:25rpx">{{itemName.print_type}}</text>
 				<text
-					style="align-items:center;display:flex;justify-content:center;width:25%;color:##FE3846;font-size:25rpx">{{itemName.price_fen}}</text>
+					style="align-items:center;display:flex;justify-content:center;width:25%;color:#FE3846;font-size:25rpx">{{itemName.price_fen}}</text>
 			</view>
 		</view>
 		<view
-			style="height:100rpx;margin-bottom:50rpx;height:100rpx align-items:center;display:flex;justify-content:center;flex-direction:row;">
+			style="height:100rpx;margin-bottom:50rpx;height:100rpx; align-items:center;display:flex;justify-content:center;flex-direction:row;">
 			<image style="margin-top:5rpx;height:20rpx;width:20rpx" src="/images/v2.0/tanhao.png"></image>
 			<text style="height:auto;color:#DE9E0F;font-size:20rpx"> 各门店价格各有不同，请悉知！</text>
 		</view>
