@@ -2,7 +2,7 @@
 //获取应用实例
 const app = getApp();
 app.globalData.userInfo = {};
-var dev = true;
+var dev = false;
 // https://www.lovecangda.com  
 // 后端地址
 app.globalData.requestUrl = (dev === true) ? 'http://dp-stg.dpyunyin.com' : 'https://www.dpyunyin.com';

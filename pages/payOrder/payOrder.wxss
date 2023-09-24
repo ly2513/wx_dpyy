@@ -71,10 +71,17 @@
 }
 .pay_button{
 	font-size:30rpx;
-	background-color:#0473FF;
 	color:#FFFFFF;
 	border-radius: 20rpx;
-	margin-top:20rpx
+	margin-top:20rpx;
+	float: left;
+	margin-right: 10px;
+}
+.pay_button_green{
+	background-color:#28B042;
+}
+.pay_button_blue{
+	background-color:#0473FF;
 }
 .info_box{
 	margin-top:50rpx;

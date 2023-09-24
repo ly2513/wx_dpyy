@@ -29,9 +29,11 @@ Page({
 		// 获取订单支付费用
 		this.getPayPrice(id);
 	},
-	pay(){// 支付订单
+	pay(e){// 支付订单
+		// 支付类型 1:优惠支付 2: 直接支付
+		let discountTpye = e.currentTarget.dataset.discount_type;
 		wx.request({
-			url: app.globalData.requestUrl + '/Api/Pay/payOrder/' + this.data.id +'?trade_type=' + app.globalData.tradeType,//后台语言的处理 
+			url: app.globalData.requestUrl + '/Api/Pay/payOrder/' + this.data.id +'?trade_type=' + app.globalData.tradeType + '&discount_type=' + discountTpye,//后台语言的处理 
 			method: 'POST',
 			header: { 'content-type': 'application/json', 'content-type': 'application/x-www-form-urlencoded', 'token': wx.getStorageSync("token")},
 			dataType: 'json',
@@ -61,14 +63,21 @@ Page({
 											tmplIds: ['fUBqODd2mYiBNkasdBseV1InmntcrHvKNOdUCJwqNrM'],
 											success(res){
 												console.log(res.errMsg+res.TEMPLATE_ID);
-												wx.navigateBack({
-												complete: (res) => {},
+												wx.switchTab({
+													url: '../order/order',
+													success: function (res) {
+														console.log('跳转成功');
+													},
+													fail: function (e) {
+														console.log(e);
+														console.log('跳转失败');
+													}
 												})
 											},
 											fail(res){
 												console.log(res.errCode+res.errMsg);
 												wx.navigateBack({
-												complete: (res) => {},
+													complete: (res) => {},
 												})
 											}
 										})
@@ -84,11 +93,7 @@ Page({
 								title: '支付取消',
 								content: '支付取消。',
 								showCancel: false,
-								success: function (resbtn) {
-								if (resbtn.confirm) {
-									
-								}
-								}
+								success: function (resbtn) {}
 							})
 						}
 					})
@@ -101,9 +106,7 @@ Page({
 						content: res.data.msg,
 						showCancel: true,
 						showSuccess: false,
-						success: function (resbtn) {
-
-						}
+						success: function (resbtn) {}
 					})
 				}
 			}, fail: function (res) {

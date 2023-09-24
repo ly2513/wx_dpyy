@@ -23,8 +23,8 @@
 					<view class="blue"> 仅需支付 <text class="red">{{price}}</text> 元</view>
 				</view>
 				<view class="btn-box">
-					<button bindtap="pay" class="pay_button">  去支付  </button>
-					<button bindtap="pay" class="pay_button">  去支付  </button>
+					<button bindtap="pay" class="pay_button pay_button_green" data-discount_type="1">  优惠支付  </button>
+					<button bindtap="pay" class="pay_button pay_button_blue" data-discount_type="2">  直接支付  </button>
 				</view>
 				<view class="info_box">
 					<view class="info" >可返回订单列表查看详情</view>
