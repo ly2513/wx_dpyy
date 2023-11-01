@@ -12,7 +12,7 @@
 			</view>
 			<view class="layout_vertical">
 				<image class="other_btn" src="/images/order_search_btn.png" bindtap="myOrder"></image>
-        <image class="smart_bt" src="/images/smart_photo.png" bindtap="smart_photo"></image>
+       			 <image class="smart_bt" src="/images/smart_photo.png" bindtap="smart_photo"></image>
 			</view>
 		</view>
 	</view>

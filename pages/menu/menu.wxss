@@ -27,7 +27,6 @@
 }
 .layout_horizontal{
 	display: flex;
-	/*row 横向  column 列表  */
 	width: 85%;
 	height: 600rpx;
 	flex-direction: row;
