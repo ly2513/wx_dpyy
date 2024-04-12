@@ -15,12 +15,13 @@ Page({
 	onLoad: function (options) {
 		var action = options.action;
 		var document_id = options.document_id;
-		var source_name = options.source_name;
-		var order_id = options.order_id;
+		var source_name = '';
+		// var order_id = options.order_id;
 		// var url = options.url;
-		var file_name=options.file_name;
-		console.log(action +' 文档ID：' + document_id + ' 订单ID：' + order_id + ' file_name:' + file_name);
-		if (!document_id && !action && !order_id) {
+		// var file_name=options.file_name;
+        // console.log(action +' 文档ID：' + document_id + ' 订单ID：' + order_id + ' file_name:' + file_name);
+        console.log(action +' 文档ID：' + document_id);
+		if (!document_id && !action) {
 			wx.navigateBack({
 				delta: 1,
 			})

@@ -738,7 +738,7 @@ Page({
 	},
 	getSchool() {
 		var that = this;
-		wx.getLocation({
+		wx.getFuzzyLocation({
 			type: 'wgs84',
 			success(res) {
 				const latitude = res.latitude
@@ -803,7 +803,7 @@ Page({
 				})
 			},
 			fail(res) {
-				console.log(res)
+				console.log('11111',res)
 				wx.showToast({
 					title: '定位失败',
 					icon: 'none'
