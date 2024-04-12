@@ -1,5 +1,4 @@
 /* pages/placeOrder/placeOrder.wxss */
 page{
-  /*background-color:lightgree;*/
-  background-color:#29abe0;
-  }
+    background-color:#29abe0;
+}

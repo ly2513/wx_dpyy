@@ -3,8 +3,6 @@
 	<image class="background" src="/images/new_order_bg.png"></image>
 	<view class="content_bg">
 		<view class="form">
-			<!-- <text>ddddddddddddddddddddd</text> -->
-
 			<text style="padding-top:25rpx;padding-left:25rpx">证件照须知</text>
 			<text style="padding-top:15rpx;padding-left:25rpx">{{paper_type_str}}</text>
 			<view class="girl_img_view">
@@ -29,7 +27,6 @@
 				</view>
 				<text class="tip_text" >光线充足情况下拍摄</text>
 			</view>
-		
 		</view>
 		<view class="btns">
 			<button class="btn_1" bindtap="choseImg">从相册选择照片</button>

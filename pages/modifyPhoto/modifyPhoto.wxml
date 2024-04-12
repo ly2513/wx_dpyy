@@ -3,47 +3,39 @@
 	<image class="background" src="/images/new_order_bg.png"></image>
 	<view class="content_bg">
 		<view class="form">
-			<!-- <text>ddddddddddddddddddddd</text> -->
-
-
 			<view class="girl_img_view">
 				<image mode="aspectFit" class="girl_img" src="{{img_src}}"></image>
 			</view>
-			<!-- <text style="color:#FE7807">背景</text> -->
 			<view class="chose_color">
 				<view class="color_lay" bindtap="color_1">
-					<view wx:if="{{color==1}}" class="color_btn" style="color:#FFFFFF;border:1px solid #FE7807;"></view>
-					<view wx:else class="color_btn" style="color:#FFFFFF;border:1px solid #EDEEF1;"></view>
-					<text wx:if="{{color==1}}" style="color:#FE7807">白色</text>
-					<text wx:else style="color:#A6A9B9">白色</text>
+					<view wx:if="{{color==1}}" class="color_btn photo_text_white photo_border_orange" ></view>
+					<view wx:else class="color_btn photo_text_white" style="border:1px solid #EDEEF1;"></view>
+					<text wx:if="{{color==1}}" class="photo_text_orange" >白色</text>
+					<text wx:else class="photo_text_gray">白色</text>
 				</view>
 				<view class="color_lay" bindtap="color_2">
-					<view wx:if="{{color==2}}" class="color_btn" style="color:#E13F35;background:#E13F35;border:1px solid #FE7807;"></view>
-					<view wx:else class="color_btn" style="color:#E13F35;background:#E13F35"></view>
-					<text wx:if="{{color==2}}" style="color:#FE7807">红色</text>
-					<text wx:else style="color:#A6A9B9">红色</text>
+					<view wx:if="{{color==2}}" class="color_btn photo_text_red photo_bg_red photo_border_orange"></view>
+					<view wx:else class="color_btn photo_text_red photo_bg_red"></view>
+					<text wx:if="{{color==2}}" class="photo_text_orange">红色</text>
+					<text wx:else class="photo_text_gray">红色</text>
 				</view>
 				<view class="color_lay" bindtap="color_3">
-					<view wx:if="{{color==3}}" class="color_btn" style="color:#4489E7;background:#4489E7;border:1px solid #FE7807;"></view>
-					<view wx:else class="color_btn" style="color:#4489E7;background:#4489E7;"></view>
-					<text wx:if="{{color==3}}" style="color:#FE7807">蓝色</text>
-					<text wx:else style="color:#A6A9B9">蓝色</text>
+					<view wx:if="{{color==3}}" class="color_btn photo_text_blue photo_bg_blue photo_border_orange"></view>
+					<view wx:else class="color_btn" class="photo_text_blue photo_bg_blue"></view>
+					<text wx:if="{{color==3}}" class="photo_text_orange">蓝色</text>
+					<text wx:else class="photo_text_gray">蓝色</text>
 				</view>
 				<view class="color_lay" bindtap="color_4">
-					<view wx:if="{{color==4}}" class="color_btn" style="color:#68BDF5;background:#68BDF5;border:1px solid #FE7807;"></view>
-					<view wx:else class="color_btn" style="color:#68BDF5;background:#68BDF5;"></view>
-					<text wx:if="{{color==4}}" style="color:#FE7807;">浅蓝</text>
-					<text wx:else style="color:#A6A9B9;">浅蓝</text>
+					<view wx:if="{{color==4}}" class="color_btn photo_text_light_blue photo_bg_light_blue photo_border_orange"></view>
+					<view wx:else class="color_btn photo_text_light_blue photo_bg_light_blue"></view>
+					<text wx:if="{{color==4}}" class="photo_text_orange" >浅蓝</text>
+					<text wx:else class="photo_text_gray">浅蓝</text>
 				</view>
 			</view>
-
-
-
 		</view>
 		<view class="btns">
 			<button class="btn_1" bindtap="save_img">保存电子照</button>
 			<button class="btn_2" bindtap="make_order">立即冲印</button>
 		</view>
 	</view>
-
 </form>

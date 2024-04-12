@@ -71,19 +71,11 @@ Page({
     onUnload: function () {
 
     },
-
-    /**
-     * 页面相关事件处理函数--监听用户下拉动作
-     */
-    onPullDownRefresh: function () {
-
-    },
-
     /**
      * 页面上拉触底事件的处理函数
      */
     onReachBottom: function () {
-
+		console.log(111111)
     },
 
     /**
@@ -137,18 +129,7 @@ Page({
 			},
 			fail: function () {}
 		})
-  	}, 
-  	onPullDownRefresh: function () {
-		var self = this;
-		wx.showNavigationBarLoading() //在标题栏中显示加载
-		self.getData();
-		//模拟加载
-		setTimeout(function () {
-			wx.hideNavigationBarLoading() //完成停止加载
-			wx.stopPullDownRefresh() //停止下拉刷新
-		}, 1500);
-
-	},
+  	},
 	onPullDownRefresh: function () {
 		wx.showNavigationBarLoading() //在标题栏中显示加载
 		this.getData();
@@ -157,6 +138,5 @@ Page({
 			wx.hideNavigationBarLoading() //完成停止加载
 			wx.stopPullDownRefresh() //停止下拉刷新
 		}, 1500);
-
 	},
 })

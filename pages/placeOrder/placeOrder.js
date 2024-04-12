@@ -6,18 +6,18 @@ const app = getApp()
 // wx.hideNavigationBarLoading(); // 隐藏导航条加载动画
 // '请选择派送时间',
 Page({
-  data: {},
-  onLoad: function () {
-    var flag = Math.floor(Math.random() * 10);
-    if (app.globalData.userInfo) {
-      console.log(app.globalData.requestUrl + '/Api/File/index?token=' + wx.getStorageSync("token") + '&falg=' + flag);
-      this.setData({
-        userInfo: app.globalData.userInfo,
-        hasUserInfo: true,
-        requestUrl: app.globalData.requestUrl + '/Api/File/index?token=' + wx.getStorageSync("token") + '&falg=' + flag,
-      })
-    }
-  },
+  	data: {},
+	onLoad: function () {
+		var flag = Math.floor(Math.random() * 10);
+		if (app.globalData.userInfo) {
+			console.log(app.globalData.requestUrl + '/Api/File/index?token=' + wx.getStorageSync("token") + '&falg=' + flag);
+			this.setData({
+				userInfo: app.globalData.userInfo,
+				hasUserInfo: true,
+				requestUrl: app.globalData.requestUrl + '/Api/File/index?token=' + wx.getStorageSync("token") + '&falg=' + flag,
+			})
+		}
+	},
   getUserInfo: function(e) {
       console.log(e)
       app.globalData.userInfo = e.detail.userInfo
